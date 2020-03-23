@@ -11,5 +11,6 @@ notebooks/_backup
 tests/.pytest_cache
 
 # Files
+*.coverage
 data/*.csv
 data/*.png
