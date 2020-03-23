@@ -3,16 +3,18 @@
 ## What is it?
 The [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture) is an 
 unsolved number theoretical problem. This python library provides tools to 
-analyse it from different perspectives.
+analyse it from different perspectives. The most important results are 
+published in this [working paper](https://doi.org/10.25932/publishup-44325).
 
 ## Main Features
 The library provides four modules:
-- **commons** - common methods for creating and analysing Collatz sequences
-- **cycles** - methods to analyse cycles in Collatz sequences
-- **generator** - methods that generate Collatz sequences and analyse their results
-- **graph** - methods that can be used to generate and analyse Collatz graphs
+- [commons](collatz/commons.py) - common methods for creating and analysing Collatz sequences
+- [cycles](collatz/cycles.py) - methods to analyse cycles in Collatz sequences
+- [generator](collatz/generator.py) - methods to generate Collatz sequences and related data
+- [graph](collatz/graph.py) - methods to create and analyse Collatz graphs
 
-The project furthermore provides jupyter notebooks and scripts for data generation.
+The project furthermore provides [jupyter notebooks](notebooks) 
+and scripts for data generation.
 
 ## Where to get it
 The source code is currently hosted on GitHub at:
@@ -40,4 +42,5 @@ pytest --cov
 pylint FILENAME.py
 ```
 
-
+## License
+[Apache 2.0](LICENSE.txt)

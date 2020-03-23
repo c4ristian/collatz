@@ -1,6 +1,5 @@
 """
-This module contains methods that can be used to generate and analyse
-collatz graphs.
+This module contains methods to create and analyse collatz graphs.
 """
 
 from math import log2

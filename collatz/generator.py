@@ -1,5 +1,5 @@
 """
-This module provides methods that generate collatz sequences and analyse their results.
+This module provides methods to generate collatz sequences and related data.
 """
 
 import random as rnd
