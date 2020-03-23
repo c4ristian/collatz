@@ -7,10 +7,10 @@ analyse it from different perspectives.
 
 ## Main Features
 The library provides four modules:
-- commons: common methods for creating and analysing Collatz sequences
-- cycles:  methods to analyse cycles in Collatz sequences
-- generator:  methods that generate Collatz sequences and analyse their results
-- graph: methods that can be used to generate and analyse Collatz graphs
+- **commons** - common methods for creating and analysing Collatz sequences
+- **cycles** - methods to analyse cycles in Collatz sequences
+- **generator** - methods that generate Collatz sequences and analyse their results
+- **graph** - methods that can be used to generate and analyse Collatz graphs
 
 The project furthermore provides jupyter notebooks and scripts for data generation.
 
