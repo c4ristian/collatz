@@ -1,0 +1,16 @@
+# Environment yaml of the collatz library
+name: collatz
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - matplotlib
+  - pandas
+  - python>=3.7.3
+  - pytest
+  - pytest-cov
+  - pylint
+  - networkx
+  - pydot
+  - jupyter
+  - scikit-learn

@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Directories
+.idea
+.pytest_cache
+notebooks/.ipynb_checkpoints
+notebooks/_backup
+tests/.pytest_cache
+
+# Files
+data/*.*
