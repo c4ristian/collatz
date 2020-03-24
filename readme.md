@@ -3,8 +3,8 @@
 ## What is it?
 The [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture) is an 
 unsolved number theoretical problem. This python library provides tools to 
-analyse it from different perspectives. The most important results are 
-published in this [working paper](https://doi.org/10.25932/publishup-44325).
+analyse it from different perspectives. The most important results achieved with this library 
+have been published in this [working paper](https://doi.org/10.25932/publishup-44325).
 
 ## Main Features
 The library provides four modules:
