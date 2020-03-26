@@ -37,7 +37,7 @@ pytest
 pytest --cov
 ```
 
-## Coding Guidelines
+## Coding Quality
 ```sh
 pylint FILENAME.py
 ```
