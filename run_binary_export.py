@@ -10,7 +10,7 @@ from collatz.commons import trailing_zeros
 
 # Helper method to predict the alpha that would lead to a cycle
 def _predict_alpha(cycle_length: int):
-    return cycles.calculate_cycle_alpha(k, cycle_length, "max")
+    return cycles.predict_cycle_alpha(k, cycle_length)
 
 
 # Main method to start the export

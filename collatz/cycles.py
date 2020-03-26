@@ -46,7 +46,7 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     return cycles
 
 
-def calculate_cycle_alpha(k: int, cycle_length: int, algorithm="simple"):
+def predict_cycle_alpha(k: int, cycle_length: int):
     """
     This method calculates the alpha (exponent of the power of 2) for a
     hypothetical cycle with a certain length for a collatz sequence
@@ -55,33 +55,10 @@ def calculate_cycle_alpha(k: int, cycle_length: int, algorithm="simple"):
     :param k: The k factor as int.
     :param cycle_length: The number of odd numbers that
     are part of the cycle.
-    :param algorithm: Either "simple" or "lambda".
     :return: The alpha as int.
     """
     assert k > 0, "k factor must be > 0"
     assert cycle_length > 0, "cycle length must be > 0"
-    assert algorithm in {"simple", "lambda", "max"}
 
-    if algorithm == "simple":
-        alpha = _calculate_alpha_simple(k, cycle_length)
-    elif algorithm == "lambda":
-        alpha = _calculate_alpha_lambda(k, cycle_length)
-    elif algorithm == "max":
-        alpha = _calculate_alpha_max(k, cycle_length)
-
-    return alpha
-
-
-def _calculate_alpha_simple(k: int, cycle_length: int):
-    return int(log2(k)) * cycle_length + 1
-
-
-def _calculate_alpha_lambda(k: int, cycle_length: int):
-    simple = _calculate_alpha_simple(k, cycle_length)
-    _lambda = int(cycle_length * (log2(k) - int(log2(k))) - 1)
-    return simple + max(0, _lambda)
-
-
-def _calculate_alpha_max(k: int, cycle_length: int):
     alpha = int(log2(k) * cycle_length) + 1
     return alpha

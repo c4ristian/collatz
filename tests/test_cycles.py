@@ -48,90 +48,41 @@ def test_should_find_cycles_correctly():
     assert not result
 
 
-def test_should_calculate_cycle_alpha_correctly():
+def test_should_predict_cycle_alpha_correctly():
     """
     This method ensures that cycle alphas are calculated
     correctly.
     :return: None.
     """
-    # Simple algorithm
-
     # k=1
-    assert cycles.calculate_cycle_alpha(1, 1) == 1
-    assert cycles.calculate_cycle_alpha(1, 2) == 1
-    assert cycles.calculate_cycle_alpha(1, 5) == 1
-
-    # k=2
-    assert cycles.calculate_cycle_alpha(2, 1) == 2
-    assert cycles.calculate_cycle_alpha(2, 2) == 3
-    assert cycles.calculate_cycle_alpha(2, 3) == 4
+    assert cycles.predict_cycle_alpha(1, 1) == 1
+    assert cycles.predict_cycle_alpha(1, 17) == 1
 
     # k=3
-    assert cycles.calculate_cycle_alpha(3, 1) == 2
-    assert cycles.calculate_cycle_alpha(3, 2) == 3
-    assert cycles.calculate_cycle_alpha(3, 3) == 4
+    assert cycles.predict_cycle_alpha(3, 1) == 2
+    assert cycles.predict_cycle_alpha(3, 2) == 4
+    assert cycles.predict_cycle_alpha(3, 3) == 5
 
     # k=5
-    assert cycles.calculate_cycle_alpha(5, 1) == 3
-    assert cycles.calculate_cycle_alpha(5, 2) == 5
-    assert cycles.calculate_cycle_alpha(5, 3) == 7
-    assert cycles.calculate_cycle_alpha(5, 7) == 15
-
-    # k=63
-    assert cycles.calculate_cycle_alpha(63, 1) == 6
-
-    # k=181
-    assert cycles.calculate_cycle_alpha(181, 2) == 15
-
-    # Lambda algorithm
-
-    # k=1
-    assert cycles.calculate_cycle_alpha(1, 1, "lambda") == 1
-    assert cycles.calculate_cycle_alpha(1, 100, "lambda") == 1
-
-    # k=3
-    assert cycles.calculate_cycle_alpha(3, 1, "lambda") == 2
-    assert cycles.calculate_cycle_alpha(3, 3, "lambda") == 4
-    assert cycles.calculate_cycle_alpha(3, 4, "lambda") == 6
-    assert cycles.calculate_cycle_alpha(3, 5, "lambda") == 7
-
-    # k=5
-    assert cycles.calculate_cycle_alpha(5, 1, "lambda") == 3
-    assert cycles.calculate_cycle_alpha(5, 2, "lambda") == 5
-    assert cycles.calculate_cycle_alpha(5, 3, "lambda") == 7
-    assert cycles.calculate_cycle_alpha(5, 7, "lambda") == 16
-
-    # Max algorithm
-
-    # k=1
-    assert cycles.calculate_cycle_alpha(1, 1, "max") == 1
-    assert cycles.calculate_cycle_alpha(1, 17, "max") == 1
-
-    # k=3
-    assert cycles.calculate_cycle_alpha(3, 1, "max") == 2
-    assert cycles.calculate_cycle_alpha(3, 2, "max") == 4
-    assert cycles.calculate_cycle_alpha(3, 3, "max") == 5
-
-    # k=5
-    assert cycles.calculate_cycle_alpha(5, 1, "max") == 3
-    assert cycles.calculate_cycle_alpha(5, 2, "max") == 5
-    assert cycles.calculate_cycle_alpha(5, 3, "max") == 7
+    assert cycles.predict_cycle_alpha(5, 1) == 3
+    assert cycles.predict_cycle_alpha(5, 2) == 5
+    assert cycles.predict_cycle_alpha(5, 3) == 7
 
     # k=7
-    assert cycles.calculate_cycle_alpha(7, 1, "max") == 3
+    assert cycles.predict_cycle_alpha(7, 1) == 3
 
     # k=15
-    assert cycles.calculate_cycle_alpha(15, 1, "max") == 4
+    assert cycles.predict_cycle_alpha(15, 1) == 4
 
     # k=31
-    assert cycles.calculate_cycle_alpha(31, 1, "max") == 5
+    assert cycles.predict_cycle_alpha(31, 1) == 5
 
     # k=63
-    assert cycles.calculate_cycle_alpha(63, 1, "max") == 6
+    assert cycles.predict_cycle_alpha(63, 1) == 6
 
     # k=127
-    assert cycles.calculate_cycle_alpha(127, 1, "max") == 7
+    assert cycles.predict_cycle_alpha(127, 1) == 7
 
     # k=181
-    assert cycles.calculate_cycle_alpha(181, 1, "max") == 8
-    assert cycles.calculate_cycle_alpha(181, 2, "max") == 15
+    assert cycles.predict_cycle_alpha(181, 1) == 8
+    assert cycles.predict_cycle_alpha(181, 2) == 15
