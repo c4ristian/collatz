@@ -30,6 +30,13 @@ def test_collatz_sequence():
     result = com.collatz_sequence(7, k=5, max_iterations=5)
     assert result == [7, 36, 18, 9, 46, 23]
 
+    # Test if algorithm stops in case of a cycle
+    result = com.collatz_sequence(13, k=5, max_iterations=150)
+    assert result == [13, 66, 33, 166, 83, 416, 208, 104, 52, 26, 13]
+
+    result = com.collatz_sequence(5, k=5, max_iterations=150)
+    assert result == [5, 26, 13, 66, 33, 166, 83, 416, 208, 104, 52, 26]
+
     # Should not accept numbers smaller than 1
     try:
         com.collatz_sequence(0)
