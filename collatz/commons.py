@@ -44,6 +44,50 @@ def collatz_sequence(start_value, k=3, max_iterations=-1):
     return result_list
 
 
+def odd_collatz_sequence(start_value, k=3, max_iterations=-1):
+    """
+    This method creates a Collatz sequence containing only odd numbers
+    for a given start value.
+
+    :param start_value: The integer value to start with. The value must be a
+    natural number > 0. If an even number is handed over, the next odd number will be used
+    as start value.
+    :param k: The factor that is multiplied with odd numbers (default is 3).
+    :param max_iterations: The maximum number of iterations performed
+    before the method exits. Default is -1, meaning that no max number of iterations is set.
+    :return: The collatz sequence as list.
+    """
+    # Possibly transform start value
+    if start_value % 2 == 0:
+        start_value = next_odd_collatz_number(start_value, k)
+
+    # Create a result list, including the start value
+    result_list = [start_value]
+
+    # Calculate next odd collatz number
+    current_odd = next_odd_collatz_number(start_value, k)
+
+    # Create the sequence and stop only if 1 or a cycle occur
+    iteration_counter = 1
+
+    while current_odd != 1 and current_odd not in result_list:
+        # Break when the max number of iterations is set
+        if -1 < max_iterations <= iteration_counter:
+            break
+
+        # Increase iteration counter
+        iteration_counter += 1
+
+        # Create the next collatz number
+        result_list.append(current_odd)
+        current_odd = next_odd_collatz_number(current_odd, k)
+
+    # Append the final value
+    result_list.append(current_odd)
+
+    return result_list
+
+
 def next_collatz_number(int_value, k=3):
     """
     This method creates the next Collatz number for a given integer.
@@ -77,8 +121,6 @@ def next_odd_collatz_number(int_value, k=3):
     :return: The next odd collatz number as integer.
     """
     assert int_value > 0, "Value > 0 expected"
-
-    next_odd = None
     mod_result = int_value % 2
 
     assert mod_result in (0, 1), "Not a whole number"

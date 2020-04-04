@@ -14,7 +14,7 @@ def test_collatz_sequence():
     """
     # Test different sequences
     result = com.collatz_sequence(1)
-    assert result == [1, 4, 2, 1], "Result should be 1"
+    assert result == [1, 4, 2, 1], "Result not expected"
 
     result = com.collatz_sequence(10)
     assert result == [10, 5, 16, 8, 4, 2, 1], "Result not expected"
@@ -26,16 +26,52 @@ def test_collatz_sequence():
     assert result == [
         13, 66, 33, 166, 83, 416, 208, 104, 52, 26, 13], "Result should be one"
 
+    result = com.collatz_sequence(5, k=5, max_iterations=150)
+    assert result == [5, 26, 13, 66, 33, 166, 83, 416, 208, 104, 52, 26]
+
     # Test if parameter max_iterations is applied
     result = com.collatz_sequence(7, k=5, max_iterations=5)
     assert result == [7, 36, 18, 9, 46, 23]
 
-    # Test if algorithm stops in case of a cycle
-    result = com.collatz_sequence(13, k=5, max_iterations=150)
-    assert result == [13, 66, 33, 166, 83, 416, 208, 104, 52, 26, 13]
+    # Should not accept numbers smaller than 1
+    try:
+        com.collatz_sequence(0)
+        assert False, "Exception expected"
+    except AssertionError:
+        pass
 
-    result = com.collatz_sequence(5, k=5, max_iterations=150)
-    assert result == [5, 26, 13, 66, 33, 166, 83, 416, 208, 104, 52, 26]
+    # Should only accept whole numbers
+    try:
+        com.next_collatz_number(0.25)
+        assert False, "Exception expected"
+    except AssertionError:
+        pass
+
+
+def test_odd_collatz_sequence():
+    """
+    Test case for the method odd_collatz_sequence.
+    :return: None
+    """
+    # Test different sequences
+    result = com.odd_collatz_sequence(1)
+    assert result == [1, 1], "Result not expected"
+
+    result = com.odd_collatz_sequence(10)
+    assert result == [5, 1], "Result not expected"
+
+    result = com.odd_collatz_sequence(64)
+    assert result == [1, 1], "Result not expected"
+
+    result = com.odd_collatz_sequence(13, 5)
+    assert result == [13, 33, 83, 13], "Result not expected"
+
+    result = com.odd_collatz_sequence(5, 5)
+    assert result == [5, 13, 33, 83, 13], "Result not expected"
+
+    # Test if parameter max_iterations is applied
+    result = com.odd_collatz_sequence(7, k=5, max_iterations=5)
+    assert result == [7, 9, 23, 29, 73, 183]
 
     # Should not accept numbers smaller than 1
     try:
