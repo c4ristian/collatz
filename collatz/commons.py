@@ -11,6 +11,7 @@ def collatz_sequence(start_value, k=3, max_iterations=-1):
     This method creates a Collatz sequence for a given start value.
 
     :param start_value: The integer value to start with.
+    The value must be a natural number > 0.
     :param k: The factor that is multiplied with odd numbers (default is 3).
     :param max_iterations: The maximum number of iterations performed
     before the method exits. Default is -1, meaning that no max number of iterations is set.
@@ -47,14 +48,15 @@ def next_collatz_number(int_value, k=3):
     """
     This method creates the next Collatz number for a given integer.
 
-    :param int_value: The integer value to create the next Collatz number for.
+    :param int_value: The integer value to create the next Collatz number for. The value
+    must be a natural number > 0.
     :param k: The factor that is multiplied with odd numbers (default is 3).
     :return: The next collatz number as Integer.
     """
     assert int_value > 0, "Value > 0 expected"
 
     mod_result = int_value % 2
-    assert mod_result in (0, 1), "Not a whole number"
+    assert mod_result in (0, 1), "Not a natural number"
 
     # odd number
     if mod_result == 1:
