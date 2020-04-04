@@ -43,6 +43,41 @@ def test_should_generate_collatz_sequence_correctly():
     assert list(result["next_odd"]) == [33, 83, 13, 33], "expected different sequence"
 
 
+def test_should_generate_odd_collatz_sequence_correctly():
+    """
+    This method tests that single collatz sequences that contain only odd numbers
+    are generated correctly.
+    :return: None
+    """
+    # Test simple sequence
+    result = generator.generate_odd_collatz_sequence(start_value=1)
+
+    assert result is not None, "result should not be None"
+    assert len(result) == 2, "expected different length"
+    assert list(result["odd_index"]) == [0, 1], "expected different index"
+    assert list(result["collatz"]) == [1, 1], "expected different sequence"
+    assert set(result["k_factor"]) == {3}, "expected different k factor"
+    assert list(result["next_collatz"]) == [4, 4], "expected different sequence"
+    assert list(result["next_odd"]) == [1, 1], "expected different sequence"
+
+    # Test with eternal sequence
+    result = generator.generate_odd_collatz_sequence(start_value=1, k=2, max_iterations=3)
+
+    assert result is not None, "result should not be None"
+    assert len(result) == 4, "expected different length"
+    assert set(result["k_factor"]) == {2}, "expected different k factor"
+    assert list(result["collatz"]) == [1, 3, 7, 15], "expected different sequence"
+    assert list(result["next_collatz"]) == [3, 7, 15, 31], "expected different sequence"
+    assert list(result["next_odd"]) == [3, 7, 15, 31], "expected different sequence"
+
+    # Test with k=5
+    result = generator.generate_odd_collatz_sequence(start_value=13, k=5, max_iterations=500)
+    assert result is not None, "result should not be None"
+    assert len(result) == 4, "expected different length"
+    assert list(result["collatz"]) == [13, 33, 83, 13], "expected different sequence"
+    assert list(result["next_odd"]) == [33, 83, 13, 33], "expected different sequence"
+
+
 def test_should_generate_random_sequence_correctly():
     """
     This method tests that single random collatz sequences is generated correctly.
