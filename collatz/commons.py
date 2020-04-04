@@ -156,20 +156,6 @@ def analyse_collatz_basic_attributes(collatz_seq):
     return collatz_frame
 
 
-def analyse_collatz_binary_attributes(collatz_seq):
-    """
-    This method analyses basic attributes of a collatz sequence.
-    :param collatz_seq: the sequence of collatz numbers as list
-    :return: a data frame with the result of the analysis
-    """
-    collatz_frame = pd.DataFrame({"collatz": collatz_seq})
-    collatz_frame["bin_tz"] = collatz_frame["collatz"].apply(trailing_zeros)
-    collatz_frame["bin_str"] = collatz_frame["collatz"].apply(to_binary)
-    collatz_frame["bin_len"] = collatz_frame["bin_str"].apply(len)
-    collatz_frame = collatz_frame[["collatz", "bin_str", "bin_len", "bin_tz"]]
-    return collatz_frame
-
-
 def trailing_zeros(int_value):
     """
     This method returns the trailing zeros of the binary representation of an integer.

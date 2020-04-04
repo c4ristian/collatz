@@ -195,26 +195,6 @@ def test_analyse_collatz_basic_attributes():
     assert list(analysis_frame["log2_fraction"]) == list(np.log2(test_sequence) % 1)
 
 
-def test_analyse_collatz_binary_attributes():
-    """
-    Test case for the method analyse_collatz_basic_attributes
-    :return: None
-    """
-    test_sequence = [10, 5, 16, 8, 4, 2, 1]
-    analysis_frame = com.analyse_collatz_binary_attributes(test_sequence)
-
-    assert analysis_frame is not None, "result should not be None"
-    assert not analysis_frame.empty, "result should not be empty"
-    assert len(analysis_frame) == 7
-
-    assert list(analysis_frame["collatz"]) == test_sequence
-    assert list(analysis_frame["bin_tz"]) == [1, 0, 4, 3, 2, 1, 0]
-    assert list(analysis_frame["bin_len"]) == [4, 3, 5, 4, 3, 2, 1]
-    assert analysis_frame["bin_str"][0] == "1010"
-    assert analysis_frame["bin_str"][1] == "101"
-    assert analysis_frame["bin_str"][2] == "10000"
-
-
 def test_trailing_zeros():
     """
     Test case for the method trailing_zeros.
