@@ -23,8 +23,6 @@ def test_should_generate_collatz_sequence_correctly():
     assert set(result["k_factor"]) == {3}, "expected different k factor"
     assert list(result["next_collatz"]) == [4, 2, 1, 4], "expected different sequence"
     assert list(result["next_odd"]) == [1, 1, 1, 1], "expected different sequence"
-    assert list(result["bin_tz"]) == [0, 2, 1, 0], "expected different trailing zeros"
-    assert "collatz_" not in result.columns
 
     # Test with eternal sequence
     result = generator.generate_collatz_sequence(start_value=1, k=2, max_iterations=3)
@@ -54,7 +52,6 @@ def test_should_generate_random_sequence_correctly():
     result = generator.generate_random_sequence(max_start_value=1, k_factors=[3])
     assert list(result["collatz"]) == [1, 4, 2, 1], "expected different sequence"
     assert set(result["k_factor"]) == {3}, "expected different k factor"
-    assert "collatz_" not in result.columns
 
     # Test with eternal sequence
     result = generator.generate_random_sequence(
@@ -92,8 +89,6 @@ def test_should_generate_random_sequences_correctly():
 
     assert list(first_frame["collatz"]) == [1, 4, 2, 1], "expected different sequence"
     assert list(second_frame["collatz"]) == [1, 4, 2, 1], "expected different sequence"
-    assert list(first_frame["bin_tz"]) == [0, 2, 1, 0], "expected different trailing zeros"
-    assert list(second_frame["bin_tz"]) == [0, 2, 1, 0], "expected different trailing zeros"
 
     # Test more complex sequences
     result = generator.generate_random_sequences(

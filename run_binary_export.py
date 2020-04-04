@@ -5,7 +5,7 @@ import logging
 from math import log2
 from collatz import generator
 from collatz import cycles
-from collatz.commons import trailing_zeros
+from collatz import commons
 
 
 # Helper method to predict the alpha that would lead to a cycle
@@ -16,7 +16,7 @@ def _predict_alpha(cycle_length: int):
 # Main method to start the export
 if __name__ == '__main__':
     K_FACTORS = [3]
-    MAX_START_VALUE = 10000
+    MAX_START_VALUE = 1000
     MAX_ITERATIONS = 300
     N = MAX_START_VALUE
     FILE_NAME = "./data/python_binary_sequences.csv"
@@ -39,10 +39,13 @@ if __name__ == '__main__':
 
             # Derive additional fields
             current_frame["alpha"] = current_frame["next_collatz"].apply(
-                trailing_zeros).astype('int64')
+                commons.trailing_zeros).astype('int64')
             current_frame["alpha_sum"] = current_frame["alpha"].cumsum()
             current_frame["alpha_pred"] = current_frame["collatz_index"].apply(
                 _predict_alpha)
+
+            current_frame["bin_str"] = current_frame["collatz"].apply(commons.to_binary)
+            current_frame["bin_len"] = current_frame["log2"] % 1
 
             current_frame["growth"] = current_frame["next_odd"] - current_frame["x1"]
             current_frame["next_bin_len"] = current_frame["next_odd"].apply(

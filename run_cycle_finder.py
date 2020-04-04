@@ -17,10 +17,10 @@ if __name__ == '__main__':
 
     # K_FACTORS = range(1, 1001, 2)
     # CYCLE_LENGTHS = range(1, 101)
-    K_FACTORS = range(147, 148)
-    CYCLE_LENGTHS = range(5, 6)
+    K_FACTORS = range(1, 5)
+    CYCLE_LENGTHS = range(1, 3)
 
-    MAX_VALUE = 1000000
+    MAX_VALUE = 10000
 
     # Try to find cycles
     CYCLES = {}

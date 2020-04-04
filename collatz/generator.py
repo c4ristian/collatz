@@ -11,7 +11,7 @@ from collatz import commons as com
 def generate_collatz_sequence(start_value, k=3, max_iterations=300):
     """
     This method generates a collatz sequence for a specific start value,
-    analyses its numbers and returns the result as a data frame.
+    analyses its basic attributes and returns the result as a data frame.
 
     :param start_value: The start value as positive integer.
     :param k: The factor that is multiplied with odd numbers (default is 3)
@@ -20,20 +20,16 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=300):
     :return: A data frame with the results.
     """
     collatz_sequence = com.collatz_sequence(start_value, k, max_iterations)
-    basic_frame = com.analyse_collatz_basic_attributes(collatz_sequence)
-    binary_frame = com.analyse_collatz_binary_attributes(collatz_sequence)
-
-    collatz_frame = basic_frame.join(binary_frame, rsuffix='_')
-    collatz_frame = collatz_frame.drop("collatz_", axis=1)
-    collatz_frame.insert(0, "collatz_index", list(range(0, len(collatz_frame))))
+    collatz_frame = com.analyse_collatz_basic_attributes(collatz_sequence)
 
     next_collatz = collatz_frame["collatz"].apply(com.next_collatz_number, args=(k,))
     next_odd = collatz_frame["collatz"].apply(com.next_odd_collatz_number, args=(k,))
 
+    collatz_frame["collatz_index"] = collatz_frame.index
     collatz_frame["next_collatz"] = np.array(next_collatz, dtype=pd.Int64Dtype)
     collatz_frame["next_odd"] = np.array(next_odd, dtype=pd.Int64Dtype)
-
     collatz_frame.insert(1, "k_factor", k)
+
     return collatz_frame
 
 
