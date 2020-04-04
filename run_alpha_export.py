@@ -47,7 +47,7 @@ if __name__ == '__main__':
             current_frame["alpha_i_max"] = current_frame["alpha_i_max"].astype("int64") + 1
             current_frame["alpha_sum"] = current_frame["alpha_i"].cumsum()
             current_frame["alpha_pred"] = (log2(k) * current_frame["n"]).astype('int64') + 1
-            current_frame["alpha_max"] = log2(k) + (current_frame["n"] * log2(k))
+            current_frame["alpha_max"] = log2(v1) + (current_frame["n"] * log2(k))
             current_frame["alpha_max"] = current_frame["alpha_max"].astype('int64') + 1
 
             print_frame = current_frame[[
