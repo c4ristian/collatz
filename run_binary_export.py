@@ -19,7 +19,7 @@ if __name__ == '__main__':
     MAX_START_VALUE = 1000
     MAX_ITERATIONS = 300
     N = MAX_START_VALUE
-    FILE_NAME = "./data/python_binary_sequences.csv"
+    FILE_NAME = "./data/binary_sequences.csv"
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     logging.info("Exporting %d collatz sequences to file %s", N, FILE_NAME)

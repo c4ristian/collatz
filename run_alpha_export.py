@@ -13,9 +13,10 @@ from collatz import commons
 if __name__ == '__main__':
     K_FACTORS = [1, 3, 5, 7, 9]
     MAX_START_VALUE = 3999
+    V1_RANGE = range(1, MAX_START_VALUE + 1, 2)
     MAX_ITERATIONS = 100
     N = ((MAX_START_VALUE + 1) / 2) * len(K_FACTORS)
-    FILE_NAME = "./data/python_alpha_sequences.csv"
+    FILE_NAME = "./data/alpha_sequences.csv"
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     logging.info("Exporting %d Collatz sequences to file %s", N, FILE_NAME)
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     SEQUENCE_ID = 0
 
     for k in K_FACTORS:
-        for v1 in range(1, MAX_START_VALUE + 1, 2):
+        for v1 in V1_RANGE:
             # Create the sequence
             SEQUENCE_ID = SEQUENCE_ID + 1
             current_frame = generator.generate_odd_collatz_sequence(v1, k, MAX_ITERATIONS)
