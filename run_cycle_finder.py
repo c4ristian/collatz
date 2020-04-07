@@ -15,10 +15,8 @@ if __name__ == '__main__':
     logging.basicConfig(
         level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
-    # K_FACTORS = range(1, 1001, 2)
-    # CYCLE_LENGTHS = range(1, 101)
-    K_FACTORS = range(1, 5)
-    CYCLE_LENGTHS = range(1, 3)
+    K_FACTORS = range(1, 1001, 2)
+    CYCLE_LENGTHS = range(1, 101)
 
     MAX_VALUE = 10000
 
