@@ -1,6 +1,6 @@
 """
 This program exports data about the alphas of collatz sequences
-to a csv file. The sample is used to validate different mathematical
+into a csv file. The sample is used to validate different mathematical
 theorems.
 """
 import logging
@@ -45,7 +45,9 @@ if __name__ == '__main__':
             current_frame["alpha_i"] = current_frame["alpha_i"].astype("int64")
             current_frame["alpha_i_max"] = (current_frame["collatz"] * k + 1).apply(log2)
             current_frame["alpha_i_max"] = log2(k) + current_frame["collatz"].apply(log2)
-            current_frame["alpha_i_max"] = current_frame["alpha_i_max"].astype("int64") + 1
+            current_frame["alpha_i_max"] += (1 + 1/(k * current_frame["collatz"])).apply(log2)
+            # Round result here to avoid loss of precision errors
+            current_frame["alpha_i_max"] = current_frame["alpha_i_max"].round(9)
             current_frame["alpha_sum"] = current_frame["alpha_i"].cumsum()
             current_frame["alpha_pred"] = (log2(k) * current_frame["n"]).astype('int64') + 1
             current_frame["alpha_max"] = log2(v1) + (current_frame["n"] * log2(k))
