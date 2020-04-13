@@ -43,7 +43,6 @@ if __name__ == '__main__':
 
             current_frame["alpha_i"] = current_frame["next_collatz"].apply(commons.trailing_zeros)
             current_frame["alpha_i"] = current_frame["alpha_i"].astype("int64")
-            current_frame["alpha_i_max"] = (current_frame["collatz"] * k + 1).apply(log2)
             current_frame["alpha_i_max"] = log2(k) + current_frame["collatz"].apply(log2)
             current_frame["alpha_i_max"] += (1 + 1/(k * current_frame["collatz"])).apply(log2)
             # Round result here to avoid loss of precision errors
