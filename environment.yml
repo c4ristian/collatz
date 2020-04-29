@@ -13,4 +13,3 @@ dependencies:
   - networkx
   - pydot
   - jupyter
-  - scikit-learn
