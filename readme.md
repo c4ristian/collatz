@@ -48,14 +48,14 @@ python FILENAME.py
 ```
 
 ## Jupyter
-### Setup Kernel 
+### Install Kernel 
 ```sh
 python -m ipykernel install --user --name=collatz
 ```
 
-### Run Notebooks 
+### Run Notebooks
 ```sh
-jupyter notebook
+jupyter notebook --notebook-dir="./notebooks"
 ```
 
 ## License
