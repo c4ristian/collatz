@@ -37,9 +37,25 @@ pytest
 pytest --cov
 ```
 
-## Coding Quality
+## Code Quality
 ```sh
 pylint FILENAME.py
+```
+
+## Run script
+```sh
+python FILENAME.py
+```
+
+## Jupyter
+### Setup Kernel 
+```sh
+python -m ipykernel install --user --name=collatz
+```
+
+### Run Notebooks 
+```sh
+jupyter notebook
 ```
 
 ## License
