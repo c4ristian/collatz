@@ -1,6 +1,6 @@
 """
-This program exports data about the alphas of collatz sequences
-into a csv file. The sample is used to validate different mathematical
+This program exports data on the alphas of collatz sequences
+into a csv file. The sample is used to validate several mathematical
 theorems.
 """
 import logging
