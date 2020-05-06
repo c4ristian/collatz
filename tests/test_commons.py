@@ -156,6 +156,70 @@ def test_next_odd_collatz_number():
         pass
 
 
+def test_odd_collatz_sequence_components():
+    """
+    Test case for the method odd_collatz_sequence_components.
+    :return: None
+    """
+    # Test different sequences
+    result_frame = com.odd_collatz_sequence_components(3)
+    assert list(result_frame.columns) == ["n", "variable", "decimal"]
+    assert list(result_frame["n"].unique()) == [1, 2, 3]
+    assert list(result_frame["variable"].unique()) == ["vi", "kvi", "kvi+1"]
+    assert list(result_frame["decimal"]) == [3, 9, 10, 5, 15, 16, 1]
+
+    result_frame = com.odd_collatz_sequence_components(1, 5)
+    assert list(result_frame["decimal"]) == [1, 5, 6, 3, 15, 16, 1]
+
+    # Test if parameter max_iterations is applied
+    result_frame = com.odd_collatz_sequence_components(7, k=5, max_iterations=1)
+    assert list(result_frame["n"].unique()) == [1, 2]
+    assert list(result_frame["decimal"]) == [7, 35, 36, 9]
+
+    # Should not accept numbers smaller than 1
+    try:
+        com.odd_collatz_sequence_components(0)
+        assert False, "Exception expected"
+    except AssertionError:
+        pass
+
+    # Should only accept whole numbers
+    try:
+        com.odd_collatz_sequence_components(0.25)
+        assert False, "Exception expected"
+    except AssertionError:
+        pass
+
+
+def test_odd_collatz_components():
+    """
+    Test case for the method _odd_collatz_components.
+    :return: None
+    """
+    # Test x=13 and k=3
+    # pylint: disable=W0212
+    comp = com._odd_collatz_components(13)
+    assert comp is not None
+    assert comp["vi"] == 13
+    assert comp["kvi"] == 39
+    assert comp["kvi+1"] == 40
+    assert comp["vi_1"] == 5
+    # Test x=1 and k=3
+    comp = com._odd_collatz_components(1, 3)
+    assert comp is not None
+    assert comp["vi"] == 1
+    assert comp["kvi"] == 3
+    assert comp["kvi+1"] == 4
+    assert comp["vi_1"] == 1
+    # Test x=5 and k=1
+    comp = com._odd_collatz_components(5, 1)
+    assert comp is not None
+    assert comp["vi"] == 5
+    assert comp["kvi"] == 5
+    assert comp["kvi+1"] == 6
+    assert comp["vi_1"] == 3
+
+
 def test_analyse_collatz_basic_attributes():
     """
     Test case for the method analyse_collatz_basic_attributes
