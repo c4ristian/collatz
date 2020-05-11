@@ -3,8 +3,6 @@ This module provides methods to generate collatz sequences and related features.
 """
 
 import random as rnd
-import numpy as np
-import pandas as pd
 from collatz import commons as com
 
 
@@ -26,8 +24,8 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=300):
     next_odd = collatz_frame["collatz"].apply(com.next_odd_collatz_number, args=(k,))
 
     collatz_frame["collatz_index"] = collatz_frame.index
-    collatz_frame["next_collatz"] = np.array(next_collatz, dtype=pd.Int64Dtype)
-    collatz_frame["next_odd"] = np.array(next_odd, dtype=pd.Int64Dtype)
+    collatz_frame["next_collatz"] = next_collatz
+    collatz_frame["next_odd"] = next_odd
     collatz_frame.insert(1, "k_factor", k)
 
     return collatz_frame
@@ -54,8 +52,8 @@ def generate_odd_collatz_sequence(start_value, k=3, max_iterations=300):
     next_odd = collatz_frame["collatz"].apply(com.next_odd_collatz_number, args=(k,))
 
     collatz_frame["odd_index"] = collatz_frame.index
-    collatz_frame["next_collatz"] = np.array(next_collatz, dtype=pd.Int64Dtype)
-    collatz_frame["next_odd"] = np.array(next_odd, dtype=pd.Int64Dtype)
+    collatz_frame["next_collatz"] = next_collatz
+    collatz_frame["next_odd"] = next_odd
     collatz_frame.insert(1, "k_factor", k)
 
     return collatz_frame

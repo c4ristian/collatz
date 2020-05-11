@@ -24,6 +24,10 @@ def test_should_generate_collatz_sequence_correctly():
     assert list(result["next_collatz"]) == [4, 2, 1, 4], "expected different sequence"
     assert list(result["next_odd"]) == [1, 1, 1, 1], "expected different sequence"
 
+    assert result["collatz"].dtype == 'int64'
+    assert result["next_odd"].dtype == 'int64'
+    assert result["next_collatz"].dtype == 'int64'
+
     # Test with eternal sequence
     result = generator.generate_collatz_sequence(start_value=1, k=2, max_iterations=3)
 
@@ -59,6 +63,10 @@ def test_should_generate_odd_collatz_sequence_correctly():
     assert set(result["k_factor"]) == {3}, "expected different k factor"
     assert list(result["next_collatz"]) == [4, 4], "expected different sequence"
     assert list(result["next_odd"]) == [1, 1], "expected different sequence"
+
+    assert result["collatz"].dtype == 'int64'
+    assert result["next_odd"].dtype == 'int64'
+    assert result["next_collatz"].dtype == 'int64'
 
     # Test with eternal sequence
     result = generator.generate_odd_collatz_sequence(start_value=1, k=2, max_iterations=3)
