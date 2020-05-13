@@ -21,10 +21,14 @@ if __name__ == '__main__':
     MAX_VALUE = 10000
 
     # Try to find cycles
+    logging.info("Running cycle finder...")
+
     CYCLES = {}
     CYCLE_COUNT = 0
 
     for k_factor in K_FACTORS:
+        logging.info("Finding cycles for k=%d", k_factor)
+
         for length in CYCLE_LENGTHS:
             next_cycles = find_cycles(
                 k=k_factor, cycle_length=length, max_value=MAX_VALUE)
