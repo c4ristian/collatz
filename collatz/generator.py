@@ -15,7 +15,7 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=300):
     :param k: The factor that is multiplied with odd numbers (default is 3)
     :param max_iterations: The maximum number of iterations performed for the
     collatz sequence (default is 300).
-    :return: A data frame with the results.
+    :return: A pandas data frame with the results.
     """
     collatz_sequence = com.collatz_sequence(start_value, k, max_iterations)
     collatz_frame = com.analyse_collatz_basic_attributes(collatz_sequence)
@@ -43,7 +43,7 @@ def generate_odd_collatz_sequence(start_value, k=3, max_iterations=300):
     :param k: The factor that is multiplied with odd numbers (default is 3)
     :param max_iterations: The maximum number of iterations performed for the
     collatz sequence (default is 300).
-    :return: A data frame with the results.
+    :return: A pandas data frame with the results.
     """
     collatz_sequence = com.odd_collatz_sequence(start_value, k, max_iterations)
     collatz_frame = com.analyse_collatz_basic_attributes(collatz_sequence)
@@ -69,7 +69,7 @@ def generate_random_sequence(max_start_value=50000, k_factors=3, max_iterations=
     odd numbers (default is 3)
     :param max_iterations: The maximum number of iterations performed for a specific
     collatz sequence (default is 300).
-    :return: A data frame with the results.
+    :return: A pandas data frame with the results.
     """
     start_value = rnd.randint(1, max_start_value)
     k_factor = rnd.choice(k_factors)
@@ -90,7 +90,7 @@ def generate_random_sequences(n, max_start_value=50000, k_factors=3, max_iterati
     :param max_start_value: The maximum starting value (default is 50000). Minimum start value is 1.
     :param max_iterations: The maximum number of iterations performed for
     specific a collatz sequence (default is 300).
-    :return: None.
+    :return: A pandas data frame with the results.
     """
     # Create sequences
     output_frame = None
