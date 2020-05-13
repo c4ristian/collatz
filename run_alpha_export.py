@@ -39,7 +39,6 @@ if __name__ == '__main__':
             current_frame["sequence_len"] = len(current_frame)
             current_frame["v1"] = v1
             current_frame["n"] = current_frame.index + 1
-            current_frame["beta"] = 1 + 1 / (k * current_frame["collatz"])
 
             current_frame["alpha_i"] = current_frame["next_collatz"].apply(commons.trailing_zeros)
             current_frame["alpha_i"] = current_frame["alpha_i"].astype("int64")

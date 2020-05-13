@@ -14,17 +14,17 @@ def test_collatz_sequence():
     """
     # Test different sequences
     result = com.collatz_sequence(1)
-    assert result == [1, 4, 2, 1], "Result not expected"
+    assert result == [1, 4, 2, 1]
 
     result = com.collatz_sequence(10)
-    assert result == [10, 5, 16, 8, 4, 2, 1], "Result not expected"
+    assert result == [10, 5, 16, 8, 4, 2, 1]
 
     result = com.collatz_sequence(64)
-    assert result == [64, 32, 16, 8, 4, 2, 1], "Result should be one"
+    assert result == [64, 32, 16, 8, 4, 2, 1]
 
     result = com.collatz_sequence(13, 5)
     assert result == [
-        13, 66, 33, 166, 83, 416, 208, 104, 52, 26, 13], "Result should be one"
+        13, 66, 33, 166, 83, 416, 208, 104, 52, 26, 13]
 
     result = com.collatz_sequence(5, k=5, max_iterations=150)
     assert result == [5, 26, 13, 66, 33, 166, 83, 416, 208, 104, 52, 26]
@@ -55,19 +55,19 @@ def test_odd_collatz_sequence():
     """
     # Test different sequences
     result = com.odd_collatz_sequence(1)
-    assert result == [1, 1], "Result not expected"
+    assert result == [1, 1]
 
     result = com.odd_collatz_sequence(10)
-    assert result == [5, 1], "Result not expected"
+    assert result == [5, 1]
 
     result = com.odd_collatz_sequence(64)
-    assert result == [1, 1], "Result not expected"
+    assert result == [1, 1]
 
     result = com.odd_collatz_sequence(13, 5)
-    assert result == [13, 33, 83, 13], "Result not expected"
+    assert result == [13, 33, 83, 13]
 
     result = com.odd_collatz_sequence(5, 5)
-    assert result == [5, 13, 33, 83, 13], "Result not expected"
+    assert result == [5, 13, 33, 83, 13]
 
     # Test if parameter max_iterations is applied
     result = com.odd_collatz_sequence(7, k=5, max_iterations=5)
@@ -93,12 +93,12 @@ def test_next_collatz_number():
     Test case for the method next_collatz_number.
     :return: None
     """
-    assert com.next_collatz_number(1) == 4, "Result should be 1"
-    assert com.next_collatz_number(3) == 10, "Result should be 10"
-    assert com.next_collatz_number(3, 5) == 16, "Result should be 16"
-    assert com.next_collatz_number(4) == 2, "Result should be 2"
-    assert com.next_collatz_number(10) == 5, "Result should be 5"
-    assert com.next_collatz_number(5, 5) == 26, "Result should be 5"
+    assert com.next_collatz_number(1) == 4
+    assert com.next_collatz_number(3) == 10
+    assert com.next_collatz_number(3, 5) == 16
+    assert com.next_collatz_number(4) == 2
+    assert com.next_collatz_number(10) == 5
+    assert com.next_collatz_number(5, 5) == 26
 
     # Should not accept numbers smaller than 1
     try:
@@ -126,14 +126,14 @@ def test_next_odd_collatz_number():
     Test case for the method next_collatz_number.
     :return: None
     """
-    assert com.next_odd_collatz_number(1) == 1, "Result should be 1"
-    assert com.next_odd_collatz_number(3) == 5, "Result should be 10"
-    assert com.next_odd_collatz_number(3, 5) == 1, "Result should be 16"
-    assert com.next_odd_collatz_number(4) == 1, "Result should be 2"
-    assert com.next_odd_collatz_number(10) == 5, "Result should be 5"
-    assert com.next_odd_collatz_number(5, 5) == 13, "Result should be 13"
-    assert com.next_odd_collatz_number(33, 5) == 83, "Result should be 83"
-    assert com.next_odd_collatz_number(5, 2) == 11, "Result should be 83"
+    assert com.next_odd_collatz_number(1) == 1
+    assert com.next_odd_collatz_number(3) == 5
+    assert com.next_odd_collatz_number(3, 5) == 1
+    assert com.next_odd_collatz_number(4) == 1
+    assert com.next_odd_collatz_number(10) == 5
+    assert com.next_odd_collatz_number(5, 5) == 13
+    assert com.next_odd_collatz_number(33, 5) == 83
+    assert com.next_odd_collatz_number(5, 2) == 11
 
     # Should not accept numbers smaller than 1
     try:
@@ -264,11 +264,11 @@ def test_trailing_zeros():
     Test case for the method trailing_zeros.
     :return: None
     """
-    assert com.trailing_zeros(1) == 0, "0 expected"
-    assert com.trailing_zeros(2) == 1, "1 expected"
-    assert com.trailing_zeros(3) == 0, "0 expected"
-    assert com.trailing_zeros(8) == 3, "3 expected"
-    assert com.trailing_zeros(668503069687808) == 45, "45 expected"
+    assert com.trailing_zeros(1) == 0
+    assert com.trailing_zeros(2) == 1
+    assert com.trailing_zeros(3) == 0
+    assert com.trailing_zeros(8) == 3
+    assert com.trailing_zeros(668503069687808) == 45
 
     # Should only accept whole numbers
     try:
@@ -283,10 +283,10 @@ def test_to_binary():
     Test case for the method to_binary.
     :return: None
     """
-    assert com.to_binary(0) == "0", "different value expected"
-    assert com.to_binary(1) == "1", "different value expected"
-    assert com.to_binary(5) == "101", "different value expected"
-    assert com.to_binary(19373728) == "1001001111001111010100000", "different value expected"
+    assert com.to_binary(0) == "0"
+    assert com.to_binary(1) == "1"
+    assert com.to_binary(5) == "101"
+    assert com.to_binary(19373728) == "1001001111001111010100000"
 
     # Should only accept integers
     try:
@@ -294,3 +294,37 @@ def test_to_binary():
         assert False, "Exception expected"
     except TypeError:
         pass
+
+
+def test_should_handle_big_numbers():
+    """
+    This test case ensures that big numbers are handled correctly if this
+    is expected from the particular methods.
+    :return:
+    """
+    # Test method next_collatz_numbers
+    result = com.next_collatz_number(9**50, 3)
+    assert result == 1546132562196033993109383389296863818106322566004
+
+    result = com.next_collatz_number(result, 3)
+    assert result == 773066281098016996554691694648431909053161283002
+
+    result = com.next_collatz_number(result, 3)
+    assert result == 386533140549008498277345847324215954526580641501
+
+    # Test method next next_odd_collatz_number
+    result = com.next_odd_collatz_number(9**50, 3)
+    assert result == 386533140549008498277345847324215954526580641501
+
+    # Test method collatz_sequence
+    result = com.collatz_sequence(181**15, 5, 2)
+    assert len(result) == 3
+    assert result[0] == 7331260020097109395248329169764701
+    assert result[1] == 36656300100485546976241645848823506
+    assert result[2] == 18328150050242773488120822924411753
+
+    # Test method odd_collatz_sequence
+    result = com.odd_collatz_sequence(181 ** 15, 5, 1)
+    assert len(result) == 2
+    assert result[0] == 7331260020097109395248329169764701
+    assert result[1] == 18328150050242773488120822924411753

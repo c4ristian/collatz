@@ -14,6 +14,10 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     length is determined by the amount of odd numbers that
     are part of the cycle. The parameter max_value determines the
     highest odd number to be considered in the search.
+
+    The function can handle arbitrarily big integers since it uses
+    native Python numbers and no third party libraries like pandas or numpy.
+
     :param k: The k factor.
     :param cycle_length: The expected cycle length.
     :param max_value: The highest odd number to be considered
@@ -26,6 +30,8 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     cycles = []
     odd_set = set()
 
+    # pylint: disable=C0103
+    # A single character for i and c is ok
     for i in range(1, max_value + 1, 2):
         odds = [None] * (cycle_length + 1)
         odds[0] = i
