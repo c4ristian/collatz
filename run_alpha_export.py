@@ -5,8 +5,24 @@ theorems.
 """
 import logging
 from math import log2
-from collatz import generator
+import pandas as pd
 from collatz import commons
+
+
+def _calculate_alphas(odd_list, k_factor):
+    """
+    This method calculates the alphas (divisions by two) for a list of
+    odd Collatz numbers.
+
+    :param odd_list: The list of odd numbers
+    :return: A list of alphas
+    """
+    alpha_list = []
+    for odd in odd_list:
+        even = commons.next_collatz_number(odd, k_factor)
+        alpha_list.append(commons.calculate_alpha(even))
+
+    return alpha_list
 
 
 # Main method to start the export
@@ -28,22 +44,23 @@ if __name__ == '__main__':
         for v1 in V1_RANGE:
             # Create the sequence
             SEQUENCE_ID = SEQUENCE_ID + 1
-            current_frame = generator.generate_odd_collatz_sequence(v1, k, MAX_ITERATIONS)
+            odds = commons.odd_collatz_sequence(v1, k, MAX_ITERATIONS)
+            next_odds = odds[1:]
+            odds.pop()
 
-            # Drop last row, since we analyse the current and the next Collatz number
-            if len(current_frame) > 1:
-                current_frame = current_frame[:-1]
+            alphas = _calculate_alphas(odds, k)
 
-            # Derive new fields
+            current_frame = pd.DataFrame({"vi": odds})
+            current_frame["vi+1"] = next_odds
             current_frame["sequence_id"] = SEQUENCE_ID
             current_frame["sequence_len"] = len(current_frame)
             current_frame["v1"] = v1
             current_frame["n"] = current_frame.index + 1
+            current_frame["k_factor"] = k
 
-            current_frame["alpha_i"] = current_frame["next_collatz"].apply(commons.trailing_zeros)
-            current_frame["alpha_i"] = current_frame["alpha_i"].astype("int64")
-            current_frame["alpha_i_max"] = log2(k) + current_frame["collatz"].apply(log2)
-            current_frame["alpha_i_max"] += (1 + 1/(k * current_frame["collatz"])).apply(log2)
+            current_frame["alpha_i"] = pd.Series(alphas).astype('int64')
+            current_frame["alpha_i_max"] = log2(k) + current_frame["vi"].apply(log2)
+            current_frame["alpha_i_max"] += (1 + 1/(k * current_frame["vi"])).apply(log2)
             # Round result here to avoid loss of precision errors
             current_frame["alpha_i_max"] = current_frame["alpha_i_max"].round(9)
             current_frame["alpha_sum"] = current_frame["alpha_i"].cumsum()
@@ -53,7 +70,7 @@ if __name__ == '__main__':
 
             print_frame = current_frame[[
                 "sequence_id", "sequence_len", "n", "k_factor", "v1",
-                "collatz", "next_odd", "alpha_i", "alpha_i_max", "alpha_sum",
+                "vi", "vi+1", "alpha_i", "alpha_i_max", "alpha_sum",
                 "alpha_pred", "alpha_max"]]
 
             print_frame.columns = [
