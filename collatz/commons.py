@@ -122,7 +122,7 @@ def next_collatz_number(int_value, k=3):
     return int(next_number)
 
 
-def next_odd_collatz_number(int_value, k=3):
+def next_odd_collatz_number(int_value: int, k=3):
     """
     This method creates the next odd collatz number for a given integer.
 
@@ -234,6 +234,34 @@ def analyse_collatz_basic_attributes(collatz_seq):
     collatz_frame["log2_fraction"] = collatz_frame["log2"] % 1
     collatz_frame["fraction"] = 2 ** collatz_frame["log2_fraction"]
     return collatz_frame
+
+
+def calculate_alpha(int_value: int):
+    """
+    This method calculates the alpha (divisions by two) that is required to get from
+    an even number to the next odd number in a Collatz sequence. If an odd number
+    is handed over, zero will be returned.
+
+    The function can handle arbitrarily big integers since it uses
+    native Python numbers and no third party libraries like pandas or numpy.
+
+    :param int_value: The even number as integer.
+    :return: The alpha value.
+    """
+    assert int_value > 0, "Value > 0 expected"
+    mod_result = int_value % 2
+
+    assert mod_result in (0, 1), "Not a whole number"
+
+    alpha = 0
+    if int_value % 2 == 0:
+        alpha = 1
+        current_number = int_value
+
+        while (current_number := current_number // 2) % 2 == 0:
+            alpha = alpha + 1
+
+    return alpha
 
 
 def trailing_zeros(int_value):
