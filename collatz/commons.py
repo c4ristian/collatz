@@ -211,7 +211,7 @@ def _odd_collatz_components(odd_number: int, k=3):
     v_i = odd_number
     k_vi = k * odd_number
     k_vi_1 = k_vi + 1
-    vi_1 = k_vi_1 // 2**calculate_alpha(k_vi_1)
+    vi_1 = k_vi_1 // 2**trailing_zeros(k_vi_1)
     result_dict = {
         "vi": v_i,
         "kvi": k_vi,
@@ -271,10 +271,10 @@ def trailing_zeros(int_value):
     The function can handle arbitrarily big integers.
 
     :param int_value: The int value.
-    :return: The trailing zeros.
+    :return: The trailing zeros as integer.
     """
     assert isinstance(int_value, numbers.Integral), "Integer value expected"
-    result = math.log2(int_value & int_value * -1)
+    result = int(math.log2(int_value & int_value * -1))
     return result
 
 
