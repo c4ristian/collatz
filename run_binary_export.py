@@ -4,15 +4,27 @@ This program exports binary data of collatz sequences to a csv file.
 import logging
 from math import log2
 from collatz import generator
-from collatz import commons
+from collatz.commons import to_binary, calculate_alpha
+
+
+# Helper methods
+def _bin_len(int_value: int):
+    """
+    This method calculates the length of the binary representation of a
+    certain integer.
+
+    :param int_value: The integer value.
+    :return: The length of the binary representation.
+    """
+    return len(to_binary(int_value))
 
 
 # Main method to start the export
 if __name__ == '__main__':
-    K_FACTORS = [1, 3, 5, 7]
-    MAX_START_VALUE = 4999
+    K_FACTORS = [1, 3, 5, 7, 9]
+    MAX_START_VALUE = 3999
     V1_RANGE = range(1, MAX_START_VALUE + 1, 2)
-    MAX_ITERATIONS = 25
+    MAX_ITERATIONS = 100
     N = ((MAX_START_VALUE + 1) / 2) * len(K_FACTORS)
     FILE_NAME = "./data/binary_sequences.csv"
 
@@ -23,6 +35,8 @@ if __name__ == '__main__':
     SEQUENCE_ID = 0
 
     for k in K_FACTORS:
+        logging.info("Generating sequences for k=%d", k)
+
         for v1 in V1_RANGE:
             # Create the sequence
             SEQUENCE_ID = SEQUENCE_ID + 1
@@ -39,10 +53,10 @@ if __name__ == '__main__':
             current_frame["n"] = current_frame.index + 1
 
             current_frame["bin_len"] = \
-                current_frame["collatz"].apply(log2).astype('int64') + 1
+                current_frame["collatz"].apply(_bin_len)
 
             current_frame["next_bin_len"] = \
-                current_frame["next_collatz"].apply(log2).astype('int64') + 1
+                current_frame["next_collatz"].apply(_bin_len)
 
             current_frame["bin_diff"] = current_frame["next_bin_len"] - current_frame["bin_len"]
             current_frame["lambda_i"] = current_frame["bin_diff"]
@@ -56,7 +70,7 @@ if __name__ == '__main__':
             current_frame["lambda_min"] = current_frame["lambda_hyp"].astype('int64')
             current_frame["lambda_max"] = current_frame["lambda_hyp"].astype('int64') + 2
 
-            current_frame["alpha_i"] = current_frame["next_collatz"].apply(commons.trailing_zeros)
+            current_frame["alpha_i"] = current_frame["next_collatz"].apply(calculate_alpha)
             current_frame["alpha_i"] = current_frame["alpha_i"].astype("int64")
 
             current_frame["alpha_sum"] = current_frame["alpha_i"].cumsum()
