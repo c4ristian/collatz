@@ -210,7 +210,7 @@ def _odd_collatz_components(odd_number: int, k=3):
     v_i = odd_number
     k_vi = k * odd_number
     k_vi_1 = k_vi + 1
-    vi_1 = k_vi_1 / 2**trailing_zeros(k_vi_1)
+    vi_1 = k_vi_1 / 2**calculate_alpha(k_vi_1)
     result_dict = {
         "vi": v_i,
         "kvi": k_vi,
@@ -279,6 +279,9 @@ def trailing_zeros(int_value):
 def to_binary(int_value):
     """
     This method converts an integer to its binary representation.
+
+    The function can handle arbitrarily big integers since it uses
+    native Python numbers and no third party libraries like pandas or numpy.
 
     :param int_value: The integer to convert.
     :return: The binary representation as string.
