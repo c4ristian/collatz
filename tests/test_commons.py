@@ -3,6 +3,7 @@ This module contains test cases for the module collatz.commons.
 """
 
 # Imports
+from math import log2
 import numpy as np
 from collatz import commons as com
 
@@ -32,6 +33,13 @@ def test_collatz_sequence():
     # Test if parameter max_iterations is applied
     result = com.collatz_sequence(7, k=5, max_iterations=5)
     assert result == [7, 36, 18, 9, 46, 23]
+
+    # Test if big integers are handled correctly
+    result = com.collatz_sequence(181 ** 15, k=5, max_iterations=2)
+    assert len(result) == 3
+    assert result[0] == 7331260020097109395248329169764701
+    assert result[1] == 36656300100485546976241645848823506
+    assert result[2] == 18328150050242773488120822924411753
 
     # Should not accept numbers smaller than 1
     try:
@@ -73,6 +81,12 @@ def test_odd_collatz_sequence():
     result = com.odd_collatz_sequence(7, k=5, max_iterations=5)
     assert result == [7, 9, 23, 29, 73, 183]
 
+    # Test if big integers are handled correctly
+    result = com.odd_collatz_sequence(181 ** 15, k=5, max_iterations=1)
+    assert len(result) == 2
+    assert result[0] == 7331260020097109395248329169764701
+    assert result[1] == 18328150050242773488120822924411753
+
     # Should not accept numbers smaller than 1
     try:
         com.collatz_sequence(0)
@@ -99,6 +113,16 @@ def test_next_collatz_number():
     assert com.next_collatz_number(4) == 2
     assert com.next_collatz_number(10) == 5
     assert com.next_collatz_number(5, 5) == 26
+
+    # Test if big integers are handled correctly
+    result = com.next_collatz_number(9 ** 50, 3)
+    assert result == 1546132562196033993109383389296863818106322566004
+
+    result = com.next_collatz_number(result, 3)
+    assert result == 773066281098016996554691694648431909053161283002
+
+    result = com.next_collatz_number(result, 3)
+    assert result == 386533140549008498277345847324215954526580641501
 
     # Should not accept numbers smaller than 1
     try:
@@ -134,6 +158,10 @@ def test_next_odd_collatz_number():
     assert com.next_odd_collatz_number(5, 5) == 13
     assert com.next_odd_collatz_number(33, 5) == 83
     assert com.next_odd_collatz_number(5, 2) == 11
+
+    # Test if big integers are handled correctly
+    result = com.next_odd_collatz_number(9 ** 50, 3)
+    assert result == 386533140549008498277345847324215954526580641501
 
     # Should not accept numbers smaller than 1
     try:
@@ -175,6 +203,14 @@ def test_odd_collatz_sequence_components():
     result_frame = com.odd_collatz_sequence_components(7, k=5, max_iterations=1)
     assert list(result_frame["n"].unique()) == [1, 2]
     assert list(result_frame["decimal"]) == [7, 35, 36, 9]
+
+    # Test if big integers are handled correctly
+    result_frame = com.odd_collatz_sequence_components(
+        233815871472689363774009006837127229, k=7, max_iterations=1)
+    assert list(result_frame["n"].unique()) == [1, 2]
+    assert list(result_frame["decimal"]) == [
+        233815871472689363774009006837127229, 1636711100308825546418063047859890603,
+        1636711100308825546418063047859890604, 409177775077206386604515761964972651]
 
     # Should not accept numbers smaller than 1
     try:
@@ -218,6 +254,13 @@ def test_odd_collatz_components():
     assert comp["kvi"] == 5
     assert comp["kvi+1"] == 6
     assert comp["vi_1"] == 3
+    # Test if big integers are handled correctly
+    comp = com._odd_collatz_components(66804534706482675364002573382036351, 7)
+    assert comp is not None
+    assert comp["vi"] == 66804534706482675364002573382036351
+    assert comp["kvi"] == 467631742945378727548018013674254457
+    assert comp["kvi+1"] == 467631742945378727548018013674254458
+    assert comp["vi_1"] == 233815871472689363774009006837127229
 
 
 def test_analyse_collatz_basic_attributes():
@@ -270,6 +313,10 @@ def test_calculate_alpha():
     assert com.calculate_alpha(52) == 2
     assert com.calculate_alpha(324) == 2
 
+    # Test if big integers are handled correctly
+    assert com.calculate_alpha(7331260020097109395248329169764701) == 0
+    assert com.calculate_alpha(36656300100485546976241645848823506) == 1
+
     # Should not accept numbers smaller than 1
     try:
         com.calculate_alpha(0)
@@ -296,6 +343,11 @@ def test_trailing_zeros():
     assert com.trailing_zeros(8) == 3
     assert com.trailing_zeros(668503069687808) == 45
 
+    # Test if big integers are handled correctly
+    assert com.trailing_zeros(7331260020097109395248329169764701) == 0
+    assert com.trailing_zeros(36656300100485546976241645848823506) == 1
+    assert com.trailing_zeros(8038174778473296249349807509972772768) == 5
+
     # Should only accept whole numbers
     try:
         com.next_collatz_number(0.25)
@@ -314,52 +366,7 @@ def test_to_binary():
     assert com.to_binary(5) == "101"
     assert com.to_binary(19373728) == "1001001111001111010100000"
 
-    # Should only accept integers
-    try:
-        com.to_binary(0.25)
-        assert False, "Exception expected"
-    except TypeError:
-        pass
-
-
-def test_should_handle_big_numbers():
-    """
-    This test case ensures that big numbers are handled correctly if this
-    is expected from the particular methods.
-    :return:
-    """
-    # Test method next_collatz_numbers
-    result = com.next_collatz_number(9**50, 3)
-    assert result == 1546132562196033993109383389296863818106322566004
-
-    result = com.next_collatz_number(result, 3)
-    assert result == 773066281098016996554691694648431909053161283002
-
-    result = com.next_collatz_number(result, 3)
-    assert result == 386533140549008498277345847324215954526580641501
-
-    # Test method next next_odd_collatz_number
-    result = com.next_odd_collatz_number(9**50, 3)
-    assert result == 386533140549008498277345847324215954526580641501
-
-    # Test method collatz_sequence
-    result = com.collatz_sequence(181**15, 5, 2)
-    assert len(result) == 3
-    assert result[0] == 7331260020097109395248329169764701
-    assert result[1] == 36656300100485546976241645848823506
-    assert result[2] == 18328150050242773488120822924411753
-
-    # Test method odd_collatz_sequence
-    result = com.odd_collatz_sequence(181 ** 15, 5, 1)
-    assert len(result) == 2
-    assert result[0] == 7331260020097109395248329169764701
-    assert result[1] == 18328150050242773488120822924411753
-
-    # Test method calculate_alpha
-    assert com.calculate_alpha(7331260020097109395248329169764701) == 0
-    assert com.calculate_alpha(36656300100485546976241645848823506) == 1
-
-    # Test method to_binary
+    # Test if big integers are handled correctly
     assert com.to_binary(18328150050242773488120822924411753) == \
            '111000011110100101110001101101000110000110000011' \
            '000001110011101100011111011100000110101000000101' \
@@ -367,3 +374,13 @@ def test_should_handle_big_numbers():
 
     assert int(com.to_binary(773066281098016996554691694648431909053161283002), 2) == \
            773066281098016996554691694648431909053161283002
+
+    assert len(com.to_binary(18328150050242773488120822924411753)) == \
+           int(log2(18328150050242773488120822924411753)) + 1
+
+    # Should only accept integers
+    try:
+        com.to_binary(0.25)
+        assert False, "Exception expected"
+    except TypeError:
+        pass
