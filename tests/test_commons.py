@@ -302,36 +302,6 @@ def test_analyse_collatz_basic_attributes():
     assert list(analysis_frame["log2_fraction"]) == list(np.log2(test_sequence) % 1)
 
 
-def test_calculate_alpha():
-    """
-    Test case for the method calculate_alpha.
-    :return: None
-    """
-    assert com.calculate_alpha(1) == 0
-    assert com.calculate_alpha(5) == 0
-    assert com.calculate_alpha(16) == 4
-    assert com.calculate_alpha(52) == 2
-    assert com.calculate_alpha(324) == 2
-
-    # Test if big integers are handled correctly
-    assert com.calculate_alpha(7331260020097109395248329169764701) == 0
-    assert com.calculate_alpha(36656300100485546976241645848823506) == 1
-
-    # Should not accept numbers smaller than 1
-    try:
-        com.calculate_alpha(0)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
-
-    # Should only accept whole numbers
-    try:
-        com.calculate_alpha(0.25)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
-
-
 def test_trailing_zeros():
     """
     Test case for the method trailing_zeros.

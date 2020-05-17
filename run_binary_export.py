@@ -3,21 +3,8 @@ This program exports binary data of collatz sequences to a csv file.
 """
 import logging
 from math import log2
-from collatz import generator
-from collatz.commons import to_binary, calculate_alpha
-
-
-# Helper methods
-def _bin_len(int_value: int):
-    """
-    This method calculates the length of the binary representation of a
-    certain integer.
-
-    :param int_value: The integer value.
-    :return: The length of the binary representation.
-    """
-    return len(to_binary(int_value))
-
+import pandas as pd
+from collatz import commons
 
 # Main method to start the export
 if __name__ == '__main__':
@@ -40,23 +27,26 @@ if __name__ == '__main__':
         for v1 in V1_RANGE:
             # Create the sequence
             SEQUENCE_ID = SEQUENCE_ID + 1
-            current_frame = generator.generate_odd_collatz_sequence(v1, k, MAX_ITERATIONS)
-
-            # Drop last row, since we analyse the current and the next Collatz number
-            if len(current_frame) > 1:
-                current_frame = current_frame[:-1]
+            odds = commons.odd_collatz_sequence(v1, k, MAX_ITERATIONS)
+            next_odds = odds[1:]
+            odds.pop()
 
             # Derive new fields
+            current_frame = pd.DataFrame({"vi": odds})
+            current_frame["kvi+1"] = current_frame["vi"].apply(
+                commons.next_collatz_number, args=(k,))
+            current_frame["vi_1"] = next_odds
             current_frame["sequence_id"] = SEQUENCE_ID
             current_frame["sequence_len"] = len(current_frame)
             current_frame["v1"] = v1
             current_frame["n"] = current_frame.index + 1
+            current_frame["k_factor"] = k
 
             current_frame["bin_len"] = \
-                current_frame["collatz"].apply(_bin_len)
+                current_frame["vi"].apply(log2).astype('int64') + 1
 
             current_frame["next_bin_len"] = \
-                current_frame["next_collatz"].apply(_bin_len)
+                current_frame["kvi+1"].apply(log2).astype('int64') + 1
 
             current_frame["bin_diff"] = current_frame["next_bin_len"] - current_frame["bin_len"]
             current_frame["lambda_i"] = current_frame["bin_diff"]
@@ -70,9 +60,8 @@ if __name__ == '__main__':
             current_frame["lambda_min"] = current_frame["lambda_hyp"].astype('int64')
             current_frame["lambda_max"] = current_frame["lambda_hyp"].astype('int64') + 2
 
-            current_frame["alpha_i"] = current_frame["next_collatz"].apply(calculate_alpha)
-            current_frame["alpha_i"] = current_frame["alpha_i"].astype("int64")
-
+            current_frame["alpha_i"] = current_frame["kvi+1"].apply(commons.trailing_zeros)
+            current_frame["alpha_i"] = current_frame["alpha_i"].astype('int64')
             current_frame["alpha_sum"] = current_frame["alpha_i"].cumsum()
             current_frame["alpha_pred"] = (log2(k) * current_frame["n"]).astype('int64') + 1
             current_frame["alpha_max"] = log2(v1) + (current_frame["n"] * log2(k))
@@ -86,7 +75,7 @@ if __name__ == '__main__':
 
             print_frame = current_frame[[
                 "sequence_id", "sequence_len", "n", "k_factor", "v1",
-                "collatz", "next_collatz", "next_odd", "alpha_i", "alpha_sum",
+                "vi", "kvi+1", "vi_1", "alpha_i", "alpha_sum",
                 "alpha_pred", "alpha_max", "bin_len", "next_bin_len",
                 "lambda_i", "lambda_i_min", "lambda_i_max",
                 "lambda_sum", "lambda_min", "lambda_max",
@@ -95,7 +84,7 @@ if __name__ == '__main__':
 
             print_frame.columns = [
                 "sequence_id", "sequence_len", "n", "k", "v1",
-                "vi", "kvi+1", "vi+1", "a_i", "a_sum",
+                "vi", "kvi+1", "vi_1", "a_i", "a_sum",
                 "a_pred", "a_max", "bin_len", "next_bin_len",
                 "l_i", "l_i_min", "l_i_max",
                 "l_sum", "l_min", "l_max",

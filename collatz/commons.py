@@ -237,33 +237,6 @@ def analyse_collatz_basic_attributes(collatz_seq):
     return collatz_frame
 
 
-def calculate_alpha(int_value: int):
-    """
-    This method calculates the alpha (divisions by two) that is required to get from
-    an even number to the next odd number in a Collatz sequence. If an odd number
-    is handed over, zero will be returned.
-
-    The function can handle arbitrarily big integers.
-
-    :param int_value: The even number as integer.
-    :return: The alpha value.
-    """
-    assert int_value > 0, "Value > 0 expected"
-    mod_result = int_value % 2
-
-    assert mod_result in (0, 1), "Not a whole number"
-
-    alpha = 0
-    if int_value % 2 == 0:
-        alpha = 1
-        current_number = int_value
-
-        while (current_number := current_number // 2) % 2 == 0:
-            alpha = alpha + 1
-
-    return alpha
-
-
 def trailing_zeros(int_value):
     """
     This method returns the trailing zeros of the binary representation of an integer.

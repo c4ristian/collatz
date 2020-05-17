@@ -20,7 +20,7 @@ def _calculate_alphas(odd_list, k_factor):
     alpha_list = []
     for odd in odd_list:
         even = commons.next_collatz_number(odd, k_factor)
-        alpha_list.append(commons.calculate_alpha(even))
+        alpha_list.append(commons.trailing_zeros(even))
 
     return alpha_list
 
@@ -41,6 +41,8 @@ if __name__ == '__main__':
     SEQUENCE_ID = 0
 
     for k in K_FACTORS:
+        logging.info("Generating sequences for k=%d", k)
+
         for v1 in V1_RANGE:
             # Create the sequence
             SEQUENCE_ID = SEQUENCE_ID + 1
