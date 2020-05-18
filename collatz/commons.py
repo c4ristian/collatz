@@ -1,7 +1,7 @@
 """
 This module provides common methods for creating and analysing Collatz sequences. All
-functions are able to handle arbitrary big integers. Processing the data will, however,
-only lead to precise results of the necessary computational rules are met.
+functions are optimised for handling arbitrary big integers. Processing the data will, however,
+only lead to precise results of the necessary computational rules are followed.
 """
 import math
 import numbers
