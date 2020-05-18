@@ -15,7 +15,7 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     are part of the cycle. The parameter max_value determines the
     highest odd number to be considered in the search.
 
-    The function can handle arbitrarily big integers.
+    The function is optimised for handling arbitrary big integers.
 
     :param k: The k factor.
     :param cycle_length: The expected cycle length.
@@ -57,8 +57,8 @@ def predict_cycle_alpha(k: int, cycle_length: int):
     with a specific k factor.
 
     The method uses a formula that is based on the function math.log2. The
-    results may be inaccurate for very big input values, due to the limitations
-    of Python.
+    returned value may be inaccurate for very big input values, due to the
+    limitations of Python.
 
     :param k: The k factor as int.
     :param cycle_length: The number of odd numbers that

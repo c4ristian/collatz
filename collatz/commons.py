@@ -1,7 +1,8 @@
 """
 This module provides common methods for creating and analysing Collatz sequences. All
-functions are optimised for handling arbitrary big integers. Processing the data will, however,
-only lead to precise results of the necessary computational rules are followed.
+functions are optimised for handling arbitrary big integers. The precision of
+calculated float values depends on the precision of the underlying data type in
+Python and pandas.
 """
 import math
 import numbers
