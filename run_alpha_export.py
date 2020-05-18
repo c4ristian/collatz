@@ -9,23 +9,9 @@ import pandas as pd
 from collatz import commons
 
 
-def _calculate_alphas(odd_list, k_factor):
-    """
-    This method calculates the alphas (divisions by two) for a list of
-    odd Collatz numbers.
-
-    :param odd_list: The list of odd numbers
-    :return: A list of alphas
-    """
-    alpha_list = []
-    for odd in odd_list:
-        even = commons.next_collatz_number(odd, k_factor)
-        alpha_list.append(commons.trailing_zeros(even))
-
-    return alpha_list
-
-
 # Main method to start the export
+# pylint: disable=duplicate-code
+# Code duplication is ok here
 if __name__ == '__main__':
     K_FACTORS = [1, 3, 5, 7, 9]
     MAX_START_VALUE = 3999
@@ -50,17 +36,18 @@ if __name__ == '__main__':
             next_odds = odds[1:]
             odds.pop()
 
-            alphas = _calculate_alphas(odds, k)
-
             current_frame = pd.DataFrame({"vi": odds})
-            current_frame["vi+1"] = next_odds
+            current_frame["vi_1"] = next_odds
+            current_frame["kvi+1"] = current_frame["vi"].apply(
+                commons.next_collatz_number, args=(k,))
             current_frame["sequence_id"] = SEQUENCE_ID
             current_frame["sequence_len"] = len(current_frame)
             current_frame["v1"] = v1
             current_frame["n"] = current_frame.index + 1
             current_frame["k_factor"] = k
 
-            current_frame["alpha_i"] = pd.Series(alphas).astype('int64')
+            current_frame["alpha_i"] = current_frame["kvi+1"].apply(commons.trailing_zeros)
+            current_frame["alpha_i"] = current_frame["alpha_i"].astype('int64')
             current_frame["alpha_i_max"] = log2(k) + current_frame["vi"].apply(log2)
             current_frame["alpha_i_max"] += (1 + 1/(k * current_frame["vi"])).apply(log2)
             # Round result here to avoid loss of precision errors
@@ -72,12 +59,12 @@ if __name__ == '__main__':
 
             print_frame = current_frame[[
                 "sequence_id", "sequence_len", "n", "k_factor", "v1",
-                "vi", "vi+1", "alpha_i", "alpha_i_max", "alpha_sum",
+                "vi", "vi_1", "alpha_i", "alpha_i_max", "alpha_sum",
                 "alpha_pred", "alpha_max"]]
 
             print_frame.columns = [
                 "sequence_id", "sequence_len", "n", "k", "v1",
-                "vi", "vi+1", "a_i", "a_i_max", "a_sum",
+                "vi", "vi_1", "a_i", "a_i_max", "a_sum",
                 "a_pred", "a_max"]
 
             if OUTPUT_FRAME is not None:

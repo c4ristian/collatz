@@ -6,7 +6,10 @@ from math import log2
 import pandas as pd
 from collatz import commons
 
+
 # Main method to start the export
+# pylint: disable=duplicate-code
+# Code duplication is ok here
 if __name__ == '__main__':
     K_FACTORS = [1, 3, 5, 7, 9]
     MAX_START_VALUE = 3999
