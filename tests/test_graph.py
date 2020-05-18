@@ -39,6 +39,10 @@ def test_get_odd_predecessor():
     assert graph.get_odd_predecessor(11, 4, k=5) == 2306867
     assert graph.get_odd_predecessor(5, 0, k=5) is None
 
+    # Test if big integers are handled correctly
+    assert graph.get_odd_predecessor(
+        386533140549008498277345847324215954526580641501, 0, k=3) == 9**50
+
     # Test exceptions
     try:
         graph.get_odd_predecessor(5.5, 0)
@@ -88,10 +92,6 @@ def test_get_odd_predecessors():
     assert list(graph.get_odd_predecessors(
         10, k=3, power_range=range(1, 10))[0]) == [13, 53, 213, 853]
 
-    # Fixme: This result is not correct
-    assert list(graph.get_odd_predecessors(
-        180618717, k=7, power_range=range(1, 31))[0]) == [3463176261430711]
-
     try:
         graph.get_odd_predecessors(5.5)
         assert False, "AssertionError expected"
@@ -131,3 +131,11 @@ def test_create_collatz_graph():
     assert len(graph_frame) == 8
     assert set(graph_frame["successor"]) == {1, 3, 5, 11}
     assert list(graph_frame["predecessor"]) == [1, 3, 5, 11, 9, 19, 21, 43]
+
+    graph_frame = graph.create_collatz_graph(
+        386533140549008498277345847324215954526580641501,
+        k=3, predecessor_count=1, iteration_count=1)
+
+    assert len(graph_frame) == 1
+    assert graph_frame["successor"][0] == 386533140549008498277345847324215954526580641501
+    assert graph_frame["predecessor"][0] == 9**50
