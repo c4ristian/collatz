@@ -301,6 +301,16 @@ def test_analyse_collatz_basic_attributes():
     assert list(analysis_frame["log2"]) == list(np.log2(test_sequence))
     assert list(analysis_frame["log2_fraction"]) == list(np.log2(test_sequence) % 1)
 
+    # Test if numbers are handled correctly
+    test_sequence = [66804534706482675364002573382036351,
+                     467631742945378727548018013674254458]
+
+    analysis_frame = com.analyse_collatz_basic_attributes(test_sequence)
+    assert list(analysis_frame["collatz"]) == test_sequence
+    assert list(analysis_frame["odd"]) == [1, 0]
+    assert list(analysis_frame["log2"].round(4)) == [115.6855, 118.4929]
+    assert list(analysis_frame["log2_fraction"].round(4)) == [0.6855, 0.4929]
+
 
 def test_trailing_zeros():
     """
