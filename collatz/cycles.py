@@ -15,8 +15,7 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     are part of the cycle. The parameter max_value determines the
     highest odd number to be considered in the search.
 
-    The function can handle arbitrarily big integers since it uses
-    native Python numbers and no third party libraries like pandas or numpy.
+    The function can handle arbitrarily big integers.
 
     :param k: The k factor.
     :param cycle_length: The expected cycle length.
@@ -25,7 +24,6 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     :return: A list with cycles and their odd numbers of an empty list,
     if no cycles were found.
     """
-
     # Find cycles
     cycles = []
     odd_set = set()
@@ -56,8 +54,12 @@ def predict_cycle_alpha(k: int, cycle_length: int):
     """
     This method calculates the alpha (exponent of the power of 2) for a
     hypothetical cycle with a certain length for a collatz sequence
-    with a specific k factor. The method uses an experimental formula
-    to calculate the result.
+    with a specific k factor.
+
+    The method uses a formula that is based on the function math.log2. The
+    results may be inaccurate for very big input values, due to the limitations
+    of Python.
+
     :param k: The k factor as int.
     :param cycle_length: The number of odd numbers that
     are part of the cycle.
