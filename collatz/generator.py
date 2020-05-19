@@ -6,7 +6,6 @@ Python and pandas.
 """
 
 import random as rnd
-import pandas as pd
 from collatz import commons as com
 
 
@@ -58,8 +57,7 @@ def generate_odd_collatz_sequence(start_value, k=3, max_iterations=300):
     collatz_frame["odd_index"] = collatz_frame.index
     collatz_frame["next_collatz"] = next_collatz
     collatz_frame["next_odd"] = next_odd
-    collatz_frame.insert(1, "k_factor", pd.Series(k).astype('object'))
-    collatz_frame["k_factor"] = k
+    collatz_frame.insert(1, "k_factor", [k] * len(collatz_frame))
 
     return collatz_frame
 
