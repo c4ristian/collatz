@@ -9,10 +9,12 @@ import pandas as pd
 from collatz import commons
 
 
-def _generate_sequence(start_value: int, k_factor: int, max_iterations: int):
+def _generate_sequence(sequence_id: int, start_value: int,
+                       k_factor: int, max_iterations: int):
     """
     This method generates a Collatz sequence, containing only odd numbers.
 
+    :param sequence_id: ID of the sequence.
     :param start_value: The integer value to start with. The value must be a
     natural number > 0. If an even number is handed over, the next odd number will be used
     as start value.
@@ -26,19 +28,18 @@ def _generate_sequence(start_value: int, k_factor: int, max_iterations: int):
     odds.pop()
 
     collatz_frame = pd.DataFrame({"v_i": odds})
-    collatz_frame["sequence_id"] = SEQUENCE_ID
+    collatz_frame["sequence_id"] = sequence_id
     collatz_frame["sequence_len"] = len(collatz_frame)
     collatz_frame["n"] = collatz_frame.index + 1
     collatz_frame["k_factor"] = k_factor
 
-    collatz_frame["v_1"] = v_1
+    collatz_frame["v_1"] = start_value
     collatz_frame["kv_i+1"] = collatz_frame["v_i"].apply(
         commons.next_collatz_number, args=(k_factor,))
     collatz_frame["v_i+"] = next_odds
 
-    collatz_frame["terminal"] = \
-        (collatz_frame["v_i+"] == collatz_frame["v_1"]) | \
-        (collatz_frame["v_i+"] == 1)
+    collatz_frame["terminal"] = collatz_frame["v_i+"] == 1
+    collatz_frame["cycle"] = collatz_frame["v_i+"] == collatz_frame["v_1"]
 
     # Alpha
     collatz_frame["alpha_i"] = collatz_frame["kv_i+1"].apply(commons.trailing_zeros)
@@ -49,7 +50,7 @@ def _generate_sequence(start_value: int, k_factor: int, max_iterations: int):
     collatz_frame["alpha_i_max"] = collatz_frame["alpha_i_max"].round(9)
     collatz_frame["alpha"] = collatz_frame["alpha_i"].cumsum()
     collatz_frame["alpha_cycle"] = (log2(k_factor) * collatz_frame["n"]).astype('int64') + 1
-    collatz_frame["alpha_max"] = log2(v_1) + (collatz_frame["n"] * log2(k_factor))
+    collatz_frame["alpha_max"] = log2(start_value) + (collatz_frame["n"] * log2(k_factor))
     collatz_frame["alpha_max"] = collatz_frame["alpha_max"].astype('int64') + 1
 
     # Lambda
@@ -80,16 +81,18 @@ def _generate_sequence(start_value: int, k_factor: int, max_iterations: int):
 
     result_frame = collatz_frame[[
         "sequence_id", "sequence_len", "n", "k_factor", "v_1",
-        "v_i", "v_i+", "terminal", "alpha_i", "alpha_i_max", "alpha",
-        "alpha_cycle", "alpha_max", "bin_len", "next_bin_len",
+        "v_i", "v_i+", "terminal", "cycle",
+        "alpha_i", "alpha_i_max", "alpha", "alpha_cycle", "alpha_max",
+        "bin_len", "next_bin_len",
         "lambda_i", "lambda_i_min", "lambda_i_max",
         "lambda", "lambda_min", "lambda_max",
         "omega_i", "omega_i_max", "omega", "omega_max"]]
 
     result_frame.columns = [
         "sequence_id", "sequence_len", "n", "k", "v_1",
-        "v_i", "v_i+", "terminal", "a_i", "a_i_max", "a",
-        "a_cycle", "a_max", "bin_len", "next_bin_len",
+        "v_i", "v_i+", "terminal", "cycle",
+        "a_i", "a_i_max", "a", "a_cycle", "a_max",
+        "bin_len", "next_bin_len",
         "l_i", "l_i_min", "l_i_max",
         "l", "l_min", "l_max",
         "o_i", "o_i_max", "o", "o_max"]
@@ -97,42 +100,51 @@ def _generate_sequence(start_value: int, k_factor: int, max_iterations: int):
     return result_frame
 
 
-# Main method to start the export
-if __name__ == '__main__':
-    K_FACTORS = [1, 3, 5, 7, 9]
-    MAX_START_VALUE = 3999
-    V_1_RANGE = range(1, MAX_START_VALUE + 1, 2)
-    MAX_ITERATIONS = 100
-    N = ((MAX_START_VALUE + 1) / 2) * len(K_FACTORS)
-    FILE_NAME = "./data/alpha_sequences.csv"
+def _main():
+    """
+    This method executes the program.
+    :return: None.
+    """
+    k_factors = [1, 3, 5, 7, 9]
+    max_start_value = 3999
+    v_1_range = range(1, max_start_value + 1, 2)
+    max_iterations = 100
+    sequence_count = ((max_start_value + 1) / 2) * len(k_factors)
+    file_name = "./data/alpha_sequences.csv"
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
-    logging.info("Exporting %d Collatz sequences to file %s", N, FILE_NAME)
+    logging.info("Exporting %d Collatz sequences to file %s", sequence_count, file_name)
 
-    OUTPUT_FRAME = None
-    SEQUENCE_ID = 0
+    output_frame = None
+    sequence_id = 0
 
-    for i, k in enumerate(K_FACTORS, start=0):
+    for i, k in enumerate(k_factors, start=0):
         logging.info("Generating sequences for k=%d", k)
 
-        for v_1 in V_1_RANGE:
+        for v_1 in v_1_range:
             # Create the sequence
-            SEQUENCE_ID = SEQUENCE_ID + 1
-            current_frame = _generate_sequence(v_1, k, MAX_ITERATIONS)
+            sequence_id = sequence_id + 1
+            current_frame = _generate_sequence(
+                sequence_id, v_1, k, max_iterations)
 
-            if OUTPUT_FRAME is not None:
-                OUTPUT_FRAME = OUTPUT_FRAME.append(current_frame)
+            if output_frame is not None:
+                output_frame = output_frame.append(current_frame)
             else:
-                OUTPUT_FRAME = current_frame
+                output_frame = current_frame
         # Write the frame to file
         if i == 0:
-            OUTPUT_FRAME.to_csv(
-                FILE_NAME, mode='w', index=False, header=True)
+            output_frame.to_csv(
+                file_name, mode='w', index=False, header=True)
         else:
-            OUTPUT_FRAME.to_csv(
-                FILE_NAME, mode='a', index=False, header=False)
+            output_frame.to_csv(
+                file_name, mode='a', index=False, header=False)
 
-        OUTPUT_FRAME = None
+        output_frame = None
 
     # Export finished
     logging.info("Export finished successfully!")
+
+
+# Main method to start the export
+if __name__ == '__main__':
+    _main()
