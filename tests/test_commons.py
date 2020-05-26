@@ -193,7 +193,7 @@ def test_odd_collatz_sequence_components():
     result_frame = com.odd_collatz_sequence_components(3)
     assert list(result_frame.columns) == ["n", "variable", "decimal"]
     assert list(result_frame["n"].unique()) == [1, 2, 3]
-    assert list(result_frame["variable"].unique()) == ["vi", "kvi", "kvi+1"]
+    assert list(result_frame["variable"].unique()) == ["v_i", "kv_i", "kv_i+1"]
     assert list(result_frame["decimal"]) == [3, 9, 10, 5, 15, 16, 1]
 
     result_frame = com.odd_collatz_sequence_components(1, 5)
@@ -236,31 +236,31 @@ def test_odd_collatz_components():
     # pylint: disable=W0212
     comp = com._odd_collatz_components(13)
     assert comp is not None
-    assert comp["vi"] == 13
-    assert comp["kvi"] == 39
-    assert comp["kvi+1"] == 40
-    assert comp["vi_1"] == 5
+    assert comp["v_i"] == 13
+    assert comp["kv_i"] == 39
+    assert comp["kv_i+1"] == 40
+    assert comp["v_i+"] == 5
     # Test x=1 and k=3
     comp = com._odd_collatz_components(1, 3)
     assert comp is not None
-    assert comp["vi"] == 1
-    assert comp["kvi"] == 3
-    assert comp["kvi+1"] == 4
-    assert comp["vi_1"] == 1
+    assert comp["v_i"] == 1
+    assert comp["kv_i"] == 3
+    assert comp["kv_i+1"] == 4
+    assert comp["v_i+"] == 1
     # Test x=5 and k=1
     comp = com._odd_collatz_components(5, 1)
     assert comp is not None
-    assert comp["vi"] == 5
-    assert comp["kvi"] == 5
-    assert comp["kvi+1"] == 6
-    assert comp["vi_1"] == 3
+    assert comp["v_i"] == 5
+    assert comp["kv_i"] == 5
+    assert comp["kv_i+1"] == 6
+    assert comp["v_i+"] == 3
     # Test if big integers are handled correctly
     comp = com._odd_collatz_components(66804534706482675364002573382036351, 7)
     assert comp is not None
-    assert comp["vi"] == 66804534706482675364002573382036351
-    assert comp["kvi"] == 467631742945378727548018013674254457
-    assert comp["kvi+1"] == 467631742945378727548018013674254458
-    assert comp["vi_1"] == 233815871472689363774009006837127229
+    assert comp["v_i"] == 66804534706482675364002573382036351
+    assert comp["kv_i"] == 467631742945378727548018013674254457
+    assert comp["kv_i+1"] == 467631742945378727548018013674254458
+    assert comp["v_i+"] == 233815871472689363774009006837127229
 
 
 def test_analyse_collatz_basic_attributes():

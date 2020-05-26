@@ -167,7 +167,7 @@ def odd_collatz_sequence_components(
 
     for i, odd in enumerate(odd_sequence):
         components = _odd_collatz_components(odd, k)
-        del components["vi_1"]
+        del components["v_i+"]
 
         current_frame = pd.DataFrame({
             "n": i + 1,
@@ -190,10 +190,10 @@ def _odd_collatz_components(odd_number: int, k=3):
     """
     This method returns the following components of an odd Collatz
     number and a particular k factor:
-    1.) vi: The odd number
-    2.) kvi: The odd number multiplied with k
-    3.) kvi+1: The value kvi + 1
-    4.) vi_1: The next odd number
+    1.) v_i: The odd number
+    2.) kv_i: The odd number multiplied with k
+    3.) kv_i+1: The value kvi + 1
+    4.) v_i+: The next odd number
 
     :param odd_number: The odd number as int
     :param k: The k factor, default is three
@@ -204,10 +204,10 @@ def _odd_collatz_components(odd_number: int, k=3):
     k_vi_1 = k_vi + 1
     vi_1 = k_vi_1 // 2**trailing_zeros(k_vi_1)
     result_dict = {
-        "vi": v_i,
-        "kvi": k_vi,
-        "kvi+1": k_vi_1,
-        "vi_1": vi_1
+        "v_i": v_i,
+        "kv_i": k_vi,
+        "kv_i+1": k_vi_1,
+        "v_i+": vi_1
     }
     return result_dict
 
