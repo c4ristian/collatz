@@ -6,7 +6,7 @@ channels:
 dependencies:
   - matplotlib
   - pandas
-  - python>=3.7.3
+  - python>=3.8.2
   - pytest
   - pytest-cov
   - pylint
