@@ -53,6 +53,10 @@ def _generate_sequence(sequence_id: int, start_value: int,
     collatz_frame["alpha_max"] = log2(start_value) + (collatz_frame["n"] * log2(k_factor))
     collatz_frame["alpha_max"] = collatz_frame["alpha_max"].astype('int64') + 1
 
+    # Beta
+    collatz_frame["beta_i"] = 1 + 1 / (k_factor * collatz_frame["v_i"])
+    collatz_frame["beta"] = collatz_frame["beta_i"].cumprod()
+
     # Lambda
     collatz_frame["bin_len"] = \
         collatz_frame["v_i"].apply(log2).astype('int64') + 1
@@ -83,7 +87,7 @@ def _generate_sequence(sequence_id: int, start_value: int,
         "sequence_id", "sequence_len", "n", "k_factor", "v_1",
         "v_i", "v_i+", "terminal", "cycle",
         "alpha_i", "alpha_i_max", "alpha", "alpha_cycle", "alpha_max",
-        "bin_len", "next_bin_len",
+        "beta_i", "beta", "bin_len", "next_bin_len",
         "lambda_i", "lambda_i_min", "lambda_i_max",
         "lambda", "lambda_min", "lambda_max",
         "omega_i", "omega_i_max", "omega", "omega_max"]]
@@ -92,7 +96,7 @@ def _generate_sequence(sequence_id: int, start_value: int,
         "sequence_id", "sequence_len", "n", "k", "v_1",
         "v_i", "v_i+", "terminal", "cycle",
         "a_i", "a_i_max", "a", "a_cycle", "a_max",
-        "bin_len", "next_bin_len",
+        "b_i", "b", "bin_len", "next_bin_len",
         "l_i", "l_i_min", "l_i_max",
         "l", "l_min", "l_max",
         "o_i", "o_i_max", "o", "o_max"]
