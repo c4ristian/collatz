@@ -41,6 +41,16 @@ def _generate_sequence(sequence_id: int, start_value: int,
     collatz_frame["terminal"] = collatz_frame["v_i+"] == 1
     collatz_frame["cycle"] = collatz_frame["v_i+"] == collatz_frame["v_1"]
 
+    # Logs
+    collatz_frame["v_i_log2"] = collatz_frame["v_i"].apply(log2)
+    collatz_frame["kv_i+1_log2"] = collatz_frame["kv_i+1"].apply(log2)
+    collatz_frame["v_i+_log2"] = collatz_frame["v_i+"].apply(log2)
+
+    # Mods
+    collatz_frame["v_i_mod4"] = collatz_frame["v_i"] % 4
+    collatz_frame["kv_i+1_mod4"] = collatz_frame["kv_i+1"] % 4
+    collatz_frame["v_i+_mod4"] = collatz_frame["v_i+"] % 4
+
     # Alpha
     collatz_frame["alpha_i"] = collatz_frame["kv_i+1"].apply(commons.trailing_zeros)
     collatz_frame["alpha_i"] = collatz_frame["alpha_i"].astype('int64')
@@ -58,11 +68,8 @@ def _generate_sequence(sequence_id: int, start_value: int,
     collatz_frame["beta"] = collatz_frame["beta_i"].cumprod()
 
     # Lambda
-    collatz_frame["bin_len"] = \
-        collatz_frame["v_i"].apply(log2).astype('int64') + 1
-
-    collatz_frame["next_bin_len"] = \
-        collatz_frame["kv_i+1"].apply(log2).astype('int64') + 1
+    collatz_frame["bin_len"] = collatz_frame["v_i_log2"].astype('int64') + 1
+    collatz_frame["next_bin_len"] = collatz_frame["kv_i+1_log2"].astype('int64') + 1
 
     collatz_frame["bin_diff"] = collatz_frame["next_bin_len"] - collatz_frame["bin_len"]
     collatz_frame["lambda_i"] = collatz_frame["bin_diff"]
@@ -85,7 +92,8 @@ def _generate_sequence(sequence_id: int, start_value: int,
 
     result_frame = collatz_frame[[
         "sequence_id", "sequence_len", "n", "k_factor", "v_1",
-        "v_i", "v_i+", "terminal", "cycle",
+        "v_i", "kv_i+1", "v_i+", "v_i_log2", "v_i+_log2", "kv_i+1_log2",
+        "v_i_mod4", "kv_i+1_mod4", "v_i+_mod4", "terminal", "cycle",
         "alpha_i", "alpha_i_max", "alpha", "alpha_cycle", "alpha_max",
         "beta_i", "beta", "bin_len", "next_bin_len",
         "lambda_i", "lambda_i_min", "lambda_i_max",
@@ -94,7 +102,8 @@ def _generate_sequence(sequence_id: int, start_value: int,
 
     result_frame.columns = [
         "sequence_id", "sequence_len", "n", "k", "v_1",
-        "v_i", "v_i+", "terminal", "cycle",
+        "v_i", "kv_i+1", "v_i+", "v_i_log2", "v_i+_log2", "kv_i+1_log2",
+        "v_i_mod4", "kv_i+1_mod4", "v_i+_mod4", "terminal", "cycle",
         "a_i", "a_i_max", "a", "a_cycle", "a_max",
         "b_i", "b", "bin_len", "next_bin_len",
         "l_i", "l_i_min", "l_i_max",
