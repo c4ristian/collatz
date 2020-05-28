@@ -14,3 +14,4 @@ tests/.pytest_cache
 *.coverage
 data/*.csv
 data/*.png
+data/*.dot
