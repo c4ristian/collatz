@@ -1,7 +1,7 @@
 """
 This program exports data on the alphas of collatz sequences
-into a csv file. The sample is used to validate several mathematical
-theorems.
+into a csv file. Only odd Collatz numbers are included. The sample is used
+to validate several mathematical theorems.
 """
 import logging
 from math import log2
