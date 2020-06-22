@@ -1,7 +1,8 @@
 """
 This program exports data on the alphas of collatz sequences and related features
 into a csv file. Only odd Collatz numbers are included. The sample is used
-to validate several mathematical theorems.
+to validate several mathematical theorems and as training set for machine learning
+models.
 """
 import logging
 from math import log2
@@ -9,8 +10,8 @@ import pandas as pd
 from collatz import commons
 
 
-def _generate_sequence(sequence_id: int, start_value: int,
-                       k_factor: int, max_iterations: int):
+def _generate_odd_sequence(sequence_id: int, start_value: int,
+                           k_factor: int, max_iterations: int):
     """
     This method generates a Collatz sequence, containing only odd numbers.
 
@@ -137,7 +138,7 @@ def _main():
         for v_1 in v_1_range:
             # Create the sequence
             sequence_id = sequence_id + 1
-            current_frame = _generate_sequence(
+            current_frame = _generate_odd_sequence(
                 sequence_id, v_1, k, max_iterations)
 
             if output_frame is not None:
