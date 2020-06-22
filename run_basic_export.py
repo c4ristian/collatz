@@ -67,7 +67,7 @@ def _main():
     x_1_range = range(1, max_start_value + 1)
     max_iterations = 100
     sequence_count = max_start_value * len(k_factors)
-    file_name = "./data/basic_sequences.csv"
+    file_name = "./data/basic_export.csv"
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     logging.info("Exporting %d Collatz sequences to file %s", sequence_count, file_name)
