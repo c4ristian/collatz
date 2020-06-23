@@ -1,7 +1,7 @@
 """
 This program exports data on the alphas of collatz sequences and related features
 into a csv file. Only odd Collatz numbers are included. The sample is used
-to validate several mathematical theorems and as training set for machine learning
+to validate several mathematical theorems and for the training of machine learning
 models.
 """
 import logging
@@ -124,7 +124,7 @@ def _main():
     v_1_range = range(1, max_start_value + 1, 2)
     max_iterations = 100
     sequence_count = ((max_start_value + 1) / 2) * len(k_factors)
-    file_name = "./data/alpha_sequences.csv"
+    file_name = "./data/alpha_export.csv"
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     logging.info("Exporting %d Collatz sequences to file %s", sequence_count, file_name)
