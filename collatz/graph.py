@@ -1,5 +1,5 @@
 """
-This module contains methods to create and analyse collatz graphs.
+This module provides methods to create and analyse collatz graphs.
 """
 
 from math import log2
@@ -96,7 +96,7 @@ def create_collatz_graph(start_value, k=3, predecessor_count=3, iteration_count=
     This method creates an inverse collatz graph, consisting of odd numbers, beginning with a
     certain odd starting integer value. It currently works only for the k-factors (1,3,5).
 
-    The function is optimised for handling big integers.
+    The function is optimised for handling arbitrary big integers.
 
     :param start_value: Odd integer to start the graph with.
     :param k: The factor odd numbers are multiplied with in the sequence (default 3).
