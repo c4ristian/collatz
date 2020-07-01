@@ -1,5 +1,5 @@
 """
-This module contains methods to analyse cycles in collatz sequences.
+This module provides methods to analyse cycles in collatz sequences.
 """
 
 # Imports
