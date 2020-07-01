@@ -9,9 +9,9 @@ from collatz import commons
 
 def find_cycles(k: int, cycle_length: int, max_value: int):
     """
-    This method tries to find cycles in a collatz sequences for a
+    This method tries to find cycles in collatz sequences for a
     specific k factor and a specific cycle-length. The cycle
-    length is determined by the amount of odd numbers that
+    length is defined by the amount of odd numbers that
     are part of the cycle. The parameter max_value determines the
     highest odd number to be considered in the search.
 
