@@ -13,7 +13,7 @@ tests/.pytest_cache
 
 # Files
 *.coverage
-notebooks/alpha_experiments.ipynb
+*.ipynb
 data/*.csv
 data/*.png
 data/*.dot
