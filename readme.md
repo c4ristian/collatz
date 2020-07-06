@@ -48,6 +48,16 @@ python FILENAME.py
 ```
 
 ## Jupyter
+### Pair Notebooks
+```sh
+jupytext --set-formats ipynb,md notebooks/*.md
+```
+
+### Sync Notebooks
+```sh
+jupytext --sync notebooks/*.md
+```
+
 ### Install Kernel 
 ```sh
 python -m ipykernel install --user --name=collatz
@@ -56,16 +66,6 @@ python -m ipykernel install --user --name=collatz
 ### Run Notebooks
 ```sh
 jupyter notebook --notebook-dir="./notebooks"
-```
-
-### Notebook to Markdown
-```sh
-jupytext --to md notebooks/NOTEBOOK.ipynb
-```
-
-### Markdown to Notebook
-```sh
-jupytext --to notebook notebooks/NOTEBOOK.md
 ```
 
 ## License
