@@ -1,6 +1,7 @@
 ---
 jupyter:
   jupytext:
+    formats: ipynb,md
     text_representation:
       extension: .md
       format_name: markdown
@@ -38,7 +39,6 @@ from collatz import commons as com
 MAX_VALUE = 101
 K_FACTOR = 3
 MAX_ITERATIONS = 100
-LOG_MODE = None
 PRINT_TABLE = True
 
 START_VALUE = rnd.randint(1, MAX_VALUE)
@@ -75,12 +75,6 @@ analysis_frame["alpha_max"] = analysis_frame["alpha_max"].astype('int64') + 1
 
 analysis_frame["bin_str"] = analysis_frame["collatz"].apply(com.to_binary)
 
-# Possibly set log mode
-if LOG_MODE:
-    analysis_frame["v_1"] = analysis_frame["v1"].apply(LOG_MODE)
-    analysis_frame["collatz"] = analysis_frame["collatz"].apply(LOG_MODE)
-    analysis_frame["next_odd"] = analysis_frame["next_odd"].apply(LOG_MODE)
-    
 # Validate alpha max & alpha pred
 final_alpha = analysis_frame["alpha"].max()
 final_alpha_max = analysis_frame["alpha_max"].max()
