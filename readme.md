@@ -58,5 +58,15 @@ python -m ipykernel install --user --name=collatz
 jupyter notebook --notebook-dir="./notebooks"
 ```
 
+### Notebook to Markdown
+```sh
+jupytext --to md notebooks/NOTEBOOK.ipynb
+```
+
+### Markdown to Notebook
+```sh
+jupytext --to notebook notebooks/NOTEBOOK.md
+```
+
 ## License
 [Apache 2.0](LICENSE.txt)
