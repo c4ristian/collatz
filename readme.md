@@ -13,8 +13,10 @@ The library provides four modules:
 - [generator](collatz/generator.py) - methods to generate Collatz sequences and related features
 - [graph](collatz/graph.py) - methods to create and analyse Collatz graphs
 
-The project furthermore provides [jupyter notebooks](notebooks) 
-and scripts for data exports.
+The project furthermore offers [jupyter notebooks](notebooks) and scripts for data exports. 
+The notebooks are stored as [markdown](https://en.wikipedia.org/wiki/Markdown) files to support efficient 
+versioning in git. The synchronisation between markdown files and ipynb files is handled by the framework 
+[jupytext](https://github.com/mwouts/jupytext) (for further instructions see below).
 
 ## Where to get it
 The source code is currently hosted on GitHub at:
@@ -48,14 +50,14 @@ python FILENAME.py
 ```
 
 ## Jupyter
-### Pair Notebooks
-```sh
-jupytext --set-formats ipynb,md notebooks/*.md
-```
-
 ### Sync Notebooks
 ```sh
 jupytext --sync notebooks/*.md
+```
+
+### Pair Notebook
+```sh
+jupytext --set-formats ipynb,md notebooks/NOTEBOOK.ipynb
 ```
 
 ### Install Kernel 
