@@ -17,7 +17,7 @@ jupyter:
 ## Collatz basics
 <!-- #endregion -->
 
-```python pycharm={"is_executing": false}
+```python
 """
 This notebook analyses basic attributes of collatz sequences and visualises them. 
 The script produces a random collatz sequence for a predefined factor k and 
@@ -76,7 +76,7 @@ print(analysis_frame[["collatz", "log2", "log2_fraction",
                       "n_log2_fraction", "bin_str", "mod_4"]])
 ```
 
-```python pycharm={"name": "#%%\n", "is_executing": false}
+```python pycharm={"name": "#%%\n"}
 #Plot results
 # Collatz
 plt.figure()
