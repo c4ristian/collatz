@@ -17,7 +17,7 @@ jupyter:
 ## Collatz components notebook
 <!-- #endregion -->
 
-```python pycharm={"name": "#%%\n", "is_executing": false}
+```python pycharm={"name": "#%%\n"}
 """
 This notebook analyses core components of collatz 
 sequences and their relationship: 
