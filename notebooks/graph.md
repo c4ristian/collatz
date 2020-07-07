@@ -17,7 +17,7 @@ jupyter:
 ## Collatz graph notebook
 <!-- #endregion -->
 
-```python pycharm={"name": "#%%\n", "is_executing": false}
+```python pycharm={"name": "#%%\n"}
 """
 This notebook analyses collatz sequences from a graph theoretical perspective. The script
 starts with a specific number and calculates it's predecessors in a collatz sequence 
@@ -67,7 +67,7 @@ print("Start value:", START_VALUE, " K:", K_FACTOR, "\n")
 print(graph_frame.to_string(index=False))
 ```
 
-```python pycharm={"name": "#%%\n", "is_executing": false}
+```python pycharm={"name": "#%%\n"}
 # Create graph
 plt.figure(figsize=(20,10))
 plt.title("k=" + str(K_FACTOR))
