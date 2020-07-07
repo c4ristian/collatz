@@ -11,7 +11,7 @@ notebooks/ml/.ipynb_checkpoints
 notebooks/_backup
 tests/.pytest_cache
 
-# Files
+# Other Files
 *.coverage
 *.ipynb
 data/*.csv
