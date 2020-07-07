@@ -49,7 +49,7 @@ def _to_binary(int_value):
 
 # Configuration
 K_FACTOR = 3
-EXPORT_DATA = False
+EXPORT_DATA = True
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
 INPUT_PATH = DATA_PATH + "alpha_export.csv"
 EXPORT_PIC_PATH = DATA_PATH + "binary_graph.png"
@@ -112,8 +112,8 @@ graph_frame = graph_frame[graph_frame["predecessor"] != "x"]
 
 edge_frame = graph_frame.groupby(["predecessor", "successor"])["lambda_i"].count().reset_index()
 edge_frame.columns = ["predecessor", "successor", "count"]
-edge_frame["weight"] = edge_frame["count"] / edge_frame["count"].sum()
-edge_frame["width"] = edge_frame["weight"] * 25
+edge_frame["percent"] = edge_frame["count"] / edge_frame["count"].sum()
+edge_frame["weight"] = edge_frame["percent"] * 25
 
 print("Edges:\n")
 print(edge_frame, "\n")
@@ -132,7 +132,7 @@ network = nx.convert_matrix.from_pandas_edgelist(
     create_using=nx.DiGraph(), edge_attr=True)
 
 edges = network.edges()
-widths = [network[u][v]['width'] for u,v in edges]
+widths = [network[u][v]['weight'] for u,v in edges]
 
 pos = nx.circular_layout(network)
 nx.draw(network, pos, node_size=1000, with_labels=SHOW_LABELS,
@@ -141,7 +141,9 @@ nx.draw(network, pos, node_size=1000, with_labels=SHOW_LABELS,
 # Export data
 if EXPORT_DATA:
     plt.savefig(EXPORT_PIC_PATH)
-    edge_frame.to_csv(EXPORT_CSV_PATH, index=False)
+    export_frame = edge_frame.rename(
+        columns={"predecessor": "source", "successor": "target"})
+    export_frame.to_csv(EXPORT_CSV_PATH, index=False)
 
 # Show graph
 plt.show()
