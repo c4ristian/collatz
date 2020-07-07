@@ -17,7 +17,7 @@ jupyter:
 ## Collatz analysis notebook
 <!-- #endregion -->
 
-```python pycharm={"is_executing": false, "name": "#%%\n"}
+```python pycharm={"name": "#%%\n"}
 """
 This notebook uses techniques of mathematical analysis to investigate a function
 that predicts the alpha (power of two) for a cycle with a specific length
@@ -81,7 +81,7 @@ print_frame = analysis_frame[[
 print(print_frame.to_string(index=False))
 ```
 
-```python pycharm={"is_executing": false, "name": "#%%\n"}
+```python pycharm={"name": "#%%\n"}
 # Plot results
 
 # Predicted alpha vs cycle min and max
