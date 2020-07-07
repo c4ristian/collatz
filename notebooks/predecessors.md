@@ -24,21 +24,17 @@ specific factor k. The predecessors are determined with the help of an iterative
 process. As a result the predecessors are printed.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
+# Imports
 import random as rnd
-import pandas as pd
+import nbsetup
 from collatz import commons, graph
+
 
 # Configure the analyser
 K_FACTOR = 3
 POWER_RANGE = range(1, 51)
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 start_value = rnd.randint(1, 1000)
 start_value = start_value if start_value % 2 == 1 else start_value + 1

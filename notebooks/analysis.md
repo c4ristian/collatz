@@ -24,16 +24,13 @@ that predicts the alpha (power of two) for a cycle with a specific length
 for a certain k-factor.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 from pathlib import Path
 from math import log2
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import nbsetup
 from collatz import cycles
 
 
@@ -53,6 +50,8 @@ EXPORT_DATA = True
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
 PIC_PATH = DATA_PATH + "analysis.png"
 CSV_PATH = DATA_PATH + "analysis.csv"
+
+nbsetup.set_default_pd_options()
 
 # Analyse the data
 first_fraction = 1

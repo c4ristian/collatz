@@ -24,10 +24,6 @@ starts with a specific number and calculates it's predecessors in a collatz sequ
 with the help of a deterministic formula. As a result the constructed tree is plotted. 
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 import warnings
 from pathlib import Path
@@ -35,11 +31,11 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
+import nbsetup
 from collatz import commons, graph
 
 # Configuration
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 150)
+nbsetup.set_default_pd_options()
 warnings.filterwarnings('ignore')
 
 START_VALUE = 13

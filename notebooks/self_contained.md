@@ -25,15 +25,12 @@ a multiple of the odd number. The odd number 31 e.g. results for k= 3 in the eve
 310 which equals 10 * 31.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 from math import log2
 from matplotlib import pyplot as plt
 import random as rnd
 import pandas as pd
+import nbsetup
 from collatz import generator as gen
 from collatz import commons as com
 
@@ -51,9 +48,7 @@ if START_VALUE % 2 == 0:
 
 # START_VALUE = 31
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 
 # Generate Collatz sequence

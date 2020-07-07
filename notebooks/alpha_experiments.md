@@ -23,15 +23,11 @@ This experimental notebook analyses alphas (number of divisions by two)
 of randomly generated Collatz sequences.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 import random as rnd
 from math import log2
 import matplotlib.pyplot as plt
-import pandas as pd
+import nbsetup
 from collatz import generator as gen
 from collatz import commons as com
 
@@ -46,8 +42,7 @@ START_VALUE = rnd.randint(1, MAX_VALUE)
 if START_VALUE % 2 == 0:
     START_VALUE = START_VALUE + 1
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
+nbsetup.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(

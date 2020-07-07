@@ -45,6 +45,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.tree import export_graphviz
 import pydotplus
+from notebooks import nbsetup
 from collatz import commons
 
 
@@ -71,9 +72,7 @@ ALPHA_G_PATH = DATA_PATH + "alpha_tree.png"
 ALPHA_I_PATH = DATA_PATH + "alpha_i_tree.png"
 SAVE_RESULTS = False
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 # Load data from csv
 analysis_frame = pd.read_csv(

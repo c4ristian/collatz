@@ -23,16 +23,13 @@ This notebook analyses the betas of collatz sequences and their relationship
 to other components.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 from math import log2
 from fractions import Fraction
 import random as rnd
 import matplotlib.pyplot as plt
 import pandas as pd
+import nbsetup
 from collatz import commons as com
 from collatz import generator as gen
 
@@ -48,9 +45,7 @@ if start_value % 2 == 0:
 
 # start_value = 3711
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(

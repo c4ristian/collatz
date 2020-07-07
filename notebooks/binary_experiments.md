@@ -17,21 +17,18 @@ jupyter:
 ## Collatz binary experiments
 <!-- #endregion -->
 
-```python pycharm={"name": "#%%\n", "is_executing": false}
+```python pycharm={"name": "#%%\n"}
 """
 This experimental notebook analyses randomly generated collatz sequences 
 from a binary perspective.
 """
-
-# Fix possible import problems
-import sys
-sys.path.append("..")
 
 # Imports
 import random as rnd
 from math import log2
 import matplotlib.pyplot as plt
 import pandas as pd
+import nbsetup
 from collatz import generator as gen
 from collatz import commons as com
 
@@ -46,9 +43,7 @@ START_VALUE = rnd.randint(1, MAX_VALUE)
 if START_VALUE % 2 == 0:
     START_VALUE = START_VALUE + 1
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_collatz_sequence(
@@ -80,7 +75,7 @@ if PRINT_TABLE:
 
 ```
 
-```python pycharm={"name": "#%%\n", "is_executing": false}
+```python pycharm={"name": "#%%\n"}
 plt.figure()
 plt.title("Bin length")
 plt.plot(analysis_frame["bin_len"], "-")

@@ -24,14 +24,11 @@ The script produces a random collatz sequence for a predefined factor k and
 a max amount of iterations. 
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 import random as rnd
 import matplotlib.pyplot as plt
 import pandas as pd
+import nbsetup
 from collatz import generator as gen
 from collatz import commons as com
 
@@ -45,8 +42,7 @@ ODDS_ONLY = False
 START_VALUE = rnd.randint(1, MAX_VALUE)
 # START_VALUE = 19
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
+nbsetup.set_default_pd_options()
 
 # Create a collatz sequence and analyse it
 analysis_frame = gen.generate_collatz_sequence(

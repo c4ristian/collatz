@@ -34,6 +34,8 @@ from pathlib import Path
 from math import ceil
 import matplotlib.pyplot as plt
 import pandas as pd
+import nbsetup
+
 
 # Configuration
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
@@ -41,9 +43,7 @@ CSV_PATH = DATA_PATH + "alpha_export.csv"
 OUTPUT_PATH = DATA_PATH + "alpha_min.csv"
 SAVE_RESULTS = False
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 # Load data from csv
 analysis_frame = pd.read_csv(

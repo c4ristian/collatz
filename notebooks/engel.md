@@ -23,14 +23,11 @@ This notebook analyses betas of cycles with an experimental formula, based on
 the Engel expansion.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 from math import log2
 import matplotlib.pyplot as plt
 import pandas as pd
+import nbsetup
 
 
 # Configuration
@@ -38,9 +35,7 @@ MAX_N = 10
 K_FACTOR = 3
 START_VALUE = 33
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 # Generate data
 n = pd.Series(range(1, MAX_N + 1))

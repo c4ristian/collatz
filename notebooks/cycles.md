@@ -22,16 +22,13 @@ jupyter:
 This notebook analyses hypothetical cycles in collatz sequences and their corresponding features.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 from math import log2
 from fractions import Fraction
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import nbsetup
 from collatz import commons
 
 
@@ -56,9 +53,7 @@ MAX_N = 20
 K_FACTOR = 3
 MAX_ITERATIONS = 300
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 # Generate data
 n = pd.Series(range(1, MAX_N + 1))

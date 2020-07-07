@@ -22,15 +22,12 @@ jupyter:
 This notebook analyses the binary growth of a Collatz sequence, denoted by lambda.
 """
 
-# Fix possible import problems
-import sys
-sys.path.append("..")
-
 # Imports
 from math import log2
 import random as rnd
 import matplotlib.pyplot as plt
 import pandas as pd
+import nbsetup
 from collatz import commons
 
 
@@ -45,9 +42,7 @@ START_VALUE = rnd.randint(1, MAX_VALUE)
 if START_VALUE % 2 == 0:
     START_VALUE = START_VALUE + 1
 
-pd.set_option('display.expand_frame_repr', False)
-pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
+nbsetup.set_default_pd_options()
 
 # Generate a collatz components
 analysis_frame = commons.odd_collatz_sequence_components(
