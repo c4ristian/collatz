@@ -48,7 +48,6 @@ if START_VALUE % 2 == 0:
 
 pd.set_option('display.expand_frame_repr', False)
 pd.set_option('display.max_rows', 10000)
-pd.set_option('display.expand_frame_repr', False)
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(
