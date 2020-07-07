@@ -53,6 +53,8 @@ python FILENAME.py
 ### Sync Notebooks
 ```sh
 jupytext --sync notebooks/*.md
+
+jupytext --sync notebooks/*/*.md
 ```
 
 ### Pair Notebook
