@@ -17,7 +17,7 @@ jupyter:
 ## Collatz predecessor notebook
 <!-- #endregion -->
 
-```python pycharm={"is_executing": false, "name": "#%%\n"}
+```python pycharm={"name": "#%%\n"}
 """
 This notebook analyses the predecessors of numbers in a a collatz sequences for a
 specific factor k. The predecessors are determined with the help of an iterative 
