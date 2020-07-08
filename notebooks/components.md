@@ -38,7 +38,6 @@ from collatz import commons as com
 # Configuration
 MAX_VALUE = 101
 K_FACTOR = 3
-MAX_ITERATIONS = 100
 LOG_MODE = None
 PRINT_TABLE = True
 
@@ -53,7 +52,7 @@ nbsetup.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(
-    start_value=START_VALUE, k=K_FACTOR, max_iterations=MAX_ITERATIONS)
+    start_value=START_VALUE, k=K_FACTOR)
 
 analysis_frame = analysis_frame[:-1]
 

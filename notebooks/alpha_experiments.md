@@ -34,7 +34,6 @@ from collatz import commons as com
 # Configuration
 MAX_VALUE = 101
 K_FACTOR = 3
-MAX_ITERATIONS = 100
 PRINT_TABLE = True
 
 START_VALUE = rnd.randint(1, MAX_VALUE)
@@ -46,7 +45,7 @@ nbsetup.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(
-    start_value=START_VALUE, k=K_FACTOR, max_iterations=MAX_ITERATIONS)
+    start_value=START_VALUE, k=K_FACTOR)
 
 # Drop last row
 analysis_frame = analysis_frame[:-1]

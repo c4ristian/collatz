@@ -37,7 +37,6 @@ from collatz import generator as gen
 # Configuration
 k = 3
 max_value = 101
-max_iterations = 100
 start_value = rnd.randint(1, max_value)
 
 if start_value % 2 == 0:
@@ -49,7 +48,7 @@ nbsetup.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(
-    start_value=start_value, k=k, max_iterations=max_iterations)
+    start_value=start_value, k=k)
 
 # Drop last row
 analysis_frame = analysis_frame[:-1]

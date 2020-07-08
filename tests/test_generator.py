@@ -38,6 +38,10 @@ def test_should_generate_collatz_sequence_correctly():
     assert list(result["next_collatz"]) == [3, 7, 15, 31]
     assert list(result["next_odd"]) == [3, 7, 15, 31]
 
+    # Test default value of max_iterations
+    result = generator.generate_collatz_sequence(start_value=1, k=2)
+    assert len(result) == 101
+
     # Test with k=5
     result = generator.generate_collatz_sequence(start_value=13, k=5, max_iterations=500)
     result = result[result["odd"] == 1]
@@ -102,6 +106,10 @@ def test_should_generate_odd_collatz_sequence_correctly():
     assert list(result["next_collatz"]) == [3, 7, 15, 31]
     assert list(result["next_odd"]) == [3, 7, 15, 31]
 
+    # Test default value of max_iterations
+    result = generator.generate_odd_collatz_sequence(start_value=1, k=2)
+    assert len(result) == 101
+
     # Test with k=5
     result = generator.generate_odd_collatz_sequence(start_value=13, k=5, max_iterations=500)
     assert result is not None
@@ -144,6 +152,12 @@ def test_should_generate_random_sequence_correctly():
 
     assert set(result["k_factor"]) == {2}
     assert list(result["collatz"]) == [1, 3, 7, 15]
+
+    # Test default value of max_iterations
+    result = generator.generate_random_sequence(
+        max_start_value=1, k_factors=[2])
+
+    assert len(result) == 101
 
     # Test with different k factors and different starting values
     result = generator.generate_random_sequence(

@@ -9,7 +9,7 @@ import random as rnd
 from collatz import commons as com
 
 
-def generate_collatz_sequence(start_value, k=3, max_iterations=300):
+def generate_collatz_sequence(start_value, k=3, max_iterations=100):
     """
     This method generates a collatz sequence for a specific start value,
     analyses its basic attributes and returns the result as a data frame.
@@ -17,7 +17,7 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=300):
     :param start_value: The start value as positive integer.
     :param k: The factor that is multiplied with odd numbers (default is 3)
     :param max_iterations: The maximum number of iterations performed for the
-    collatz sequence (default is 300).
+    collatz sequence (default is 100).
     :return: A pandas data frame with the results.
     """
     collatz_sequence = com.collatz_sequence(start_value, k, max_iterations)
@@ -34,7 +34,7 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=300):
     return collatz_frame
 
 
-def generate_odd_collatz_sequence(start_value, k=3, max_iterations=300):
+def generate_odd_collatz_sequence(start_value, k=3, max_iterations=100):
     """
     This method generates a collatz sequence containing only odd numbers
     for a specific start value, analyses its basic attributes
@@ -62,7 +62,7 @@ def generate_odd_collatz_sequence(start_value, k=3, max_iterations=300):
     return collatz_frame
 
 
-def generate_random_sequence(max_start_value=50000, k_factors=3, max_iterations=300):
+def generate_random_sequence(max_start_value=50000, k_factors=3, max_iterations=100):
     """
     This method randomly generates a collatz sequence, analyses its numbers and returns
     the result as a data frame.
@@ -83,7 +83,7 @@ def generate_random_sequence(max_start_value=50000, k_factors=3, max_iterations=
 
 # pylint: disable=C0103
 # A single character for n is ok
-def generate_random_sequences(n, max_start_value=50000, k_factors=3, max_iterations=300):
+def generate_random_sequences(n, max_start_value=50000, k_factors=3, max_iterations=100):
     """
     This method randomly generates n collatz sequences, analyses their numbers
     and returns the results as a data frame.
