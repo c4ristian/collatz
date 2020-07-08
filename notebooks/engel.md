@@ -27,15 +27,14 @@ the Engel expansion.
 from math import log2
 import matplotlib.pyplot as plt
 import pandas as pd
-import nbsetup
-
+import nbutils
 
 # Configuration
 MAX_N = 10
 K_FACTOR = 3
 START_VALUE = 33
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Generate data
 n = pd.Series(range(1, MAX_N + 1))

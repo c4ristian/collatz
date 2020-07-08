@@ -24,12 +24,10 @@ This notebook analyses the binary growth of a Collatz sequence, denoted by lambd
 
 # Imports
 from math import log2
-import random as rnd
 import matplotlib.pyplot as plt
 import pandas as pd
-import nbsetup
+import nbutils
 from collatz import commons
-
 
 # Configuration
 MAX_VALUE = 101
@@ -37,12 +35,8 @@ K_FACTOR = 3
 MAX_ITERATIONS = 50
 PRINT_TABLE = True
 
-START_VALUE = rnd.randint(1, MAX_VALUE)
-
-if START_VALUE % 2 == 0:
-    START_VALUE = START_VALUE + 1
-
-nbsetup.set_default_pd_options()
+START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
+nbutils.set_default_pd_options()
 
 # Generate a collatz components
 analysis_frame = commons.odd_collatz_sequence_components(

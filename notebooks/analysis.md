@@ -30,7 +30,7 @@ from math import log2
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import nbsetup
+import nbutils
 from collatz import cycles
 
 
@@ -51,7 +51,7 @@ DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
 PIC_PATH = DATA_PATH + "analysis.png"
 CSV_PATH = DATA_PATH + "analysis.csv"
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Analyse the data
 first_fraction = 1

@@ -27,15 +27,14 @@ with the help of a deterministic formula. As a result the constructed tree is pl
 # Imports
 import warnings
 from pathlib import Path
-import pandas as pd
 from matplotlib import pyplot as plt
 import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
-import nbsetup
+import nbutils
 from collatz import commons, graph
 
 # Configuration
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 warnings.filterwarnings('ignore')
 
 START_VALUE = 13

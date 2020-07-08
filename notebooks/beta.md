@@ -26,25 +26,17 @@ to other components.
 # Imports
 from math import log2
 from fractions import Fraction
-import random as rnd
 import matplotlib.pyplot as plt
-import pandas as pd
-import nbsetup
+import nbutils
 from collatz import commons as com
 from collatz import generator as gen
-
 
 # Configuration
 k = 3
 max_value = 101
-start_value = rnd.randint(1, max_value)
 
-if start_value % 2 == 0:
-    start_value = start_value + 1
-
-# start_value = 3711
-
-nbsetup.set_default_pd_options()
+start_value = nbutils.rnd_int(max_value, odds_only=True)
+nbutils.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(

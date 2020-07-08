@@ -34,8 +34,7 @@ from pathlib import Path
 from math import ceil
 import matplotlib.pyplot as plt
 import pandas as pd
-import nbsetup
-
+import nbutils
 
 # Configuration
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
@@ -43,7 +42,7 @@ CSV_PATH = DATA_PATH + "alpha_export.csv"
 OUTPUT_PATH = DATA_PATH + "alpha_min.csv"
 SAVE_RESULTS = False
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Load data from csv
 analysis_frame = pd.read_csv(

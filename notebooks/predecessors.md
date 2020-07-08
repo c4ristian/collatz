@@ -25,30 +25,25 @@ process. As a result the predecessors are printed.
 """
 
 # Imports
-import random as rnd
-import nbsetup
+import nbutils
 from collatz import commons, graph
-
 
 # Configure the analyser
 K_FACTOR = 3
 POWER_RANGE = range(1, 51)
+START_VALUE = 1
 
-nbsetup.set_default_pd_options()
-
-start_value = rnd.randint(1, 1000)
-start_value = start_value if start_value % 2 == 1 else start_value + 1
-start_value = 1
+nbutils.set_default_pd_options()
 
 # Get the predecessors of the starting value and analyse them
-predecessors, alphas = graph.get_odd_predecessors(start_value, K_FACTOR, POWER_RANGE)
+predecessors, alphas = graph.get_odd_predecessors(START_VALUE, K_FACTOR, POWER_RANGE)
 analysis_frame = commons.analyse_collatz_basic_attributes(predecessors)
 
 analysis_frame["mod_k"] = analysis_frame["collatz"] % K_FACTOR
 analysis_frame["alpha_i"] = alphas
 
 # Print results
-start_mod = start_value % K_FACTOR
-print("Start Value:", start_value, " K:", K_FACTOR, " mod:", start_mod,"\n")
+start_mod = START_VALUE % K_FACTOR
+print("Start Value:", START_VALUE, " K:", K_FACTOR, " mod:", start_mod,"\n")
 print(analysis_frame[["collatz", "alpha_i", "mod_k"]])
 ```

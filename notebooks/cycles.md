@@ -28,7 +28,7 @@ from fractions import Fraction
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import nbsetup
+import nbutils
 from collatz import commons
 
 
@@ -53,7 +53,7 @@ MAX_N = 20
 K_FACTOR = 3
 MAX_ITERATIONS = 300
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Generate data
 n = pd.Series(range(1, MAX_N + 1))

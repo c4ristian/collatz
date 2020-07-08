@@ -29,7 +29,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import networkx as nx
-import nbsetup
+import nbutils
 from collatz import commons
 
 
@@ -56,7 +56,7 @@ EXPORT_PIC_PATH = DATA_PATH + "binary_graph.png"
 EXPORT_CSV_PATH = DATA_PATH + "binary_graph.csv"
 SHOW_LABELS = True
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Load data from csv
 analysis_frame = pd.read_csv(

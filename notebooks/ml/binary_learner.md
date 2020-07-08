@@ -45,7 +45,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.tree import export_graphviz
 import pydotplus
-from notebooks import nbsetup
+from notebooks import nbutils
 from collatz import commons
 
 
@@ -72,7 +72,7 @@ ALPHA_G_PATH = DATA_PATH + "alpha_tree.png"
 ALPHA_I_PATH = DATA_PATH + "alpha_i_tree.png"
 SAVE_RESULTS = False
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Load data from csv
 analysis_frame = pd.read_csv(

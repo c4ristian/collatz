@@ -40,14 +40,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn import linear_model, tree
 from sklearn.model_selection import train_test_split
-from notebooks import nbsetup
+from notebooks import nbutils
 
 
 # Configuration
 DATA_PATH = Path.cwd().parent.parent.as_posix() + "/data/"
 CSV_PATH = DATA_PATH + "basic_export.csv"
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Load data from csv
 K_FACTOR = 3

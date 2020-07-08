@@ -24,11 +24,10 @@ from a binary perspective.
 """
 
 # Imports
-import random as rnd
 from math import log2
 import matplotlib.pyplot as plt
 import pandas as pd
-import nbsetup
+import nbutils
 from collatz import generator as gen
 from collatz import commons as com
 
@@ -38,12 +37,8 @@ K_FACTOR = 3
 MAX_ITERATIONS = 600
 PRINT_TABLE = True
 
-START_VALUE = rnd.randint(1, MAX_VALUE)
-
-if START_VALUE % 2 == 0:
-    START_VALUE = START_VALUE + 1
-
-nbsetup.set_default_pd_options()
+START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
+nbutils.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_collatz_sequence(

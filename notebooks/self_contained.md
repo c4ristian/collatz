@@ -28,9 +28,8 @@ a multiple of the odd number. The odd number 31 e.g. results for k= 3 in the eve
 # Imports
 from math import log2
 from matplotlib import pyplot as plt
-import random as rnd
 import pandas as pd
-import nbsetup
+import nbutils
 from collatz import generator as gen
 from collatz import commons as com
 
@@ -41,14 +40,9 @@ MAX_ITERATIONS = 300
 ODDS_ONLY = True
 PRINT_TABLE = True
 
-START_VALUE = rnd.randint(1, MAX_VALUE)
+START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
 
-if START_VALUE % 2 == 0:
-    START_VALUE = START_VALUE + 1
-
-# START_VALUE = 31
-
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 
 # Generate Collatz sequence

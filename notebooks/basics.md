@@ -25,13 +25,10 @@ a max amount of iterations.
 """
 
 # Imports
-import random as rnd
 import matplotlib.pyplot as plt
-import pandas as pd
-import nbsetup
+import nbutils
 from collatz import generator as gen
 from collatz import commons as com
-
 
 # Configuration
 MAX_VALUE = 101
@@ -39,10 +36,10 @@ K_FACTOR = 3
 MAX_ITERATIONS = 300
 ODDS_ONLY = False
 
-START_VALUE = rnd.randint(1, MAX_VALUE)
+START_VALUE = nbutils.rnd_int(MAX_VALUE)
 # START_VALUE = 19
 
-nbsetup.set_default_pd_options()
+nbutils.set_default_pd_options()
 
 # Create a collatz sequence and analyse it
 analysis_frame = gen.generate_collatz_sequence(
