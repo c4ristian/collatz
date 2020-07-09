@@ -1,5 +1,5 @@
 """
-This program exports basic data on collatz sequences into a csv file.
+This program exports basic data on Collatz sequences into a csv file.
 Both even and odd Collatz numbers are included. The sample is used
 for the training of machine learning models.
 """
