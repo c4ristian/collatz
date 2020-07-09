@@ -33,7 +33,7 @@ from collatz import commons
 
 
 # Helper functions
-def _calculate_max_beta(k:int, max_iterations:int):
+def _calculate_max_beta(k: int, max_iterations: int):
     """
     This function calculates the (hypothetical) maximum beta of a Collatz
     sequence for a specific k factor.
@@ -80,7 +80,7 @@ print_frame = analysis_frame[[
 ]]
 
 print_frame.columns = [
-    "n","a_cycle", "b_cycle", "b_max",
+    "n", "a_cycle", "b_cycle", "b_max",
     "b_possible", "b_frac"
 ]
 
@@ -93,7 +93,7 @@ print(print_frame.to_string(index=False), "\n")
 
 ```python pycharm={"name": "#%%\n"}
 # Plot results
-beta_colors = np.where(analysis_frame["beta_possible"] == True, 'b', 'r')
+beta_colors = np.where(analysis_frame["beta_possible"], 'b', 'r')
 
 plt.figure()
 plt.title("Beta cycle")

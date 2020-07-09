@@ -50,7 +50,7 @@ CSV_PATH = DATA_PATH + "graph.csv"
 
 # Create collatz graph
 graph_frame = graph.create_collatz_graph(
-    START_VALUE, k=K_FACTOR, predecessor_count=PREDECESSOR_COUNT, 
+    START_VALUE, k=K_FACTOR, predecessor_count=PREDECESSOR_COUNT,
     iteration_count=ITERATION_COUNT)
 
 graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
@@ -64,7 +64,7 @@ print(graph_frame.to_string(index=False))
 
 ```python pycharm={"name": "#%%\n"}
 # Create graph
-plt.figure(figsize=(20,10))
+plt.figure(figsize=(20, 10))
 plt.title("k=" + str(K_FACTOR))
 
 network = nx.convert_matrix.from_pandas_edgelist(

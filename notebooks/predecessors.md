@@ -43,7 +43,7 @@ analysis_frame["mod_k"] = analysis_frame["collatz"] % K_FACTOR
 analysis_frame["alpha_i"] = alphas
 
 # Print results
-start_mod = START_VALUE % K_FACTOR
-print("Start Value:", START_VALUE, " K:", K_FACTOR, " mod:", start_mod,"\n")
+START_MOD = START_VALUE % K_FACTOR
+print("Start Value:", START_VALUE, " K:", K_FACTOR, " mod:", START_MOD, "\n")
 print(analysis_frame[["collatz", "alpha_i", "mod_k"]])
 ```

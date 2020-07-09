@@ -21,7 +21,7 @@ jupyter:
 """
 This notebook analyses Collatz sequences that lead to self contained numbers. Self contained
 means in this context that an odd Collatz number leads to an even Collatz number that is
-a multiple of the odd number. The odd number 31 e.g. results for k= 3 in the even number 
+a multiple of the odd number. The odd number 31 e.g. results for k= 3 in the even number
 310 which equals 10 * 31.
 """
 
@@ -76,30 +76,29 @@ analysis_frame["n"] = analysis_frame.index + 1
 
 analysis_frame["multiple"] = analysis_frame["next_odd"] / analysis_frame["v_1"]
 analysis_frame["self_contained"] = (analysis_frame["multiple"] % 1 == 0) &  \
-                                   (analysis_frame["multiple"] > 1) 
+                                   (analysis_frame["multiple"] > 1)
 
 # Print results
 is_self_contained = analysis_frame["self_contained"].sum() >= 1
 is_sigma_natural = (analysis_frame["sigma_natural"]).sum() >= 1
 
 print_frame = analysis_frame[[
-    "n", "v_1", "collatz", "next_odd", "multiple",  
-    "self_contained", "beta_i", "beta", 
+    "n", "v_1", "collatz", "next_odd", "multiple",
+    "self_contained", "beta_i", "beta",
     "alpha", "sigma", "sigma_natural"]]
 
 print_frame.columns = [
-    "n","v_1", "v_i", "v_i+", "m", "sc", "b_i", "b", 
+    "n", "v_1", "v_i", "v_i+", "m", "sc", "b_i", "b",
     "a", "s", "s_natural"]
 
-print("Start value:", START_VALUE, 
-      " K:", K_FACTOR, 
+print("Start value:", START_VALUE,
+      " K:", K_FACTOR,
       " Self contained:", is_self_contained,
       " Sigma natural:", is_sigma_natural,
       "\n")
 
 if PRINT_TABLE:
     print(print_frame.to_string(index=False), "\n")
-    
 ```
 
 ```python pycharm={"name": "#%%\n"}

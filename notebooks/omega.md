@@ -19,7 +19,7 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This experimental notebook analyses omegas of randomly generated Collatz sequences. Omega is 
+This experimental notebook analyses omegas of randomly generated Collatz sequences. Omega is
 defined as the difference between the binary growth (lambda) and the divisions by two (alpha)
 of a sequence.
 """
@@ -84,7 +84,6 @@ analysis_frame["omega_i_positive"] = np.where(analysis_frame["omega_i"] > 0, 1, 
 analysis_frame["omega_i_max"] = analysis_frame["lambda_i_max"] - 1
 analysis_frame["omega_max"] = analysis_frame["lambda_max"] - analysis_frame["n"]
 
-analysis_frame["v_i_log2"].astype('int64') + 1
 max_bin_len = int(analysis_frame["bin_len"].max())
 analysis_frame["bin_str"] = analysis_frame["collatz"].apply(com.to_binary).str.zfill(max_bin_len)
 
@@ -113,8 +112,8 @@ print_frame.columns = [
     "o_max", "bin_str", "b3", "b2", "b32"
 ]
 
-print("Start value:", START_VALUE, 
-      " K:", K_FACTOR, 
+print("Start value:", START_VALUE,
+      " K:", K_FACTOR,
       " Omega max valid:", o_max_valid,
       " o_i:", o_i_mean,
       " l_i:", l_i_mean,

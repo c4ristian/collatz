@@ -64,13 +64,13 @@ analysis_frame["beta_engel"] = \
 
 # Print results
 print_frame = analysis_frame[[
-    "n", "k","v_1",
+    "n", "k", "v_1",
     "alpha", "alpha_max", "alpha_1",
     "beta_cycle", "beta_engel"
 ]]
 
 print_frame.columns = [
-    "n", "k","v_1",
+    "n", "k", "v_1",
     "a", "a_max", "a_1",
     "b_cycle", "b_engel"
 ]

@@ -19,9 +19,9 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses core components of collatz 
-sequences and their relationship: 
-a.) k**i 
+This notebook analyses core components of collatz
+sequences and their relationship:
+a.) k**i
 b.) beta_i = 1 + 1/(k*xi)
 c.) alpha_i
 
@@ -53,7 +53,7 @@ analysis_frame = analysis_frame[:-1]
 analysis_frame["v_1"] = START_VALUE
 analysis_frame["n"] = analysis_frame.index + 1
 analysis_frame["kn_log"] = log2(K_FACTOR) * analysis_frame["n"]
-analysis_frame["beta_i"] = 1 + 1 / (K_FACTOR * analysis_frame["collatz"]) 
+analysis_frame["beta_i"] = 1 + 1 / (K_FACTOR * analysis_frame["collatz"])
 analysis_frame["beta"] = analysis_frame["beta_i"].cumprod()
 
 analysis_frame["alpha_i"] = analysis_frame["next_collatz"].apply(com.trailing_zeros)
@@ -81,10 +81,10 @@ if LOG_MODE:
     analysis_frame["v_1"] = analysis_frame["v_1"].apply(LOG_MODE)
     analysis_frame["collatz"] = analysis_frame["collatz"].apply(LOG_MODE)
     analysis_frame["next_odd"] = analysis_frame["next_odd"].apply(LOG_MODE)
-    analysis_frame["beta_i"]= analysis_frame["beta_i"].apply(LOG_MODE)
-    analysis_frame["beta"]= analysis_frame["beta"].apply(LOG_MODE)
-    analysis_frame["beta"]= analysis_frame["gamma_i"].apply(LOG_MODE)
-    analysis_frame["beta"]= analysis_frame["gamma"].apply(LOG_MODE)
+    analysis_frame["beta_i"] = analysis_frame["beta_i"].apply(LOG_MODE)
+    analysis_frame["beta"] = analysis_frame["beta"].apply(LOG_MODE)
+    analysis_frame["gamma_i"] = analysis_frame["gamma_i"].apply(LOG_MODE)
+    analysis_frame["gamma"] = analysis_frame["gamma"].apply(LOG_MODE)
 else:
     analysis_frame["beta_hyp"] = 2**analysis_frame["beta_hyp"]
 
@@ -100,20 +100,19 @@ beta_max = analysis_frame["beta"].max()
 # Print results
 print_frame = analysis_frame[[
     "n", "v_1", "collatz", "next_odd",
-    "alpha_i", "alpha", "alpha_cycle", "alpha_max", 
+    "alpha_i", "alpha", "alpha_cycle", "alpha_max",
     "beta_i", "beta", "gamma_i", "gamma"]]
 
 print_frame.columns = [
-    "n","v_1", "v_i", "v_i+",
-    "a_i", "a", "a_cycle", "a_max", 
+    "n", "v_1", "v_i", "v_i+",
+    "a_i", "a", "a_cycle", "a_max",
     "b_i", "b", "g_i", "g"]
 
-print("Start value:", START_VALUE, 
-      " K:", K_FACTOR, 
+print("Start value:", START_VALUE,
+      " K:", K_FACTOR,
       " Beta max: ", round(beta_max, 4), " ",
-       " Alphas valid:", alpha_max_valid, "\n")
+      " Alphas valid:", alpha_max_valid, "\n")
 
 if PRINT_TABLE:
     print(print_frame.to_string(index=False), "\n")
-
 ```

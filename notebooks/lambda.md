@@ -84,14 +84,14 @@ print_frame = analysis_frame[[
 ]]
 
 print_frame.columns = [
-    "n","var", "dec", "next", 
+    "n", "var", "dec", "next",
     "log2", "k**n_log2", "b_str", "b_len",
     "l_i", "l", "l_max",
     "a", "a_max"
 ]
 
-print("Start value:", START_VALUE, 
-      " K:", K_FACTOR, 
+print("Start value:", START_VALUE,
+      " K:", K_FACTOR,
       " Lambda max valid:", l_max_valid,
       "\n")
 
