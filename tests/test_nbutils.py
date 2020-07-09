@@ -1,5 +1,5 @@
 """
-This module contains test cases for the module collatz.commons.
+This module contains test cases for the module notebooks.nbutils.
 """
 
 # Imports
