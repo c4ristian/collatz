@@ -21,7 +21,7 @@ jupyter:
 """
 This experimental notebook analyses omegas of randomly generated Collatz sequences. Omega is 
 defined as the difference between the binary growth (lambda) and the divisions by two (alpha)
-in a sequence.
+of a sequence.
 """
 
 # Imports

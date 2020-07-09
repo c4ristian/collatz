@@ -19,8 +19,8 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses collatz sequences that lead to self contained numbers. Self contained
-means in this context that an odd collatz number leads to an even collatz number that is 
+This notebook analyses Collatz sequences that lead to self contained numbers. Self contained
+means in this context that an odd Collatz number leads to an even Collatz number that is
 a multiple of the odd number. The odd number 31 e.g. results for k= 3 in the even number 
 310 which equals 10 * 31.
 """

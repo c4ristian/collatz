@@ -19,8 +19,8 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses the predecessors of numbers in a a collatz sequences for a
-specific factor k. The predecessors are determined with the help of an iterative 
+This notebook analyses the predecessors of numbers in a a Collatz sequence for a
+specific k-factor. The predecessors are determined with the help of an iterative
 process. As a result the predecessors are printed.
 """
 

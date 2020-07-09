@@ -19,9 +19,9 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses collatz sequences from a graph theoretical perspective. The script
-starts with a specific number and calculates it's predecessors in a collatz sequence 
-with the help of a deterministic formula. As a result the constructed tree is plotted. 
+This notebook analyses Collatz sequences from a graph-theoretic perspective. The script
+starts with a specific number and calculates its predecessors in a Collatz sequence
+using a deterministic algorithm. As a result the constructed tree is plotted.
 """
 
 # Imports
@@ -81,6 +81,6 @@ if EXPORT_DATA:
     print("Graph saved:" + PIC_PATH)
 
 
-# Show graph
+# Plot graph
 plt.show()
 ```

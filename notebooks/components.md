@@ -25,7 +25,7 @@ a.) k**i
 b.) beta_i = 1 + 1/(k*xi)
 c.) alpha_i
 
-The alphas of the sequence are compared with a predicted alphas values.
+The alphas of the sequence are compared with predicted values.
 """
 
 # Imports

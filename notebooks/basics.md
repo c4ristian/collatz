@@ -19,8 +19,8 @@ jupyter:
 
 ```python
 """
-This notebook analyses basic attributes of collatz sequences and visualises them. 
-The script produces a random collatz sequence for a predefined factor k and 
+This notebook analyses basic attributes of Collatz sequences and visualises them.
+The script produces a random collatz sequence for a predefined k-factor and
 a max amount of iterations. 
 """
 
@@ -37,8 +37,6 @@ MAX_ITERATIONS = 300
 ODDS_ONLY = False
 
 START_VALUE = nbutils.rnd_int(MAX_VALUE)
-# START_VALUE = 19
-
 nbutils.set_default_pd_options()
 
 # Create a collatz sequence and analyse it

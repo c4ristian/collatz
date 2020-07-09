@@ -19,7 +19,7 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses hypothetical cycles in collatz sequences and their corresponding features.
+This notebook analyses hypothetical cycles in Collatz sequences and related features.
 """
 
 # Imports
