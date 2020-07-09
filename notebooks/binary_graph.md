@@ -42,7 +42,7 @@ def _to_binary(int_value):
     over it is converted to an int.
     :return: The binary representation as string.
     """
-    if type(int_value) == str:
+    if isinstance(int_value, str):
         int_value = int(int_value)
     return commons.to_binary(int_value)
 
@@ -74,7 +74,6 @@ print("Collatz sequences loaded from file:", sequence_count, "\n")
 print("Count of Collatz values:", len(analysis_frame), "\n")
 
 # Derive additional features
-analysis_frame["v_i_log2"].astype('int64') + 1
 
 # Binary
 max_bin_len = int(analysis_frame["bin_len"].max())
@@ -90,7 +89,8 @@ analysis_frame["b432"] = analysis_frame["b4"].astype('str') + analysis_frame["b3
 ```python pycharm={"name": "#%%\n"}
 analysis_frame["predecessor"] = analysis_frame["b32"]
 analysis_frame["successor"] = analysis_frame["predecessor"]
-analysis_frame.loc[analysis_frame["terminal"] == True, ["predecessor"]] = "x"
+# If terminal is true, set predecessor = x
+analysis_frame.loc[analysis_frame["terminal"], ["predecessor"]] = "x"
 
 predecessor = analysis_frame["predecessor"][:-1]
 successor = analysis_frame["successor"][1:]
@@ -124,7 +124,7 @@ print(graph_frame.groupby(["predecessor"])[["lambda_i", "alpha_i", "omega_i"]].m
 
 ```python pycharm={"name": "#%%\n"}
 # Plot Graph
-plt.figure(figsize=(20,10))
+plt.figure(figsize=(20, 10))
 plt.title("k=" + str(K_FACTOR))
 
 network = nx.convert_matrix.from_pandas_edgelist(
@@ -132,7 +132,7 @@ network = nx.convert_matrix.from_pandas_edgelist(
     create_using=nx.DiGraph(), edge_attr=True)
 
 edges = network.edges()
-widths = [network[u][v]['weight'] for u,v in edges]
+widths = [network[u][v]['weight'] for u, v in edges]
 
 pos = nx.circular_layout(network)
 nx.draw(network, pos, node_size=1000, with_labels=SHOW_LABELS,

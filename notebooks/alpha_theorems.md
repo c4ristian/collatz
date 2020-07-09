@@ -76,7 +76,7 @@ bins = ceil(a_i_max - a_i_min)
 
 plt.figure()
 plt.title("Distribution of a_i")
-plt.hist(analysis_frame["a_i"], bins = bins)
+plt.hist(analysis_frame["a_i"], bins=bins)
 plt.show()
 ```
 
@@ -98,7 +98,7 @@ bins = ceil(a_max - a_min)
 
 plt.figure()
 plt.title("Distribution of a")
-plt.hist(analysis_frame["a"], bins = bins)
+plt.hist(analysis_frame["a"], bins=bins)
 plt.show()
 
 minimum_frame = analysis_frame.groupby(["k", "n"])["a"].min().reset_index()
@@ -106,15 +106,15 @@ minimum_frame = analysis_frame.groupby(["k", "n"])["a"].min().reset_index()
 plt.figure()
 plt.title("a min")
 plt.plot(
-    minimum_frame[minimum_frame["k"] == 1]["a"], 
+    minimum_frame[minimum_frame["k"] == 1]["a"],
     minimum_frame[minimum_frame["k"] == 1]["n"], label="k=1")
 
 plt.plot(
-    minimum_frame[minimum_frame["k"] == 3]["a"], 
+    minimum_frame[minimum_frame["k"] == 3]["a"],
     minimum_frame[minimum_frame["k"] == 3]["n"], label="k=3")
 
 plt.plot(
-    minimum_frame[minimum_frame["k"] == 5]["a"], 
+    minimum_frame[minimum_frame["k"] == 5]["a"],
     minimum_frame[minimum_frame["k"] == 5]["n"], label="k=5")
 
 plt.legend()

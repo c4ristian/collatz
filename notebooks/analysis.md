@@ -43,8 +43,8 @@ def _predict_cycle_alpha(k_factor, cycle_lengths):
 
 
 # Configuration
-k = 3
-max_value = 15
+K_FACTOR = 3
+MAX_VALUE = 15
 
 EXPORT_DATA = True
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
@@ -54,25 +54,28 @@ CSV_PATH = DATA_PATH + "analysis.csv"
 nbutils.set_default_pd_options()
 
 # Analyse the data
-first_fraction = 1
-fractions = np.array(range(first_fraction, first_fraction + 2 * max_value, 2))
-fractions = k + 1/fractions
+FIRST_FRACTION = 1
+fractions = np.array(range(FIRST_FRACTION, FIRST_FRACTION + 2 * MAX_VALUE, 2))
+fractions = K_FACTOR + 1/fractions
 
-analysis_frame = pd.DataFrame({"n": range(1, max_value+1)})
-analysis_frame['alpha_cycle'] = _predict_cycle_alpha(k, analysis_frame['n'])
+analysis_frame = pd.DataFrame({"n": range(1, MAX_VALUE+1)})
+analysis_frame['alpha_cycle'] = _predict_cycle_alpha(K_FACTOR, analysis_frame['n'])
 analysis_frame['2_alpha_cycle'] = 2 ** analysis_frame['alpha_cycle']
 
-analysis_frame['cycle_min'] = k ** analysis_frame['n']
+analysis_frame['cycle_min'] = K_FACTOR ** analysis_frame['n']
 analysis_frame['cycle_min_log2'] = analysis_frame['cycle_min'].apply(log2)
 
 analysis_frame['cycle_max'] = fractions.cumprod()
 analysis_frame['cycle_max_log2'] = analysis_frame['cycle_max'].apply(log2)
 
-analysis_frame['cycle_possible'] = analysis_frame['alpha_cycle'] >= analysis_frame['cycle_min_log2']
-analysis_frame['cycle_possible'] &= analysis_frame['alpha_cycle'] <= analysis_frame['cycle_max_log2']
+analysis_frame['cycle_possible'] = \
+    analysis_frame['alpha_cycle'] >= analysis_frame['cycle_min_log2']
+
+analysis_frame['cycle_possible'] &= \
+    analysis_frame['alpha_cycle'] <= analysis_frame['cycle_max_log2']
 
 # Print results
-print("K:", k, "\n")
+print("K:", K_FACTOR, "\n")
 
 print_frame = analysis_frame[[
     'n', 'alpha_cycle', 'cycle_min_log2', "cycle_max_log2", "cycle_possible"]]
@@ -85,7 +88,7 @@ print(print_frame.to_string(index=False))
 
 # Predicted alpha vs cycle min and max
 plt.figure()
-plt.title("Alpha cycle " + "k=" + str(k))
+plt.title("Alpha cycle " + "k=" + str(K_FACTOR))
 plt.plot(analysis_frame["alpha_cycle"], label='alpha cycle')
 plt.plot(analysis_frame["cycle_min_log2"], label="cycle min (log2)")
 plt.plot(analysis_frame["cycle_max_log2"], label="cycle max (log2)")

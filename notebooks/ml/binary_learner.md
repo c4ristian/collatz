@@ -58,7 +58,7 @@ def _to_binary(int_value):
     over it is converted to an int.
     :return: The binary representation as string.
     """
-    if type(int_value) == str:
+    if isinstance(int_value, str):
         int_value = int(int_value)
     return commons.to_binary(int_value)
 

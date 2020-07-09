@@ -19,7 +19,7 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This experimental notebook analyses alphas (number of divisions by two) 
+This notebook analyses alphas (number of divisions by two)
 of randomly generated Collatz sequences.
 """
 
@@ -79,13 +79,13 @@ print_frame = analysis_frame[[
     "alpha_max", "bin_str"]]
 
 print_frame.columns = [
-    "n","v_1", "v_i", "v_i+",
+    "n", "v_1", "v_i", "v_i+",
     "a_i", "a_i_max", "a", "a_cycle", "a_max",
     "bin_str"]
 
 print_frame = print_frame.reset_index(drop=True)
 
-print("Start value:", START_VALUE, 
+print("Start value:", START_VALUE,
       " K:", K_FACTOR,
       " Alphas valid:", alpha_max_valid, "\n")
 
@@ -117,5 +117,4 @@ plt.figure()
 plt.title("Alpha cycle")
 plt.plot(print_frame["a_cycle"], "o-")
 plt.show()
-
 ```

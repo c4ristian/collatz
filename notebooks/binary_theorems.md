@@ -16,7 +16,7 @@ jupyter:
 <!-- #region pycharm={"name": "#%% md\n"} -->
 # Collatz binary theorems
 
-This notebook validates several theorems on the binary representation of Collatz numbers.
+This notebook validates several theorems on the binary representation of Collatz numbers
 <!-- #endregion -->
 
 ## Meta data
@@ -75,7 +75,7 @@ bins = ceil(l_i_max - l_i_min)
 
 plt.figure()
 plt.title("Distribution of l_i")
-plt.hist(analysis_frame["l_i"], bins = bins)
+plt.hist(analysis_frame["l_i"], bins=bins)
 plt.show()
 ```
 
@@ -104,7 +104,7 @@ bins = ceil(l_max - l_min)
 
 plt.figure()
 plt.title("Distribution of lambda")
-plt.hist(analysis_frame["l"], bins = bins)
+plt.hist(analysis_frame["l"], bins=bins)
 plt.show()
 ```
 
@@ -125,7 +125,7 @@ bins = ceil(o_i_max - o_i_min)
 
 plt.figure()
 plt.title("Distribution of o_i")
-plt.hist(analysis_frame["o_i"], bins = bins)
+plt.hist(analysis_frame["o_i"], bins=bins)
 plt.show()
 ```
 
@@ -146,6 +146,6 @@ bins = ceil(o_max - o_min)
 
 plt.figure()
 plt.title("Distribution of omega")
-plt.hist(analysis_frame["o"], bins = bins)
+plt.hist(analysis_frame["o"], bins=bins)
 plt.show()
 ```

@@ -19,7 +19,7 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This experimental notebook analyses randomly generated collatz sequences 
+This experimental notebook analyses randomly generated collatz sequences
 from a binary perspective.
 """
 
@@ -61,8 +61,8 @@ print_frame = analysis_frame[[
 print_frame.columns = [
     "v_1", "x_i", "odd", "bin_len", "bin_str", "log2_xi", "bin_diff"]
 
-print("Start value:", START_VALUE, 
-      " K:", K_FACTOR, 
+print("Start value:", START_VALUE,
+      " K:", K_FACTOR,
       "\n")
 
 if PRINT_TABLE:

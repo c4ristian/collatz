@@ -32,15 +32,15 @@ from collatz import commons as com
 from collatz import generator as gen
 
 # Configuration
-k = 3
-max_value = 101
+K_FACTOR = 3
+MAX_VALUE = 101
 
-start_value = nbutils.rnd_int(max_value, odds_only=True)
+start_value = nbutils.rnd_int(MAX_VALUE, odds_only=True)
 nbutils.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(
-    start_value=start_value, k=k)
+    start_value=start_value, k=K_FACTOR)
 
 # Drop last row
 analysis_frame = analysis_frame[:-1]
@@ -53,19 +53,19 @@ analysis_frame.insert(1, "v_1", [start_value] * len(analysis_frame))
 analysis_frame["alpha_i"] = analysis_frame["next_collatz"].apply(com.trailing_zeros)
 analysis_frame["alpha_i"] = analysis_frame["alpha_i"].astype("int64")
 analysis_frame["alpha"] = analysis_frame["alpha_i"].cumsum()
-analysis_frame["alpha_max"] = analysis_frame["n"] * log2(k) + log2(start_value)
+analysis_frame["alpha_max"] = analysis_frame["n"] * log2(K_FACTOR) + log2(start_value)
 analysis_frame["alpha_max"] = analysis_frame["alpha_max"].astype('int64') + 1
-analysis_frame["alpha_cycle"] = (analysis_frame["n"] * log2(k)).astype('int64') + 1
+analysis_frame["alpha_cycle"] = (analysis_frame["n"] * log2(K_FACTOR)).astype('int64') + 1
 
 # Calculate beta
-analysis_frame["beta_i"] = 1 + 1/(k*analysis_frame["collatz"])
+analysis_frame["beta_i"] = 1 + 1/(K_FACTOR * analysis_frame["collatz"])
 analysis_frame["beta"] = analysis_frame["beta_i"].cumprod()
 analysis_frame["beta_log"] = analysis_frame["beta"].apply(log2)
 analysis_frame["beta_log_max"] = analysis_frame["alpha_max"] - \
-                             analysis_frame["n"] * log2(k) - log2(start_value)
+                             analysis_frame["n"] * log2(K_FACTOR) - log2(start_value)
 
-analysis_frame["beta_log_cycle"] = (analysis_frame["n"] * log2(k)).astype('int64') + 1 - \
-                                   analysis_frame["n"] * log2(k)
+analysis_frame["beta_log_cycle"] = (analysis_frame["n"] * log2(K_FACTOR)).astype('int64') + 1 - \
+                                   analysis_frame["n"] * log2(K_FACTOR)
 
 analysis_frame["beta_max"] = 2**analysis_frame["beta_log_max"]
 analysis_frame["beta_cycle"] = 2**analysis_frame["beta_log_cycle"]
@@ -83,22 +83,20 @@ analysis_frame["bin_str"] = analysis_frame["collatz"].apply(com.to_binary)
 
 # Print results
 print_frame = analysis_frame[[
-    "n", "collatz","next_odd",
+    "n", "collatz", "next_odd",
     "beta", "beta_cycle", "beta_max",
     "alpha", "alpha_cycle", "alpha_max",
-    "bin_str"
-]]
+    "bin_str"]]
 
-print_frame.columns = ["n","v_i", "v_i+",
+print_frame.columns = ["n", "v_i", "v_i+",
                        "b", "b_cycle", "b_max",
                        "a", "a_cycle", "a_max",
-                       "bin_str"
-]
+                       "bin_str"]
 
 final_beta = analysis_frame["beta"][len(analysis_frame)-1]
 
-print("Start value:", start_value, " K:", k, 
-      " Final beta:", final_beta, 
+print("Start value:", start_value, " K:", K_FACTOR,
+      " Final beta:", final_beta,
       "\n")
 
 print(print_frame.to_string(index=False), "\n")
@@ -118,5 +116,4 @@ plt.plot(analysis_frame["beta_log_cycle"], "-o", label="log beta cycle")
 plt.plot(analysis_frame["beta_log"], "-o", label='log beta')
 plt.legend()
 plt.show()
-
 ```

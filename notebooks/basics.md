@@ -21,7 +21,7 @@ jupyter:
 """
 This notebook analyses basic attributes of Collatz sequences and visualises them.
 The script produces a random collatz sequence for a predefined k-factor and
-a max amount of iterations. 
+a max amount of iterations.
 """
 
 # Imports
@@ -49,8 +49,8 @@ analysis_frame["n_log2_fraction"] = next_frame["log2_fraction"]
 analysis_frame["fraction_diff"] = \
     analysis_frame["log2_fraction"] - analysis_frame["n_log2_fraction"]
 
-analysis_frame["mod_k"] = analysis_frame["collatz"] % K_FACTOR 
-analysis_frame["mod_4"] = analysis_frame["collatz"] % 4 
+analysis_frame["mod_k"] = analysis_frame["collatz"] % K_FACTOR
+analysis_frame["mod_4"] = analysis_frame["collatz"] % 4
 
 analysis_frame["bin_str"] = analysis_frame["collatz"].apply(com.to_binary)
 analysis_frame["bin_len"] = analysis_frame["log2"].astype('int64') + 1
@@ -63,7 +63,7 @@ if ODDS_ONLY:
 
 # Print data
 print("Start value:", start_value, " K:", K_FACTOR, "\n")
-print(analysis_frame[["collatz", "log2", "log2_fraction", 
+print(analysis_frame[["collatz", "log2", "log2_fraction",
                       "n_log2_fraction", "bin_str", "mod_4"]])
 ```
 
@@ -104,5 +104,4 @@ plt.figure()
 plt.title("Log2 _fraction vs next log2 _fraction")
 plt.plot(analysis_frame["log2_fraction"], analysis_frame["n_log2_fraction"], "o-")
 plt.show()
-
 ```
