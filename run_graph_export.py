@@ -1,5 +1,5 @@
 """
-This program creates an inverse collatz graph, consisting of odd numbers and exports
+This program creates an inverse Collatz graph, consisting of odd numbers and exports
 the results to csv.
 """
 
@@ -15,7 +15,7 @@ PREDECESSOR_COUNT = 5
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
 # Create graph
-logging.info("Creating collatz inverse graph...")
+logging.info("Creating Collatz inverse graph...")
 
 RESULT_FRAME = graph.create_collatz_graph(
     1, k=K_FACTOR, predecessor_count=PREDECESSOR_COUNT, iteration_count=ITERATIONS)
