@@ -36,6 +36,6 @@ def rnd_int(max_value: int, odds_only=False):
         random_int = random_int + 1
 
         if random_int > max_value:
-            random_int = max_value
+            random_int = random_int - 2
 
     return random_int
