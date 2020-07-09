@@ -32,6 +32,7 @@ run_alpha_export.py.
 
 # Imports
 # Fix possible import problems
+# pylint: disable=C0413
 import sys
 sys.path.append("../..")
 
@@ -105,9 +106,11 @@ analysis_frame["bin_str"] = analysis_frame["v_i"].apply(_to_binary).str.zfill(ma
 bin_features = []
 
 for i in range(0, max_bin_len):
+    # pylint: disable=C0103
+    # Lower case is ok for this variable
     col_name = "b" + str(max_bin_len - i)
     bin_bool = analysis_frame["bin_str"].str[i] == "1"
-    analysis_frame[col_name] = np.where(bin_bool == True, 1, 0)
+    analysis_frame[col_name] = np.where(bin_bool, 1, 0)
     bin_features.append(col_name)
 
 # Split Training and Test set
@@ -122,6 +125,8 @@ print("Size test set: ", len(test_frame))
 
 ```python pycharm={"name": "#%%\n"}
 # Features
+# pylint: disable=C0103
+# Lower case is ok here
 lambda_i_target = "l_i"
 lambda_i_features = ["v_i_log_frac", "terminal"]
 
@@ -157,10 +162,10 @@ print("F1:", lambda_i_f1)
 
 # Export Tree
 if SAVE_RESULTS:
-    lambda_i_graph_data = export_graphviz(lambda_i_tree, out_file=None,
-                feature_names = lambda_i_features,
-                class_names = True, rounded = True, proportion = False,
-                precision = 3, filled = True)
+    lambda_i_graph_data = export_graphviz(
+        lambda_i_tree, out_file=None, feature_names=lambda_i_features,
+        class_names=True, rounded=True, proportion=False,
+        precision=3, filled=True)
 
     lambda_i_graph = pydotplus.graph_from_dot_data(lambda_i_graph_data)
     lambda_i_graph.write_png(LAMBDA_I_PATH)
@@ -192,7 +197,7 @@ lambda_predicted = lambda_regression.predict(lambda_test_features)
 
 plt.figure()
 plt.title("Lambda vs. Lambda predicted")
-plt.plot(lambda_predicted, lambda_test_target,  "o")
+plt.plot(lambda_predicted, lambda_test_target, "o")
 plt.show()
 
 print("Linear Model")
@@ -242,10 +247,10 @@ print("F1:", omega_f1)
 
 # Export Tree
 if SAVE_RESULTS:
-    omega_graph_data = export_graphviz(omega_tree, out_file=None,
-                feature_names = omega_features,
-                class_names = True, rounded = True, proportion = False,
-                precision = 3, filled = True)
+    omega_graph_data = export_graphviz(
+        omega_tree, out_file=None, feature_names=omega_features,
+        class_names=True, rounded=True, proportion=False,
+        precision=3, filled=True)
 
     omega_graph = pydotplus.graph_from_dot_data(omega_graph_data)
     omega_graph.write_png(OMEGA_PATH)
@@ -292,10 +297,10 @@ print("F1:", alpha_g_f1)
 
 # Export Tree
 if SAVE_RESULTS:
-    alpha_g_graph_data = export_graphviz(alpha_g_tree, out_file=None,
-                feature_names = alpha_g_features,
-                class_names = True, rounded = True, proportion = False,
-                precision = 3, filled = True)
+    alpha_g_graph_data = export_graphviz(
+        alpha_g_tree, out_file=None, feature_names=alpha_g_features,
+        class_names=True, rounded=True, proportion=False,
+        precision=3, filled=True)
 
     alpha_g_graph = pydotplus.graph_from_dot_data(alpha_g_graph_data)
     alpha_g_graph.write_png(ALPHA_G_PATH)
@@ -334,7 +339,7 @@ alpha_i_predicted = alpha_i_tree.predict(alpha_i_test_features)
 
 plt.figure()
 plt.title("Alpha vs. Alpha predicted")
-plt.plot(alpha_i_predicted, alpha_i_test_target,  "o")
+plt.plot(alpha_i_predicted, alpha_i_test_target, "o")
 plt.show()
 
 print("Decision Tree")
@@ -343,10 +348,10 @@ print("R^2:", alpha_i_tree.score(
 
 # Export Tree
 if SAVE_RESULTS:
-    alpha_i_graph_data = export_graphviz(alpha_i_tree, out_file=None,
-                feature_names = alpha_i_features,
-                class_names = True, rounded = True, proportion = False,
-                precision = 3, filled = True)
+    alpha_i_graph_data = export_graphviz(
+        alpha_i_tree, out_file=None, feature_names=alpha_i_features,
+        class_names=True, rounded=True, proportion=False,
+        precision=3, filled=True)
 
     alpha_i_graph = pydotplus.graph_from_dot_data(alpha_i_graph_data)
     alpha_i_graph.write_png(ALPHA_I_PATH)

@@ -32,6 +32,7 @@ run_alpha_export.py.
 
 # Imports
 # Fix possible import problems
+# pylint: disable=C0413
 import sys
 sys.path.append("../..")
 
@@ -39,7 +40,7 @@ from pathlib import Path
 from math import log2
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn import linear_model, tree
+from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 from notebooks import nbutils
 
@@ -81,6 +82,8 @@ print("Size test set: ", len(test_frame))
 
 ```python pycharm={"name": "#%%\n"}
 # Features
+# pylint: disable=C0103
+# Lower case is ok here
 alpha_target = "a"
 alpha_features = ["l_max"]
 
@@ -102,7 +105,7 @@ alpha_predicted = alpha_regression.predict(alpha_test_features)
 
 plt.figure()
 plt.title("Alpha vs. Alpha predicted")
-plt.plot(alpha_predicted, alpha_test_target,  "o")
+plt.plot(alpha_predicted, alpha_test_target, "o")
 plt.show()
 
 print("Linear Model")
@@ -121,7 +124,7 @@ beta_target = "b_log2"
 beta_features = ["v_1_log2", "a", "n"]
 
 # Create Training Set
-beta_training_frame = training_frame[training_frame["terminal"] == True]
+beta_training_frame = training_frame[training_frame["terminal"]]
 beta_training_target = beta_training_frame[beta_target]
 beta_training_features = beta_training_frame[beta_features]
 
@@ -140,7 +143,7 @@ beta_predicted = beta_regression.predict(beta_test_features)
 
 plt.figure()
 plt.title("Beta vs. Beta predicted")
-plt.plot(beta_predicted, beta_test_target,  "o")
+plt.plot(beta_predicted, beta_test_target, "o")
 plt.show()
 
 print("Linear Model")
@@ -149,5 +152,4 @@ print("Features:", beta_features)
 print("Coeff:", beta_regression.coef_)
 print("R^2:", beta_regression.score(
     beta_training_features, beta_training_target))
-
 ```

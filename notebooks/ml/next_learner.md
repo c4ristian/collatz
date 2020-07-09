@@ -32,16 +32,16 @@ script run_basic_export.py.
 
 # Imports
 # Fix possible import problems
+# pylint: disable=C0413
 import sys
 sys.path.append("../..")
 
 from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn import linear_model, tree
+from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 from notebooks import nbutils
-
 
 # Configuration
 DATA_PATH = Path.cwd().parent.parent.as_posix() + "/data/"
@@ -73,6 +73,8 @@ print("Size test set: ", len(test_frame))
 
 ```python pycharm={"name": "#%%\n"}
 # Features
+# pylint: disable=C0103
+# Lower case is ok here
 next_log_target = "x_i+_log2"
 next_log_features = ["x_i_log2", "x_i_odd"]
 
@@ -93,7 +95,7 @@ next_log_predicted = next_log_regression.predict(next_log_test_features)
 
 plt.figure()
 plt.title("Next log vs. Next log predicted")
-plt.plot(next_log_predicted, next_log_test_target,  "o")
+plt.plot(next_log_predicted, next_log_test_target, "o")
 plt.show()
 
 print("Linear Model")
