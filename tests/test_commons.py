@@ -4,6 +4,7 @@ This module contains test cases for the module collatz.commons.
 
 # Imports
 from math import log2
+import pytest
 import numpy as np
 from collatz import commons as com
 
@@ -42,18 +43,12 @@ def test_collatz_sequence():
     assert result[2] == 18328150050242773488120822924411753
 
     # Should not accept numbers smaller than 1
-    try:
+    with pytest.raises(AssertionError):
         com.collatz_sequence(0)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
     # Should only accept whole numbers
-    try:
+    with pytest.raises(AssertionError):
         com.next_collatz_number(0.25)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
 
 def test_odd_collatz_sequence():
@@ -88,18 +83,12 @@ def test_odd_collatz_sequence():
     assert result[1] == 18328150050242773488120822924411753
 
     # Should not accept numbers smaller than 1
-    try:
+    with pytest.raises(AssertionError):
         com.collatz_sequence(0)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
     # Should only accept whole numbers
-    try:
+    with pytest.raises(AssertionError):
         com.next_collatz_number(0.25)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
 
 def test_next_collatz_number():
@@ -125,24 +114,15 @@ def test_next_collatz_number():
     assert result == 386533140549008498277345847324215954526580641501
 
     # Should not accept numbers smaller than 1
-    try:
+    with pytest.raises(AssertionError):
         com.next_collatz_number(0)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
     # Should only accept whole numbers
-    try:
+    with pytest.raises(AssertionError):
         com.next_collatz_number(0.25)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
-    try:
+    with pytest.raises(TypeError):
         com.next_collatz_number("abc")
-        assert False, "Exception expected"
-    except TypeError:
-        pass
 
 
 def test_next_odd_collatz_number():
@@ -164,24 +144,15 @@ def test_next_odd_collatz_number():
     assert result == 386533140549008498277345847324215954526580641501
 
     # Should not accept numbers smaller than 1
-    try:
+    with pytest.raises(AssertionError):
         com.next_odd_collatz_number(0)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
     # Should only accept whole numbers
-    try:
+    with pytest.raises(AssertionError):
         com.next_odd_collatz_number(0.25)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
-    try:
+    with pytest.raises(TypeError):
         com.next_odd_collatz_number("abc")
-        assert False, "Exception expected"
-    except TypeError:
-        pass
 
 
 def test_odd_collatz_sequence_components():
@@ -213,18 +184,12 @@ def test_odd_collatz_sequence_components():
         1636711100308825546418063047859890604, 409177775077206386604515761964972651]
 
     # Should not accept numbers smaller than 1
-    try:
+    with pytest.raises(AssertionError):
         com.odd_collatz_sequence_components(0)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
     # Should only accept whole numbers
-    try:
+    with pytest.raises(AssertionError):
         com.odd_collatz_sequence_components(0.25)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
 
 def test_odd_collatz_components():
@@ -329,11 +294,8 @@ def test_trailing_zeros():
     assert com.trailing_zeros(8038174778473296249349807509972772768) == 5
 
     # Should only accept whole numbers
-    try:
+    with pytest.raises(AssertionError):
         com.next_collatz_number(0.25)
-        assert False, "Exception expected"
-    except AssertionError:
-        pass
 
 
 def test_to_binary():
@@ -359,8 +321,5 @@ def test_to_binary():
            int(log2(18328150050242773488120822924411753)) + 1
 
     # Should only accept integers
-    try:
+    with pytest.raises(TypeError):
         com.to_binary(0.25)
-        assert False, "Exception expected"
-    except TypeError:
-        pass
