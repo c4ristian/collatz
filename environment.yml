@@ -1,4 +1,5 @@
-# Environment yaml of the collatz library
+# Environment YAML for setting up a conda environment for
+# the Collatz library
 name: collatz
 channels:
   - conda-forge
@@ -12,7 +13,7 @@ dependencies:
   - pylint
   - networkx
   - pydot
-  - jupyter
-  - scikit-learn
   - pydotplus
+  - jupyter
   - jupytext
+  - scikit-learn
