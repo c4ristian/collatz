@@ -2,6 +2,7 @@
 This module contains test cases for the module collatz.graph.
 """
 
+import pytest
 from collatz import graph
 
 
@@ -44,23 +45,14 @@ def test_get_odd_predecessor():
         386533140549008498277345847324215954526580641501, 0, k=3) == 9**50
 
     # Test exceptions
-    try:
+    with pytest.raises(AssertionError):
         graph.get_odd_predecessor(5.5, 0)
-        assert False, "AssertionError expected"
-    except AssertionError:
-        pass
 
-    try:
+    with pytest.raises(AssertionError):
         graph.get_odd_predecessor(-5, 4)
-        assert False, "AssertionError expected"
-    except AssertionError:
-        pass
 
-    try:
+    with pytest.raises(TypeError):
         graph.get_odd_predecessor(5, 4, k=7)
-        assert False, "TypeError expected"
-    except TypeError:
-        pass
 
 
 def test_get_odd_predecessors():
@@ -92,17 +84,12 @@ def test_get_odd_predecessors():
     assert list(graph.get_odd_predecessors(
         10, k=3, power_range=range(1, 10))[0]) == [13, 53, 213, 853]
 
-    try:
+    # Test exceptions
+    with pytest.raises(AssertionError):
         graph.get_odd_predecessors(5.5)
-        assert False, "AssertionError expected"
-    except AssertionError:
-        pass
 
-    try:
+    with pytest.raises(AssertionError):
         graph.get_odd_predecessors(-5)
-        assert False, "AssertionError expected"
-    except AssertionError:
-        pass
 
 
 def test_create_collatz_graph():

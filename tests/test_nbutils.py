@@ -3,6 +3,7 @@ This module contains test cases for the module notebooks.nbutils.
 """
 
 # Imports
+import pytest
 import pandas as pd
 from notebooks import nbutils
 
@@ -26,11 +27,8 @@ def test_rnd_int():
     assert nbutils.rnd_int(2) <= 2
 
     # Should not accept numbers < 1
-    try:
+    with pytest.raises(ValueError):
         nbutils.rnd_int(0)
-        assert False, "Exception expected"
-    except ValueError:
-        pass
 
     # Test odds only
     assert nbutils.rnd_int(1, odds_only=True) == 1
@@ -39,8 +37,5 @@ def test_rnd_int():
     assert nbutils.rnd_int(2, odds_only=True) == 1
 
     # Should not accept numbers < 1
-    try:
+    with pytest.raises(ValueError):
         nbutils.rnd_int(-1, odds_only=True)
-        assert False, "Exception expected"
-    except ValueError:
-        pass
