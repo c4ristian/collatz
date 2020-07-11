@@ -1,6 +1,6 @@
 """
-This module provides utility functions for setting up the notebooks of
-this library.
+This module provides utility functions for the notebooks of
+the Collatz library.
 """
 
 # Imports
