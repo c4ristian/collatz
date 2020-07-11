@@ -38,7 +38,7 @@ PRINT_TABLE = True
 START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
 nbutils.set_default_pd_options()
 
-# Generate a collatz components
+# Generate collatz components
 analysis_frame = commons.odd_collatz_sequence_components(
     START_VALUE, K_FACTOR, MAX_ITERATIONS)
 
