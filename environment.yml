@@ -1,4 +1,4 @@
-# Environment YAML for setting up a conda environment for
+# YAML for setting up a conda environment for
 # the Collatz library
 name: collatz
 channels:
