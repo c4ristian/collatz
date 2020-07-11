@@ -5,13 +5,12 @@ the Collatz library.
 
 # Imports
 import sys
+# Fix possible import problems
+# pylint: disable=C0413
+sys.path.append("..")
 import random as rnd
 import pandas as pd
 from collatz import commons
-
-
-# Fix module loading problem
-sys.path.append("..")
 
 
 def set_default_pd_options():
@@ -27,7 +26,7 @@ def rnd_int(max_value: int, odds_only=False):
     """
     This function returns a random integer value between 1 and a given maximum value.
     :param max_value: The maximum value as int.
-    :param odds_only: If this parameter is true only odd ints
+    :param odds_only: If this parameter is True only odd ints
     are considered (default is False).
     :return: The random integer value.
     """
