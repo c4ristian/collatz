@@ -30,22 +30,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import networkx as nx
 import nbutils
-from collatz import commons
-
-
-# Helper methods
-def _to_binary(int_value):
-    """
-    This method returns the binary representation of
-    a specific int value as string.
-    :param int_value: The int value, if a str is handed
-    over it is converted to an int.
-    :return: The binary representation as string.
-    """
-    if isinstance(int_value, str):
-        int_value = int(int_value)
-    return commons.to_binary(int_value)
-
 
 # Configuration
 K_FACTOR = 3
@@ -77,7 +61,8 @@ print("Count of Collatz values:", len(analysis_frame), "\n")
 
 # Binary
 max_bin_len = int(analysis_frame["bin_len"].max())
-analysis_frame["bin_str"] = analysis_frame["v_i"].apply(_to_binary).str.zfill(max_bin_len)
+analysis_frame["bin_str"] = analysis_frame["v_i"].apply(
+    nbutils.to_binary).str.zfill(max_bin_len)
 
 analysis_frame["b2"] = analysis_frame["bin_str"].str[max_bin_len-2]
 analysis_frame["b3"] = analysis_frame["bin_str"].str[max_bin_len-3]

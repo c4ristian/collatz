@@ -47,22 +47,6 @@ from sklearn.metrics import accuracy_score, f1_score
 from sklearn.tree import export_graphviz
 import pydotplus
 from notebooks import nbutils
-from collatz import commons
-
-
-# Helper methods
-def _to_binary(int_value):
-    """
-    This method returns the binary representation of
-    a specific int value as string.
-    :param int_value: The int value, if a str is handed
-    over it is converted to an int.
-    :return: The binary representation as string.
-    """
-    if isinstance(int_value, str):
-        int_value = int(int_value)
-    return commons.to_binary(int_value)
-
 
 # Configuration
 DATA_PATH = Path.cwd().parent.parent.as_posix() + "/data/"
@@ -102,7 +86,9 @@ analysis_frame["l_max_r"] = analysis_frame["l"] >= analysis_frame["l_max"]
 
 # Binary features
 max_bin_len = int(analysis_frame["bin_len"].max())
-analysis_frame["bin_str"] = analysis_frame["v_i"].apply(_to_binary).str.zfill(max_bin_len)
+analysis_frame["bin_str"] = analysis_frame["v_i"].apply(
+    nbutils.to_binary).str.zfill(max_bin_len)
+
 bin_features = []
 
 for i in range(0, max_bin_len):
