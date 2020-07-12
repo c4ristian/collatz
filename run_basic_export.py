@@ -72,10 +72,10 @@ def _main():
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     logging.info("Exporting %d Collatz sequences to file %s", sequence_count, file_name)
 
-    output_frame = None
     sequence_id = 0
+    file_written = False
 
-    for i, k in enumerate(k_factors, start=0):
+    for k in k_factors:
         logging.info("Generating sequences for k=%d", k)
 
         for x_1 in x_1_range:
@@ -84,19 +84,14 @@ def _main():
             current_frame = _generate_full_sequence(
                 sequence_id, x_1, k, max_iterations)
 
-            if output_frame is not None:
-                output_frame = output_frame.append(current_frame)
+            # Write the frame to file
+            if not file_written:
+                current_frame.to_csv(
+                    file_name, mode='w', index=False, header=True)
+                file_written = True
             else:
-                output_frame = current_frame
-        # Write the frame to file
-        if i == 0:
-            output_frame.to_csv(
-                file_name, mode='w', index=False, header=True)
-        else:
-            output_frame.to_csv(
-                file_name, mode='a', index=False, header=False)
-
-        output_frame = None
+                current_frame.to_csv(
+                    file_name, mode='a', index=False, header=False)
 
     # Export finished
     logging.info("Export finished successfully!")
