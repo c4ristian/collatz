@@ -7,19 +7,31 @@ the results to csv.
 import logging
 from collatz import graph
 
-# Configuration
-FILE_NAME = "data/collatz_graph.csv"
-ITERATIONS = 3
-K_FACTOR = 5
-PREDECESSOR_COUNT = 5
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
-# Create graph
-logging.info("Creating Collatz inverse graph...")
+def _main():
+    """
+    This method executes the program.
+    :return: None.
+    """
+    # Configuration
+    file_name = "data/collatz_graph.csv"
+    iterations = 3
+    k_factor = 5
+    predecessor_count = 5
 
-RESULT_FRAME = graph.create_collatz_graph(
-    1, k=K_FACTOR, predecessor_count=PREDECESSOR_COUNT, iteration_count=ITERATIONS)
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
-RESULT_FRAME[["successor", "predecessor"]].to_csv(FILE_NAME, index=False, header=False)
+    # Create graph
+    logging.info("Creating Collatz inverse graph...")
 
-logging.info("Export finished successfully!")
+    result_frame = graph.create_collatz_graph(
+        1, k=k_factor, predecessor_count=predecessor_count, iteration_count=iterations)
+
+    result_frame[["successor", "predecessor"]].to_csv(file_name, index=False, header=False)
+
+    logging.info("Export finished successfully!")
+
+
+# Main method to start the program
+if __name__ == '__main__':
+    _main()
