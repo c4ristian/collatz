@@ -1,7 +1,7 @@
 """
 This program exports data on the alphas of Collatz sequences and related features
 into a csv file. Only odd Collatz numbers are included. The sample is used
-to validate several mathematical theorems and for the training of machine learning
+to validate mathematical theorems and for the training of machine learning
 models.
 """
 import logging
