@@ -61,9 +61,7 @@ print("Count of Collatz values:", len(analysis_frame), "\n")
 
 # Binary
 max_bin_len = int(analysis_frame["bin_len"].max())
-analysis_frame["bin_str"] = analysis_frame["v_i"].apply(
-    nbutils.to_binary).str.zfill(max_bin_len)
-
+analysis_frame["bin_str"] = analysis_frame["v_i_bin"].str.zfill(max_bin_len)
 analysis_frame["b2"] = analysis_frame["bin_str"].str[max_bin_len-2]
 analysis_frame["b3"] = analysis_frame["bin_str"].str[max_bin_len-3]
 analysis_frame["b4"] = analysis_frame["bin_str"].str[max_bin_len-4]

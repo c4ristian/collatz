@@ -39,28 +39,3 @@ def test_rnd_int():
     # Should not accept numbers < 1
     with pytest.raises(ValueError):
         nbutils.rnd_int(-1, odds_only=True)
-
-
-def test_to_binary():
-    """
-    Test case for the method to_binary.
-    :return: None
-    """
-    assert nbutils.to_binary(1) == "1"
-    assert nbutils.to_binary(5) == "101"
-    assert nbutils.to_binary("256") == "100000000"
-
-    assert nbutils.to_binary("018328150050242773488120822924411753") == \
-           '111000011110100101110001101101000110000110000011' \
-           '000001110011101100011111011100000110101000000101' \
-           '011000001101101001'
-
-    # Should only accept integers
-    with pytest.raises(TypeError):
-        nbutils.to_binary(0.25)
-
-    with pytest.raises(ValueError):
-        nbutils.to_binary("0.25")
-
-    with pytest.raises(ValueError):
-        nbutils.to_binary("abc")
