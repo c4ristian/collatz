@@ -4,6 +4,7 @@ Both even and odd Collatz numbers are included. The sample is used
 for the training of machine learning models.
 """
 
+import shutil
 import logging
 from math import log2
 import pandas as pd
@@ -67,13 +68,16 @@ def _main():
     x_1_range = range(1, max_start_value + 1)
     max_iterations = 100
     sequence_count = max_start_value * len(k_factors)
-    file_name = "./data/basic_export.csv"
+
+    export_name = "basic_export"
+    dest_file_name = "./data/" + export_name + ".csv"
+    tmp_file_name = "./data/" + export_name + "_tmp" + ".csv"
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
-    logging.info("Exporting %d Collatz sequences to file %s", sequence_count, file_name)
+    logging.info("Exporting %d Collatz sequences to file %s", sequence_count, dest_file_name)
 
     sequence_id = 0
-    file_written = False
+    write_mode = True
 
     for k in k_factors:
         logging.info("Generating sequences for k=%d", k)
@@ -85,13 +89,14 @@ def _main():
                 sequence_id, x_1, k, max_iterations)
 
             # Write the frame to file
-            if not file_written:
-                current_frame.to_csv(
-                    file_name, mode='w', index=False, header=True)
-                file_written = True
-            else:
-                current_frame.to_csv(
-                    file_name, mode='a', index=False, header=False)
+            mode_char = "w" if write_mode else "a"
+            current_frame.to_csv(
+                tmp_file_name, mode=mode_char, index=False, header=write_mode)
+            write_mode = False
+
+    # Moving tmp file to destination file
+    logging.info("Moving temp file to destination file")
+    shutil.move(tmp_file_name, dest_file_name)
 
     # Export finished
     logging.info("Export finished successfully!")
