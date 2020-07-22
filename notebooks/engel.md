@@ -67,11 +67,11 @@ print_frame = analysis_frame[[
 
 vi_invalid = int(not analysis_frame["v_i+_valid"].sum())
 lr_invalid = int(not analysis_frame["lr_valid"].sum())
-valid = vi_invalid + lr_invalid == 0
+alpha_max_valid = vi_invalid + lr_invalid == 0
 
 print("Start value:", start_value,
       " K:", K_FACTOR,
-      " Valid:", valid,
+      " Valid:", alpha_max_valid,
       "\n")
 
 print(print_frame.to_string(index=False), "\n")
