@@ -19,8 +19,8 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses betas of cycles with an experimental formula, based on
-the Engel expansion.
+This notebook verifies the maximum alpha of a Collatz sequence using
+the so called Engel expansion.
 """
 
 # Imports
@@ -30,11 +30,12 @@ import pandas as pd
 import nbutils
 
 # Configuration
-MAX_N = 10
+MAX_VALUE = 1001
+MAX_N = 20
 K_FACTOR = 3
-START_VALUE = 33
 
 nbutils.set_default_pd_options()
+start_value = nbutils.rnd_int(MAX_VALUE, odds_only=True)
 
 # Generate data
 n = pd.Series(range(1, MAX_N + 1))
@@ -42,52 +43,36 @@ n = pd.Series(range(1, MAX_N + 1))
 analysis_frame = pd.DataFrame({
     "n": n,
     "k": K_FACTOR,
-    "v_1": START_VALUE
+    "v_1": start_value
 })
 
-analysis_frame["alpha"] = \
-    (analysis_frame["n"] * log2(K_FACTOR)).astype('int64') + 1
+analysis_frame["a"] = n
+analysis_frame["a_max+"] = (((n+1) * log2(K_FACTOR) + log2(start_value))+1).astype('int64')
+analysis_frame["v_i"] = (K_FACTOR**n * (start_value + 1) - 2**n) / 2**n
+analysis_frame["3v_i+1"] = K_FACTOR * analysis_frame["v_i"] + 1
+analysis_frame["v_i+"] = analysis_frame["3v_i+1"] / 2**(analysis_frame["a_max+"]-n)
+analysis_frame["v_i+_valid"] = (analysis_frame["v_i+"] < 2)
 
-analysis_frame["alpha_max"] = analysis_frame["n"] * log2(K_FACTOR) + log2(START_VALUE)
-analysis_frame["alpha_max"] = analysis_frame["alpha_max"].astype('int64') + 1
-
-analysis_frame["alpha_1"] = analysis_frame["alpha"] - analysis_frame["n"] + 1
-
-analysis_frame["beta_log_cycle"] = \
-    (analysis_frame["n"] * log2(K_FACTOR)).astype('int64') + 1 - \
-    analysis_frame["n"] * log2(K_FACTOR)
-
-analysis_frame["beta_cycle"] = 2**analysis_frame["beta_log_cycle"]
-analysis_frame["beta_engel"] = \
-    (1 + 2**analysis_frame["alpha_1"]) / (K_FACTOR * START_VALUE) - \
-    ((2**(analysis_frame["alpha_1"] - 1)) / START_VALUE) * ((2/3)**analysis_frame["n"]) + 1
+analysis_frame["left"] = 2**(analysis_frame["a_max+"] + 2) + 2**(n+1)
+analysis_frame["right"] = 3**(n+1) * (start_value + 1)
+analysis_frame["lr_valid"] = (analysis_frame["left"] > analysis_frame["right"])
 
 # Print results
 print_frame = analysis_frame[[
     "n", "k", "v_1",
-    "alpha", "alpha_max", "alpha_1",
-    "beta_cycle", "beta_engel"
+    "v_i", "3v_i+1",
+    "v_i+", "a", "a_max+",
+    "v_i+_valid", "lr_valid"
 ]]
 
-print_frame.columns = [
-    "n", "k", "v_1",
-    "a", "a_max", "a_1",
-    "b_cycle", "b_engel"
-]
+vi_invalid = int(not analysis_frame["v_i+_valid"].sum())
+lr_invalid = int(not analysis_frame["lr_valid"].sum())
+valid = vi_invalid + lr_invalid == 0
 
-print("Start value:", START_VALUE, " K:", K_FACTOR,
+print("Start value:", start_value,
+      " K:", K_FACTOR,
+      " Valid:", valid,
       "\n")
 
 print(print_frame.to_string(index=False), "\n")
-```
-
-```python pycharm={"name": "#%%\n"}
-# Plot results
-plt.figure()
-plt.title("Beta cycle vs. beta Engel")
-plt.plot(analysis_frame["beta_cycle"], "-o", label="beta cycle")
-plt.plot(analysis_frame["beta_engel"], "-o", label='beta engel')
-plt.legend()
-
-plt.show()
 ```
