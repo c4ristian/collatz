@@ -96,7 +96,7 @@ print("Start value:", START_VALUE,
       "\n")
 
 if PRINT_TABLE:
-    print(print_frame.to_string(), "\n")
+    print(print_frame.to_string(index=False), "\n")
 ```
 
 ```python pycharm={"name": "#%%\n"}
