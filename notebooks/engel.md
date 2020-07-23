@@ -20,7 +20,9 @@ jupyter:
 ```python pycharm={"name": "#%%\n"}
 """
 This notebook verifies the maximum alpha of a Collatz sequence using
-the so called Engel expansion.
+the so called Engel expansion. Warning: Due to the limitations of pandas, the
+notebook is currently not capable of handling arbitrary big integers. This problem
+arises in particular when the exponent n is increased.
 """
 
 # Imports
@@ -30,7 +32,7 @@ import pandas as pd
 import nbutils
 
 # Configuration
-MAX_VALUE = 1001
+MAX_VALUE = 101
 MAX_N = 20
 K_FACTOR = 3
 
@@ -47,13 +49,13 @@ analysis_frame = pd.DataFrame({
 })
 
 analysis_frame["a"] = n
-analysis_frame["a_max+"] = (((n+1) * log2(K_FACTOR) + log2(start_value))+1).astype('int64')
+analysis_frame["a_max+"] = ((n+1) * log2(K_FACTOR) + log2(start_value)).astype('int64') + 1
 analysis_frame["v_i"] = (K_FACTOR**n * (start_value + 1) - 2**n) / 2**n
 analysis_frame["3v_i+1"] = K_FACTOR * analysis_frame["v_i"] + 1
 analysis_frame["v_i+"] = analysis_frame["3v_i+1"] / 2**(analysis_frame["a_max+"]-n)
 analysis_frame["v_i+_valid"] = (analysis_frame["v_i+"] < 2)
 
-analysis_frame["left"] = 2**(analysis_frame["a_max+"] + 2) + 2**(n+1)
+analysis_frame["left"] = 2**(analysis_frame["a_max+"] + 1) + 2**(n+1)
 analysis_frame["right"] = 3**(n+1) * (start_value + 1)
 analysis_frame["lr_valid"] = (analysis_frame["left"] > analysis_frame["right"])
 
@@ -65,8 +67,8 @@ print_frame = analysis_frame[[
     "v_i+_valid", "lr_valid"
 ]]
 
-vi_invalid = int(not analysis_frame["v_i+_valid"].sum())
-lr_invalid = int(not analysis_frame["lr_valid"].sum())
+vi_invalid = int((analysis_frame["v_i+_valid"] == False).sum())
+lr_invalid = int((analysis_frame["lr_valid"] == False).sum())
 alpha_max_valid = vi_invalid + lr_invalid == 0
 
 print("Start value:", start_value,
