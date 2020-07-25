@@ -14,7 +14,7 @@ jupyter:
 ---
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
-## Collatz Engel notebook
+## Collatz Engel experiments
 <!-- #endregion -->
 
 ```python pycharm={"name": "#%%\n"}
