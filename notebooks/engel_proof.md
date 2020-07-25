@@ -48,7 +48,7 @@ n = pd.Series(range(1, MAX_N + 1))
 for i in n:
     a_max = int((i+1) * log2(K_FACTOR) + log2(start_value)) + 1
     current_left = 2**(a_max+1) + 2**(i+1)
-    current_right = 3**(i+1) * (start_value + 1)
+    current_right = K_FACTOR**(i+1) * (start_value + 1)
     current_valid = current_left > current_right
     left.append(current_left)
     right.append(current_right)
