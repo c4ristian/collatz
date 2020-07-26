@@ -19,11 +19,11 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook verifies the maximum alpha of a Collatz sequence using
-the so called Engel expansion. The notebook is optimised for handling
-arbitrary big integers. To avoid float values, which would coerce a loss of
+This notebook verifies the maximum alpha of a Collatz sequence for k=3 using
+the so-called Engel expansion. The notebook is optimised for handling
+arbitrary big integers. To avoid float values, which could cause a loss of
 precision, integer divisions are used. Where this could lead to an invalidly
-low result, one is added as a precaution.
+low result, one is added to avoid an underestimation of the result.
 """
 
 # Imports
@@ -35,7 +35,6 @@ import nbutils
 # Configuration
 MAX_VALUE = 10001
 MAX_N = 50
-K_FACTOR = 3
 
 nbutils.set_default_pd_options()
 start_value = nbutils.rnd_int(MAX_VALUE, odds_only=True)
@@ -51,15 +50,15 @@ n = pd.Series(range(1, MAX_N + 1))
 
 for i in n:
     # Use integer division here to avoid loss of precision
-    current_v_i = (K_FACTOR**i * (start_value + 1) - 2**i) // 2**i
+    current_v_i = (3**i * (start_value + 1) - 2**i) // 2**i
     # Add one to be sure not to underestimate the result
     current_v_i += 1
     v_i.append(current_v_i)
 
-    current_a_max = int(((i+1) * log2(K_FACTOR) + log2(start_value)) + 1)
+    current_a_max = int(((i+1) * log2(3) + log2(start_value)) + 1)
     a_max_p.append(current_a_max)
 
-    current_next_even = K_FACTOR * current_v_i + 1
+    current_next_even = 3 * current_v_i + 1
     next_even.append(current_next_even)
 
     # Use integer division here to avoid loss of precision
@@ -70,7 +69,7 @@ for i in n:
 
 analysis_frame = pd.DataFrame({
     "n": n,
-    "k": K_FACTOR,
+    "k": 3,
     "v_1": start_value,
     "v_i": v_i,
     "a": n,
@@ -91,7 +90,7 @@ print_frame = analysis_frame[[
 alpha_max_valid = int((analysis_frame["a_max_valid"] == False).sum()) == 0
 
 print("Start value:", start_value,
-      " K:", K_FACTOR,
+      " K:", 3,
       " Max n:", MAX_N,
       " Valid:", alpha_max_valid,
       "\n")
