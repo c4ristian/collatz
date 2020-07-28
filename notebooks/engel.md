@@ -21,7 +21,7 @@ jupyter:
 """
 This notebook verifies the maximum alpha of a Collatz sequence for k=3 using
 the so-called Engel expansion. It builds on a proof that shows that a
-worst-case sequence, divided by alpha max leads to a result < 2.
+worst-case sequence, divided by 2**alpha_max leads to a result < 2.
 The notebook is optimised for handling arbitrary big integers.
 """
 
