@@ -17,3 +17,4 @@ tests/.pytest_cache
 data/*.csv
 data/*.png
 data/*.dot
+data/*.html
