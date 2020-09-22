@@ -40,7 +40,7 @@ def get_odd_predecessor(odd_int, index, k=3):
     elif k == 5:
         power_dict = {0: 0, 3: 1, 4: 2, 2: 3, 1: 4}
         power = power_dict[odd_int % 5]
-        result = (odd_int * 2 ** (power + (factor * index)) - 1) / k
+        result = (odd_int * 2 ** (power + (factor * index)) - 1) // k
     else:
         raise TypeError("Parameter k not in (1,3,5)")
 

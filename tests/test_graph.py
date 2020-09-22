@@ -44,6 +44,10 @@ def test_get_odd_predecessor():
     assert graph.get_odd_predecessor(
         386533140549008498277345847324215954526580641501, 0, k=3) == 9**50
 
+    assert graph.get_odd_predecessor(
+        966332851372521245693364618310539886316451603753, 0, k=5) == \
+           386533140549008498277345847324215954526580641501
+
     # Test exceptions
     with pytest.raises(AssertionError):
         graph.get_odd_predecessor(5.5, 0)
