@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.2'
-      jupytext_version: 1.5.1
+      jupytext_version: 1.5.2
   kernelspec:
     display_name: collatz
     language: python
@@ -37,6 +37,8 @@ MAX_VALUE = 101
 
 start_value = nbutils.rnd_int(MAX_VALUE, odds_only=True)
 nbutils.set_default_pd_options()
+
+start_value = 721
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(
