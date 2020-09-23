@@ -2,7 +2,6 @@
 This module provides methods to create and analyse collatz graphs.
 """
 
-from math import log2
 import warnings
 import pandas as pd
 
@@ -12,7 +11,7 @@ def get_odd_predecessor(odd_int, index, k=3):
     This method calculates the odd predecessor for a certain odd number in a collatz graph.
     For every odd number there are n predecessors. The variable index [0..n] specifies which
     predecessor is returned. The method is based on a deterministic algorithm.
-    It currently works only for the k-factors (1,3,5).
+    It currently works only for the k-factors (1,3,5,7).
 
     The function is optimised for handling arbitrary big integers.
 
@@ -31,21 +30,26 @@ def get_odd_predecessor(odd_int, index, k=3):
     if k > 1 and odd_int % k == 0:
         return None
 
-    factor = 2 ** int(log2(k))
-
     if k == 1:
-        result = (odd_int * 2 ** ((k - odd_int % k) + factor * index) - 1) // k
+        result = (odd_int * 2 ** ((k - odd_int % k) + index) - 1) // k
     elif k == 3:
-        result = (odd_int * 2 ** ((k - odd_int % k) + (factor * index)) - 1) // k
+        result = (odd_int * 2 ** ((k - odd_int % k) + (2 * index)) - 1) // k
     elif k == 5:
-        power_dict = {0: 0, 3: 1, 4: 2, 2: 3, 1: 4}
+        power_dict = {0: None, 3: 1, 4: 2, 2: 3, 1: 4}
         power = power_dict[odd_int % 5]
-        result = (odd_int * 2 ** (power + (factor * index)) - 1) // k
+        if power:
+            result = (odd_int * 2 ** (power + (4 * index)) - 1) // k
+        else:
+            result = None
+    elif k == 7:
+        power_dict = {0: None, 1: 3, 2: 2, 3: None, 4: 1, 5: None, 6: None}
+        power = power_dict[odd_int % 7]
+        if power:
+            result = (odd_int * 2 ** (power + (3 * index)) - 1) // k
+        else:
+            result = None
     else:
-        raise TypeError("Parameter k not in (1,3,5)")
-
-    if result % 1 != 0:
-        result = None
+        raise TypeError("Parameter k not in (1,3,5,7)")
 
     return result
 
