@@ -48,6 +48,13 @@ def test_get_odd_predecessor():
     assert graph.get_odd_predecessor(23, 1, k=7) == 105
     assert graph.get_odd_predecessor(309, 0, k=7) == 353
 
+    # Test k=9
+    assert graph.get_odd_predecessor(9, 0, k=9) is None
+    assert graph.get_odd_predecessor(25, 0, k=9) == 11
+    assert graph.get_odd_predecessor(704573136177653249, 0, k=9) == 626287232157913999
+    assert graph.get_odd_predecessor(1, 0, k=9) == 7
+    assert graph.get_odd_predecessor(10247, 1, k=9) == 145735
+
     # Test if big integers are handled correctly
     assert graph.get_odd_predecessor(
         386533140549008498277345847324215954526580641501, 0, k=3) == 9**50
@@ -68,7 +75,7 @@ def test_get_odd_predecessor():
         graph.get_odd_predecessor(-5, 4)
 
     with pytest.raises(TypeError):
-        graph.get_odd_predecessor(5, 4, k=9)
+        graph.get_odd_predecessor(5, 4, k=11)
 
 
 def test_get_odd_predecessors():

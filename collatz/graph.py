@@ -11,7 +11,7 @@ def get_odd_predecessor(odd_int, index, k=3):
     This method calculates the odd predecessor for a certain odd number in a collatz graph.
     For every odd number there are n predecessors. The variable index [0..n] specifies which
     predecessor is returned. The method is based on a deterministic algorithm.
-    It currently works only for the k-factors (1,3,5,7).
+    It currently works only for the k-factors (1,3,5,7,9).
 
     The function is optimised for handling arbitrary big integers.
 
@@ -30,6 +30,8 @@ def get_odd_predecessor(odd_int, index, k=3):
     if k > 1 and odd_int % k == 0:
         return None
 
+    result = None
+
     if k == 1:
         result = (odd_int * 2 ** ((k - odd_int % k) + index) - 1) // k
     elif k == 3:
@@ -39,17 +41,18 @@ def get_odd_predecessor(odd_int, index, k=3):
         power = power_dict[odd_int % 5]
         if power:
             result = (odd_int * 2 ** (power + (4 * index)) - 1) // k
-        else:
-            result = None
     elif k == 7:
         power_dict = {0: None, 1: 3, 2: 2, 3: None, 4: 1, 5: None, 6: None}
         power = power_dict[odd_int % 7]
         if power:
             result = (odd_int * 2 ** (power + (3 * index)) - 1) // k
-        else:
-            result = None
+    elif k == 9:
+        power_dict = {0: None, 1: 6, 2: 5, 3: None, 4: 4, 5: 1, 6: None, 7: 2, 8: 3}
+        power = power_dict[odd_int % 9]
+        if power:
+            result = (odd_int * 2 ** (power + (6 * index)) - 1) // k
     else:
-        raise TypeError("Parameter k not in (1,3,5,7)")
+        raise TypeError("Parameter k not in (1,3,5,7, 9)")
 
     return result
 
