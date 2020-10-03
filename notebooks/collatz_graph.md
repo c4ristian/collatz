@@ -20,8 +20,8 @@ jupyter:
 ```python pycharm={"name": "#%%\n"}
 """
 This notebook analyses Collatz sequences from a graph-theoretic perspective. The script
-starts with a specific number and calculates its predecessors in a Collatz sequence
-using a deterministic algorithm. As a result the constructed tree is plotted.
+creates a Collatz graph starting with a given root node and plots it. The graph
+can be created in regular or in reverse order.
 """
 
 # Imports
@@ -37,11 +37,11 @@ from collatz import commons, graph
 nbutils.set_default_pd_options()
 warnings.filterwarnings('ignore')
 
-START_VALUE = 1
+ROOT_NODE = 1
 K_FACTOR = 3
-CHILD_COUNT = 3
+CHILD_COUNT = 4
 ITERATION_COUNT = 3
-REVERSE = False
+REVERSE = True
 SHOW_LABELS = True
 
 EXPORT_DATA = True
@@ -52,11 +52,11 @@ CSV_PATH = DATA_PATH + "graph.csv"
 # Create collatz graph
 if REVERSE:
     graph_frame = graph.create_reverse_graph(
-        START_VALUE, k=K_FACTOR, successor_count=CHILD_COUNT,
+        ROOT_NODE, k=K_FACTOR, successor_count=CHILD_COUNT,
         iteration_count=ITERATION_COUNT)
 else:
     graph_frame = graph.create_collatz_graph(
-        START_VALUE, k=K_FACTOR, predecessor_count=CHILD_COUNT,
+        ROOT_NODE, k=K_FACTOR, predecessor_count=CHILD_COUNT,
         iteration_count=ITERATION_COUNT)
 
 graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
@@ -64,7 +64,7 @@ graph_frame["s_mod_k"] = graph_frame["successor"] % K_FACTOR
 graph_frame["alpha_i"] = graph_frame["predecessor"] * K_FACTOR + 1
 graph_frame["alpha_i"] = graph_frame["alpha_i"].apply(commons.trailing_zeros)
 
-print("Start value:", START_VALUE, " K:", K_FACTOR, "\n")
+print("Start value:", ROOT_NODE, " K:", K_FACTOR, "\n")
 print(graph_frame.to_string(index=False))
 ```
 
