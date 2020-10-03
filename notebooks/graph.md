@@ -37,21 +37,27 @@ from collatz import commons, graph
 nbutils.set_default_pd_options()
 warnings.filterwarnings('ignore')
 
-START_VALUE = 13
+START_VALUE = 1
 K_FACTOR = 3
-PREDECESSOR_COUNT = 3
+CHILD_COUNT = 3
 ITERATION_COUNT = 3
+REVERSE = False
 SHOW_LABELS = True
 
-EXPORT_DATA = False
+EXPORT_DATA = True
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
 PIC_PATH = DATA_PATH + "graph.png"
 CSV_PATH = DATA_PATH + "graph.csv"
 
 # Create collatz graph
-graph_frame = graph.create_collatz_graph(
-    START_VALUE, k=K_FACTOR, predecessor_count=PREDECESSOR_COUNT,
-    iteration_count=ITERATION_COUNT)
+if REVERSE:
+    graph_frame = graph.create_reverse_graph(
+        START_VALUE, k=K_FACTOR, successor_count=CHILD_COUNT,
+        iteration_count=ITERATION_COUNT)
+else:
+    graph_frame = graph.create_collatz_graph(
+        START_VALUE, k=K_FACTOR, predecessor_count=CHILD_COUNT,
+        iteration_count=ITERATION_COUNT)
 
 graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
 graph_frame["s_mod_k"] = graph_frame["successor"] % K_FACTOR

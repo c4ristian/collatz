@@ -2,7 +2,6 @@
 This module provides methods to create and analyse collatz graphs.
 """
 
-import warnings
 import pandas as pd
 
 
@@ -57,55 +56,15 @@ def get_odd_predecessor(odd_int, index, k=3):
     return result
 
 
-def get_odd_predecessors(collatz_int, k=3, power_range=range(1, 21)):
-    """
-    This method returns the odd predecessors of a number in
-    a collatz graph. The predecessors are determined by an iterative process. This process
-    uses powers of 2 to calculate the results.
-
-    The function is limited to the pandas data type int64. It tries to detect
-    overflows when the numbers get too big. In this case a warning is issued.
-
-    :param collatz_int: The collatz number the predecessors are calculated for.
-    :param k: The factor the odd numbers are multiplied with in the collatz sequence
-    (default 3).
-    :param power_range: The range of powers of two that is used for the calculation
-    (default is (range(1, 21)).
-    :return: A list of predecessors and the corresponding powers.
-    """
-    # Validate input parameters
-    assert collatz_int > 0, "Value > 0 expected"
-
-    mod_result = collatz_int % 2
-    assert mod_result in (0, 1), "Not a whole number"
-
-    power_array = pd.Series(power_range)
-    predecessors = (collatz_int * 2 ** power_array - 1) / k
-
-    # Try to detect a possible overflow
-    odd = predecessors % 2 == 1
-    even = predecessors % 2 == 0
-
-    if sum(even) > 0:
-        warnings.warn("Results filtered due to possible overflow")
-
-    # Return predecessors
-    whole_numbers = predecessors.apply(float.is_integer)
-
-    predecessors = predecessors[whole_numbers & odd]
-    powers = power_array[whole_numbers & odd]
-
-    return list(predecessors.astype('int64')), list(powers)
-
-
 def create_collatz_graph(start_value, k=3, predecessor_count=3, iteration_count=3):
     """
-    This method creates an inverse collatz graph, consisting of odd numbers, beginning with a
-    certain odd starting integer value. It currently works only for the k-factors (1,3,5).
+    This method creates a collatz graph, consisting of odd numbers, beginning with a
+    certain odd integer value as root node. The method determines the predecessors
+    of the root with the function get_odd_predecessor.
 
     The function is optimised for handling arbitrary big integers.
 
-    :param start_value: Odd integer to start the graph with.
+    :param start_value: Odd integer root node to start the graph with.
     :param k: The factor odd numbers are multiplied with in the sequence (default 3).
     :param iteration_count: The number of iterations to perform. This parameter determines
     the depth of the tree.
@@ -141,3 +100,27 @@ def create_collatz_graph(start_value, k=3, predecessor_count=3, iteration_count=
         subset=["successor", "predecessor"]).reset_index(drop=True)
 
     return result_frame
+
+
+def create_reverse_graph(start_value, k=3, successor_count=3, iteration_count=3):
+    """
+    This method creates an inverse collatz graph, consisting of odd numbers, beginning with a
+    certain odd integer value as root node. The method internally builds on the function
+    create_collatz_graph and swaps the successors / predecessors.
+
+    The function is optimised for handling arbitrary big integers.
+
+    :param start_value: Odd integer root node to start the graph with.
+    :param k: The factor odd numbers are multiplied with in the sequence (default 3).
+    :param iteration_count: The number of iterations to perform. This parameter determines
+    the depth of the tree.
+    :param successor_count: The number of successor to determine for every odd number.
+    :return: The collatz graph as data frame.
+    """
+    graph_frame = create_collatz_graph(start_value, k, successor_count, iteration_count)
+    predecessor = list(graph_frame["predecessor"])
+    successor = list(graph_frame["successor"])
+
+    graph_frame["predecessor"] = successor
+    graph_frame["successor"] = predecessor
+    return graph_frame
