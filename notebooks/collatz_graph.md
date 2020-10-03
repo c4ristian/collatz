@@ -35,19 +35,18 @@ from collatz import commons, graph
 
 # Configuration
 nbutils.set_default_pd_options()
-warnings.filterwarnings('ignore')
 
 ROOT_NODE = 1
-K_FACTOR = 3
+K_FACTOR = 1
 CHILD_COUNT = 4
 ITERATION_COUNT = 3
-REVERSE = True
+REVERSE = False
 SHOW_LABELS = True
 
 EXPORT_DATA = True
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
-PIC_PATH = DATA_PATH + "graph.png"
-CSV_PATH = DATA_PATH + "graph.csv"
+PIC_PATH = DATA_PATH + "collatz_graph.png"
+CSV_PATH = DATA_PATH + "collatz_graph.csv"
 
 # Create collatz graph
 if REVERSE:
