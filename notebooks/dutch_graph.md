@@ -25,7 +25,6 @@ For this purpose it creates a reverse binary tree as described in
 """
 
 # Imports
-import warnings
 from pathlib import Path
 from matplotlib import pyplot as plt
 import networkx as nx

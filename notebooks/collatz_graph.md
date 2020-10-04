@@ -14,7 +14,7 @@ jupyter:
 ---
 
 <!-- #region pycharm={"name": "#%% md\n"} -->
-## Collatz graph notebook
+## Collatz graph
 <!-- #endregion -->
 
 ```python pycharm={"name": "#%%\n"}
@@ -25,7 +25,6 @@ can be created in regular or in reverse order.
 """
 
 # Imports
-import warnings
 from pathlib import Path
 from matplotlib import pyplot as plt
 import networkx as nx
@@ -37,7 +36,7 @@ from collatz import commons, graph
 nbutils.set_default_pd_options()
 
 ROOT_NODE = 1
-K_FACTOR = 1
+K_FACTOR = 3
 CHILD_COUNT = 4
 ITERATION_COUNT = 3
 REVERSE = False
