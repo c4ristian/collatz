@@ -124,3 +124,53 @@ def create_reverse_graph(start_value, k=3, successor_count=3, iteration_count=3)
     graph_frame["predecessor"] = successor
     graph_frame["successor"] = predecessor
     return graph_frame
+
+
+def create_dutch_graph(start_value, successor_count=3, iteration_count=3):
+    """
+    This function creates a reverse binary Collatz graph as described in the paper
+    [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
+    The method internally builds on the function create_reverse_graph. The method is
+    implemented for the k-factor 3 exclusively.
+
+    :param start_value: Odd integer as root node.
+    :param successor_count: The number of successors to determine for every node.
+    :param iteration_count: The number of iterations to perform. This parameter determines
+    the depth of the tree.
+    :return: The Collatz reverse binary graph as data frame.
+    """
+    graph_frame = create_reverse_graph(
+        start_value, k=3, successor_count=successor_count,
+        iteration_count=iteration_count)
+
+    # Remove leaf nodes
+    graph_frame = graph_frame[graph_frame["successor"] % 3 > 0]
+
+    # Transform nodes
+    predecessors_unique = list(graph_frame["predecessor"].unique())
+    dutch_frame = None
+
+    for pred in predecessors_unique:
+        current_frame = graph_frame[graph_frame["predecessor"] == pred]
+        successors = list(current_frame["successor"])
+
+        if len(successors) > 0:
+            new_predecessors = [pred]
+            new_successors = [successors[0]]
+
+            if len(successors) > 1:
+                for s_i in range(0, len(successors) - 1):
+                    new_predecessors.append(successors[s_i])
+                    new_successors.append(successors[s_i + 1])
+
+            new_frame = pd.DataFrame({
+                "predecessor": new_predecessors,
+                "successor": new_successors
+            })
+
+            if dutch_frame is None:
+                dutch_frame = new_frame
+            else:
+                dutch_frame = dutch_frame.append(new_frame, ignore_index=True)
+
+    return dutch_frame

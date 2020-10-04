@@ -142,3 +142,38 @@ def test_create_reverse_graph():
     assert len(graph_frame) == 1
     assert graph_frame["predecessor"][0] == 386533140549008498277345847324215954526580641501
     assert graph_frame["successor"][0] == 9 ** 50
+
+
+def test_create_dutch_graph():
+    """
+    Test case for the method create_dutch_graph.
+    :return:
+    """
+    graph_frame = graph.create_dutch_graph(
+        1, successor_count=5, iteration_count=4)
+
+    assert graph_frame is not None
+
+    # Test root node of tree
+    assert graph_frame["predecessor"][0] == 1
+    assert graph_frame["successor"][0] == 1
+    assert graph_frame["predecessor"][1] == 1
+    assert graph_frame["successor"][1] == 5
+
+    # Test v=5
+    sub_frame = graph_frame[graph_frame["predecessor"] == 5]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["predecessor"]) == [5, 5]
+    assert list(sub_frame["successor"]) == [85, 13]
+
+    # Test v=85
+    sub_frame = graph_frame[graph_frame["predecessor"] == 85]
+    assert list(sub_frame["successor"]) == [341, 113]
+
+    # Test v=53
+    sub_frame = graph_frame[graph_frame["predecessor"] == 53]
+    assert list(sub_frame["successor"]) == [853, 35]
+
+    # Test v=301
+    sub_frame = graph_frame[graph_frame["predecessor"] == 301]
+    assert list(sub_frame["successor"]) == [1205, 401]
