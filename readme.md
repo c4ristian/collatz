@@ -2,9 +2,10 @@
 
 ## What is it?
 The [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture) is an 
-unsolved number theory problem. This python library provides tools to 
+unsolved number theory problem. This Python library provides tools to 
 analyse it from different perspectives. The most important results achieved with this library 
-have been published in this [working paper](https://doi.org/10.34646/thn/ohmdok-620).
+have been published in these working papers [[1]](https://doi.org/10.34646/thn/ohmdok-620), 
+[[2]](https://doi.org/10.25932/publishup-44325).
 
 ## Main Features
 The library provides four modules:
