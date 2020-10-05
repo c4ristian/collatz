@@ -173,4 +173,11 @@ def create_dutch_graph(start_value, successor_count=3, iteration_count=3):
             else:
                 dutch_frame = dutch_frame.append(new_frame, ignore_index=True)
 
+    # When no frame was created, return empty one
+    if dutch_frame is None:
+        dutch_frame = pd.DataFrame({
+            "predecessor": [],
+            "successor": []
+        })
+
     return dutch_frame

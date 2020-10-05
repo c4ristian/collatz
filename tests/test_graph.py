@@ -149,6 +149,7 @@ def test_create_dutch_graph():
     Test case for the method create_dutch_graph.
     :return:
     """
+    # Root node = 1
     graph_frame = graph.create_dutch_graph(
         1, successor_count=5, iteration_count=4)
 
@@ -177,3 +178,33 @@ def test_create_dutch_graph():
     # Test v=301
     sub_frame = graph_frame[graph_frame["predecessor"] == 301]
     assert list(sub_frame["successor"]) == [1205, 401]
+
+    # Root node = 13
+    graph_frame = graph.create_dutch_graph(
+        13, successor_count=4, iteration_count=4)
+
+    # Test root node of tree
+    assert graph_frame["predecessor"][0] == 13
+    assert graph_frame["successor"][0] == 17
+    assert graph_frame["predecessor"][1] == 17
+    assert graph_frame["successor"][1] == 277
+
+    # Test v=17
+    sub_frame = graph_frame[graph_frame["predecessor"] == 17]
+    assert list(sub_frame["successor"]) == [277, 11]
+
+    # Big root node
+    graph_frame = graph.create_dutch_graph(
+        8804313965977148737999987199276873995423660424042251,
+        successor_count=1, iteration_count=1)
+
+    assert graph_frame["predecessor"][0] == \
+           8804313965977148737999987199276873995423660424042251
+    assert graph_frame["successor"][0] == 11**50
+
+    # Test empty tree
+    graph_frame = graph.create_dutch_graph(
+        3, successor_count=4, iteration_count=4)
+
+    assert graph_frame is not None
+    assert len(graph_frame) == 0
