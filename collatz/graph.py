@@ -154,26 +154,25 @@ def create_dutch_graph(start_value, successor_count=3, iteration_count=3):
         current_frame = graph_frame[graph_frame["predecessor"] == pred]
         successors = list(current_frame["successor"])
 
-        if len(successors) > 0:
-            new_predecessors = [pred]
-            new_successors = [successors[0]]
+        new_predecessors = [pred]
+        new_successors = [successors[0]]
 
-            if len(successors) > 1:
-                for s_i in range(0, len(successors) - 1):
-                    new_predecessors.append(successors[s_i])
-                    new_successors.append(successors[s_i + 1])
+        if len(successors) > 1:
+            for s_i in range(0, len(successors) - 1):
+                new_predecessors.append(successors[s_i])
+                new_successors.append(successors[s_i + 1])
 
-            new_frame = pd.DataFrame({
-                "predecessor": new_predecessors,
-                "successor": new_successors
-            })
+        new_frame = pd.DataFrame({
+            "predecessor": new_predecessors,
+            "successor": new_successors
+        })
 
-            if dutch_frame is None:
-                dutch_frame = new_frame
-            else:
-                dutch_frame = dutch_frame.append(new_frame, ignore_index=True)
+        if dutch_frame is None:
+            dutch_frame = new_frame
+        else:
+            dutch_frame = dutch_frame.append(new_frame, ignore_index=True)
 
-    # When no frame was created, return empty one
+    # When no frame was created, return an empty one
     if dutch_frame is None:
         dutch_frame = pd.DataFrame({
             "predecessor": [],
