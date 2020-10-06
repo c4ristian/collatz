@@ -37,8 +37,7 @@ nbutils.set_default_pd_options()
 
 ROOT_NODE = 1
 K_FACTOR = 3
-CHILD_COUNT = 4
-ITERATION_COUNT = 4
+ITERATION_COUNT = 6
 SHOW_LABELS = True
 
 EXPORT_DATA = True
@@ -48,8 +47,7 @@ CSV_PATH = DATA_PATH + "dutch_graph.csv"
 
 # Create dutch graph
 graph_frame = graph.create_dutch_graph(
-        ROOT_NODE, successor_count=CHILD_COUNT,
-        iteration_count=ITERATION_COUNT)
+        ROOT_NODE, iteration_count=ITERATION_COUNT)
 
 graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
 graph_frame["s_mod_k"] = graph_frame["successor"] % K_FACTOR

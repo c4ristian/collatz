@@ -14,7 +14,7 @@ def get_odd_predecessor(odd_int, index, k=3):
 
     The function is optimised for handling arbitrary big integers.
 
-    :param odd_int: The odd number the predecessor is calculated for.
+    :param odd_int: The odd int the predecessor is calculated for.
     :param k: The factor odd numbers are multiplied with.
     :param index: The index of the predecessor as integer [0..n].
     :return: The predecessor or None if no predecessor exists.
@@ -126,57 +126,83 @@ def create_reverse_graph(start_value, k=3, successor_count=3, iteration_count=3)
     return graph_frame
 
 
-def create_dutch_graph(start_value, successor_count=3, iteration_count=3):
+def get_odd_binary_successors(odd_int: int):
+    """
+    This method returns the successors of a node in a everse binary Collatz graph
+    as described in the paper
+    [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
+    The method internally builds on the function get_odd_predecessor. The method is
+    implemented for the k-factor 3 exclusively.
+    :param odd_int: The odd int the predecessor is calculated for.
+    :return: The successors or an empty list, if the odd int is a multiple of 3.
+    """
+    successors = []
+
+    first_child = get_odd_predecessor(odd_int, k=3, index=0)
+
+    if first_child is not None and first_child % 3 == 0:
+        first_child = get_odd_predecessor(odd_int, k=3, index=1)
+
+    if first_child is not None:
+        successors.append(first_child)
+
+        first_sibling = odd_int * 4 + 1
+        if first_sibling % 3 == 0:
+            first_sibling = first_sibling * 4 + 1
+
+        successors.append(first_sibling)
+
+    return successors
+
+
+def create_dutch_graph(start_value, iteration_count=3):
     """
     This function creates a reverse binary Collatz graph as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
-    The method internally builds on the function create_reverse_graph. The method is
+    The method internally builds on the function get_odd_binary_predecessors. The method is
     implemented for the k-factor 3 exclusively.
 
     :param start_value: Odd integer as root node.
-    :param successor_count: The number of successors to determine for every node.
     :param iteration_count: The number of iterations to perform. This parameter determines
     the depth of the tree.
     :return: The Collatz reverse binary graph as data frame.
     """
-    graph_frame = create_reverse_graph(
-        start_value, k=3, successor_count=successor_count,
-        iteration_count=iteration_count)
 
-    # Remove leaf nodes
-    graph_frame = graph_frame[graph_frame["successor"] % 3 > 0]
-
-    # Transform nodes
-    predecessors_unique = list(graph_frame["predecessor"].unique())
-    dutch_frame = None
-
-    for pred in predecessors_unique:
-        current_frame = graph_frame[graph_frame["predecessor"] == pred]
-        successors = list(current_frame["successor"])
-
-        new_predecessors = [pred]
-        new_successors = [successors[0]]
-
-        if len(successors) > 1:
-            for s_i in range(0, len(successors) - 1):
-                new_predecessors.append(successors[s_i])
-                new_successors.append(successors[s_i + 1])
-
-        new_frame = pd.DataFrame({
-            "predecessor": new_predecessors,
-            "successor": new_successors
-        })
-
-        if dutch_frame is None:
-            dutch_frame = new_frame
-        else:
-            dutch_frame = dutch_frame.append(new_frame, ignore_index=True)
-
-    # When no frame was created, return an empty one
-    if dutch_frame is None:
-        dutch_frame = pd.DataFrame({
+    # Return empty frame, if node is leaf
+    if start_value % 3 == 0:
+        return pd.DataFrame({
+            "iteration": [],
             "predecessor": [],
             "successor": []
         })
+
+    # Create graph
+    iterations = []
+    predecessors = []
+    successors = []
+
+    current_predecessors = [start_value]
+
+    for i in range(1, iteration_count + 1):
+        next_predecessors = []
+
+        for pred in current_predecessors:
+            current_successors = get_odd_binary_successors(pred)
+            iterations.extend([i, i])
+            predecessors.extend([pred, pred])
+            successors.extend(current_successors)
+            next_predecessors.extend(current_successors)
+
+        current_predecessors = next_predecessors
+
+    dutch_frame = pd.DataFrame({
+        "iteration": iterations,
+        "predecessor": predecessors,
+        "successor": successors
+    })
+
+    # Drop duplicate values
+    dutch_frame = dutch_frame.drop_duplicates(
+        subset=["successor", "predecessor"]).reset_index(drop=True)
 
     return dutch_frame
