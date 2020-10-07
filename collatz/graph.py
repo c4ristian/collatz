@@ -128,7 +128,7 @@ def create_reverse_graph(start_value, k=3, successor_count=3, iteration_count=3)
 
 def get_odd_binary_successors(odd_int: int):
     """
-    This method returns the successors of a node in a everse binary Collatz graph
+    This method returns the successors of a node in a reverse binary Collatz graph
     as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
     The method internally builds on the function get_odd_predecessor. The method is
