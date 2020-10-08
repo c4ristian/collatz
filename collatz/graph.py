@@ -126,17 +126,18 @@ def create_reverse_graph(start_value, k=3, successor_count=3, iteration_count=3)
     return graph_frame
 
 
-def get_odd_binary_successors(odd_int: int):
+def get_odd_binary_predecessors(odd_int: int):
     """
-    This method returns the successors of a node in a reverse binary Collatz graph
+    This method returns the predecessors of a node in a binary Collatz graph
     as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
     The method internally builds on the function get_odd_predecessor. The method is
     implemented for the k-factor 3 exclusively.
+
     :param odd_int: The odd int the predecessor is calculated for.
-    :return: The successors or an empty list, if the odd int is a multiple of 3.
+    :return: The predecessors or an empty list, if the odd int is a multiple of 3.
     """
-    successors = []
+    predecessors = []
 
     first_child = get_odd_predecessor(odd_int, k=3, index=0)
 
@@ -144,20 +145,19 @@ def get_odd_binary_successors(odd_int: int):
         first_child = get_odd_predecessor(odd_int, k=3, index=1)
 
     if first_child is not None:
-        successors.append(first_child)
-
         first_sibling = odd_int * 4 + 1
         if first_sibling % 3 == 0:
             first_sibling = first_sibling * 4 + 1
 
-        successors.append(first_sibling)
+        predecessors.append(first_sibling)
+        predecessors.append(first_child)
 
-    return successors
+    return predecessors
 
 
 def create_dutch_graph(start_value, iteration_count=3):
     """
-    This function creates a reverse binary Collatz graph as described in the paper
+    This function creates a binary Collatz graph as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
     The method internally builds on the function get_odd_binary_predecessors. The method is
     implemented for the k-factor 3 exclusively.
@@ -165,40 +165,40 @@ def create_dutch_graph(start_value, iteration_count=3):
     :param start_value: Odd integer as root node.
     :param iteration_count: The number of iterations to perform. This parameter determines
     the depth of the tree.
-    :return: The Collatz reverse binary graph as data frame.
+    :return: The Collatz binary graph as data frame.
     """
 
     # Return empty frame, if node is leaf
     if start_value % 3 == 0:
         return pd.DataFrame({
             "iteration": [],
-            "predecessor": [],
-            "successor": []
+            "successor": [],
+            "predecessor": []
         })
 
     # Create graph
     iterations = []
-    predecessors = []
     successors = []
+    predecessors = []
 
-    current_predecessors = [start_value]
+    current_successors = [start_value]
 
     for i in range(1, iteration_count + 1):
-        next_predecessors = []
+        next_successors = []
 
-        for pred in current_predecessors:
-            current_successors = get_odd_binary_successors(pred)
+        for successor in current_successors:
+            current_predecessors = get_odd_binary_predecessors(successor)
             iterations.extend([i, i])
-            predecessors.extend([pred, pred])
-            successors.extend(current_successors)
-            next_predecessors.extend(current_successors)
+            successors.extend([successor, successor])
+            predecessors.extend(current_predecessors)
+            next_successors.extend(current_predecessors)
 
-        current_predecessors = next_predecessors
+        current_successors = next_successors
 
     dutch_frame = pd.DataFrame({
-        "iteration": iterations,
-        "predecessor": predecessors,
-        "successor": successors
+        "iteration": pd.Series(iterations),
+        "successor": pd.Series(successors, dtype="object"),
+        "predecessor": pd.Series(predecessors, dtype="object")
     })
 
     # Drop duplicate values
@@ -206,3 +206,26 @@ def create_dutch_graph(start_value, iteration_count=3):
         subset=["successor", "predecessor"]).reset_index(drop=True)
 
     return dutch_frame
+
+
+def create_reverse_dutch_graph(start_value, iteration_count=3):
+    """
+    This function creates a revers binary Collatz graph as described in the paper
+    [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
+    The method internally builds on the function create_dutch_graph. The method is
+    implemented for the k-factor 3 exclusively.
+
+    The function is optimised for handling arbitrary big integers.
+
+    :param start_value: Odd integer as root node.
+    :param iteration_count: The number of iterations to perform. This parameter determines
+    the depth of the tree.
+    :return: The reverse Collatz binary graph as data frame.
+    """
+    graph_frame = create_dutch_graph(start_value, iteration_count)
+    predecessor = list(graph_frame["predecessor"])
+    successor = list(graph_frame["successor"])
+
+    graph_frame["predecessor"] = successor
+    graph_frame["successor"] = predecessor
+    return graph_frame

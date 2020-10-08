@@ -144,28 +144,28 @@ def test_create_reverse_graph():
     assert graph_frame["successor"][0] == 9 ** 50
 
 
-def test_get_odd_binary_successors():
+def test_get_odd_binary_predecessors():
     """
-    Test case for the method get_odd_binary_successors.
+    Test case for the method get_odd_binary_predecessors.
     :return:
     """
-    assert graph.get_odd_binary_successors(3) == []
-    assert graph.get_odd_binary_successors(1) == [1, 5]
-    assert graph.get_odd_binary_successors(5) == [13, 85]
-    assert graph.get_odd_binary_successors(85) == [113, 341]
-    assert graph.get_odd_binary_successors(53) == [35, 853]
-    assert graph.get_odd_binary_successors(301) == [401, 1205]
-    assert graph.get_odd_binary_successors(17) == [11, 277]
+    assert graph.get_odd_binary_predecessors(3) == []
+    assert graph.get_odd_binary_predecessors(1) == [5, 1]
+    assert graph.get_odd_binary_predecessors(5) == [85, 13]
+    assert graph.get_odd_binary_predecessors(85) == [341, 113]
+    assert graph.get_odd_binary_predecessors(53) == [853, 35]
+    assert graph.get_odd_binary_predecessors(301) == [1205, 401]
+    assert graph.get_odd_binary_predecessors(17) == [277, 11]
 
     big_node = 8804313965977148737999987199276873995423660424042251
-    assert graph.get_odd_binary_successors(big_node) == [11**50, big_node * 4 + 1]
+    assert graph.get_odd_binary_predecessors(big_node) == [big_node * 4 + 1, 11 ** 50]
 
     # Test exceptions
     with pytest.raises(AssertionError):
-        graph.get_odd_binary_successors(5.5)
+        graph.get_odd_binary_predecessors(5.5)
 
     with pytest.raises(AssertionError):
-        graph.get_odd_binary_successors(-5)
+        graph.get_odd_binary_predecessors(-5)
 
 
 def test_create_dutch_graph():
@@ -180,51 +180,51 @@ def test_create_dutch_graph():
     assert graph_frame is not None
 
     # Test root node of tree
-    assert graph_frame["predecessor"][0] == 1
+    assert graph_frame["predecessor"][0] == 5
     assert graph_frame["successor"][0] == 1
     assert graph_frame["predecessor"][1] == 1
-    assert graph_frame["successor"][1] == 5
+    assert graph_frame["successor"][1] == 1
 
     # Test v=5
-    sub_frame = graph_frame[graph_frame["predecessor"] == 5]
+    sub_frame = graph_frame[graph_frame["successor"] == 5]
     assert len(sub_frame) == 2
-    assert list(sub_frame["predecessor"]) == [5, 5]
-    assert list(sub_frame["successor"]) == [13, 85]
+    assert list(sub_frame["successor"]) == [5, 5]
+    assert list(sub_frame["predecessor"]) == [85, 13]
 
     # Test v=85
-    sub_frame = graph_frame[graph_frame["predecessor"] == 85]
-    assert list(sub_frame["successor"]) == [113, 341]
+    sub_frame = graph_frame[graph_frame["successor"] == 85]
+    assert list(sub_frame["predecessor"]) == [341, 113]
 
     # Test v=53
-    sub_frame = graph_frame[graph_frame["predecessor"] == 53]
-    assert list(sub_frame["successor"]) == [35, 853]
+    sub_frame = graph_frame[graph_frame["successor"] == 53]
+    assert list(sub_frame["predecessor"]) == [853, 35]
 
     # Test v=301
-    sub_frame = graph_frame[graph_frame["predecessor"] == 301]
-    assert list(sub_frame["successor"]) == [401, 1205]
+    sub_frame = graph_frame[graph_frame["successor"] == 301]
+    assert list(sub_frame["predecessor"]) == [1205, 401]
 
     # Root node = 13
     graph_frame = graph.create_dutch_graph(
         13, iteration_count=6)
 
     # Test root node of tree
-    assert graph_frame["predecessor"][0] == 13
-    assert graph_frame["successor"][0] == 17
-    assert graph_frame["predecessor"][1] == 13
-    assert graph_frame["successor"][1] == 53
+    assert graph_frame["successor"][0] == 13
+    assert graph_frame["predecessor"][0] == 53
+    assert graph_frame["successor"][1] == 13
+    assert graph_frame["predecessor"][1] == 17
 
     # Test v=17
-    sub_frame = graph_frame[graph_frame["predecessor"] == 17]
-    assert list(sub_frame["successor"]) == [11, 277]
+    sub_frame = graph_frame[graph_frame["successor"] == 17]
+    assert list(sub_frame["predecessor"]) == [277, 11]
 
     # Big root node
     graph_frame = graph.create_dutch_graph(
         8804313965977148737999987199276873995423660424042251,
         iteration_count=1)
 
-    assert graph_frame["predecessor"][0] == \
+    assert graph_frame["successor"][1] == \
            8804313965977148737999987199276873995423660424042251
-    assert graph_frame["successor"][0] == 11**50
+    assert graph_frame["predecessor"][1] == 11**50
 
     # Test empty tree
     graph_frame = graph.create_dutch_graph(
@@ -232,3 +232,37 @@ def test_create_dutch_graph():
 
     assert graph_frame is not None
     assert len(graph_frame) == 0
+
+
+def test_create_reverse_dutch_graph():
+    """
+    Test case for the method create_reverse_dutch_graph.
+    :return:
+    """
+
+    # Root node = 1
+    graph_frame = graph.create_reverse_dutch_graph(
+        1, iteration_count=6)
+
+    assert graph_frame is not None
+
+    # Test root node of tree
+    assert graph_frame["successor"][0] == 5
+    assert graph_frame["predecessor"][0] == 1
+    assert graph_frame["successor"][1] == 1
+    assert graph_frame["predecessor"][1] == 1
+
+    # Test v=5
+    sub_frame = graph_frame[graph_frame["predecessor"] == 5]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["predecessor"]) == [5, 5]
+    assert list(sub_frame["successor"]) == [85, 13]
+
+    # Big root node
+    graph_frame = graph.create_reverse_dutch_graph(
+        8804313965977148737999987199276873995423660424042251,
+        iteration_count=1)
+
+    assert graph_frame["predecessor"][1] == \
+           8804313965977148737999987199276873995423660424042251
+    assert graph_frame["successor"][1] == 11 ** 50
