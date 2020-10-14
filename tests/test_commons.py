@@ -323,3 +323,29 @@ def test_to_binary():
     # Should only accept integers
     with pytest.raises(TypeError):
         com.to_binary(0.25)
+
+
+def test_multiplicative_order():
+    """
+    Test case for the method multiplicative_order.
+
+    :return: None.
+    """
+    # Test for n = 2
+    assert com.multiplicative_order(1) is None
+    assert com.multiplicative_order(3) == 2
+    assert com.multiplicative_order(5) == 4
+
+    # Test max_iterations
+    assert com.multiplicative_order(7, max_iterations=1) is None
+    assert com.multiplicative_order(3, max_iterations=2) == 2
+    assert com.multiplicative_order(181, max_iterations=10) is None
+    assert com.multiplicative_order(181, max_iterations=100) is None
+    assert com.multiplicative_order(181, max_iterations=1000) == 180
+
+    # Test n=4
+    assert com.multiplicative_order(7, 4) == 3
+
+    # Should only accept integers for a
+    with pytest.raises(AssertionError):
+        com.multiplicative_order(0.25)

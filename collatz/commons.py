@@ -253,3 +253,29 @@ def to_binary(int_value):
         result = result[2:len(result)]
 
     return result
+
+
+# pylint: disable=C0103
+# A single character for a and n is ok, since this is compliant with
+# the wiki-documentation
+def multiplicative_order(a: int, n=2, max_iterations=10):
+    """
+    This method returns the multiplicative order of an integer a modulo n.
+    For a description of the algorithm see https://en.wikipedia.org/wiki/Multiplicative_order.
+
+    :param a: An integer whose multiplicative order is to be defined.
+    :param n: The parameter n which is used for the modulo operation.
+    :param max_iterations: The maximum number of iterations to be performed. If no result
+    has been determined after this number of iterations, None is returned.
+    :return: The multiplicative order or None if no result has been found.
+    """
+    assert isinstance(a, numbers.Integral), "Integer value expected"
+
+    order = None
+
+    for e in range(1, max_iterations + 1):
+        if n**e % a == 1:
+            order = e
+            break
+
+    return order
