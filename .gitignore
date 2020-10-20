@@ -10,6 +10,7 @@ notebooks/.ipynb_checkpoints
 notebooks/ml/.ipynb_checkpoints
 notebooks/_backup
 tests/.pytest_cache
+experiments/
 
 # Other Files
 *.coverage

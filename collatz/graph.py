@@ -210,7 +210,7 @@ def create_dutch_graph(start_value, iteration_count=3):
 
 def create_reverse_dutch_graph(start_value, iteration_count=3):
     """
-    This function creates a revers binary Collatz graph as described in the paper
+    This function creates a reverse binary Collatz graph as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
     The method internally builds on the function create_dutch_graph. The method is
     implemented for the k-factor 3 exclusively.
@@ -229,3 +229,105 @@ def create_reverse_dutch_graph(start_value, iteration_count=3):
     graph_frame["predecessor"] = successor
     graph_frame["successor"] = predecessor
     return graph_frame
+
+
+def get_pruned_binary_predecessors(odd_int: int, pruning_level=0):
+    """
+    This method returns the pruned predecessors of a node in a binary Collatz graph
+    as described in the paper
+    [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
+    The method internally builds on the function get_odd_binary_predecessor. The method is
+    implemented for the k-factor 3 exclusively. In case an illegal starting node is handed over,
+    an AssertionError is thrown.
+
+    :param odd_int: The starting node the predecessor is calculated for.
+    :param pruning_level: The pruning level. The default value 0 leads to an unpruned tree.
+    :return: The predecessors as list.
+    """
+    assert odd_int % 3 > 0
+
+    binary_predecessors = get_odd_binary_predecessors(odd_int)
+    pruned_predecessors = []
+
+    if binary_predecessors:
+        left_pred = binary_predecessors[0]
+        right_pred = binary_predecessors[1]
+
+        if pruning_level > 0:
+            right_anc = odd_int
+
+            for _ in range(0, pruning_level):
+                right_anc = (right_anc - 1) // 4
+                if right_anc % 3 == 0:
+                    right_anc = (right_anc - 1) // 4
+
+            right_pred = get_odd_binary_predecessors(right_anc)[1]
+
+            for _ in range(0, pruning_level):
+                right_pred = get_odd_binary_predecessors(right_pred)[0]
+
+        pruned_predecessors.append(left_pred)
+        pruned_predecessors.append(right_pred)
+
+    return pruned_predecessors
+
+
+def create_pruned_dutch_graph(pruning_level=0, iteration_count=3):
+    """
+    This function creates a pruned binary Collatz graph as described in the paper
+    [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
+    The method internally builds on the function get_pruned_binary_predecessors. The method is
+    implemented for the k-factor 3 exclusively.
+
+    :param pruning_level: The pruning level. The default value 0 leads to an unpruned tree.
+    :param iteration_count: The number of iterations to perform. This parameter determines
+    the depth of the tree.
+    :return: The pruned Collatz binary graph as data frame.
+    """
+    # Determine starting node
+    starting_node = 1
+
+    for i in range(0, pruning_level):
+        starting_node = starting_node * 4 + 1
+
+        if starting_node % 3 == 0:
+            starting_node = starting_node * 4 + 1
+
+    # Determine first predecessor
+    first_pred = starting_node * 4 + 1
+
+    if first_pred % 3 == 0:
+        first_pred = first_pred * 4 + 1
+
+    # Create graph
+    iterations = [1, 1]
+    successors = [starting_node, starting_node]
+    predecessors = [first_pred, starting_node]
+
+    current_successors = [first_pred]
+
+    for i in range(1, iteration_count + 1):
+        next_successors = []
+
+        for successor in current_successors:
+            current_predecessors = get_pruned_binary_predecessors(
+                successor, pruning_level=pruning_level)
+
+            iterations.extend([i, i])
+            successors.extend([successor, successor])
+            predecessors.extend(current_predecessors)
+            next_successors.extend(current_predecessors)
+
+        current_successors = next_successors
+
+    dutch_frame = pd.DataFrame({
+        "iteration": pd.Series(iterations),
+        "successor": pd.Series(successors, dtype="object"),
+        "predecessor": pd.Series(predecessors, dtype="object")
+    })
+
+    # Drop duplicate values
+    dutch_frame = dutch_frame.drop_duplicates(
+        subset=["successor", "predecessor"]).reset_index(drop=True)
+
+    return dutch_frame

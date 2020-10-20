@@ -266,3 +266,111 @@ def test_create_reverse_dutch_graph():
     assert graph_frame["predecessor"][1] == \
            8804313965977148737999987199276873995423660424042251
     assert graph_frame["successor"][1] == 11 ** 50
+
+
+def test_get_pruned_binary_predecessors():
+    """
+    Testcase for the method get_pruned_binary_predecessors.
+    :return: None.
+    """
+    # Pruning level 0
+    pred = graph.get_pruned_binary_predecessors(1, 0)
+    assert pred[0] == 5
+    assert pred[1] == 1
+
+    pred = graph.get_pruned_binary_predecessors(5, 0)
+    assert pred[0] == 85
+    assert pred[1] == 13
+
+    # Pruning level 1
+    pred = graph.get_pruned_binary_predecessors(5, 1)
+    assert pred[0] == 85
+    assert pred[1] == 5
+
+    pred = graph.get_pruned_binary_predecessors(85, 1)
+    assert pred[0] == 341
+    assert pred[1] == 53
+
+    # Pruning level 2
+    pred = graph.get_pruned_binary_predecessors(341, 2)
+    assert pred[0] == 5461
+    assert pred[1] == 853
+
+    pred = graph.get_pruned_binary_predecessors(853, 2)
+    assert pred[0] == 3413
+    assert pred[1] == 1109
+
+    # Pruning level 3
+    pred = graph.get_pruned_binary_predecessors(116053, 3)
+    assert pred[0] == 464213
+    assert pred[1] == 77141
+
+    # Illegal starting nodes
+    with pytest.raises(AssertionError):
+        graph.get_pruned_binary_predecessors(2, 5)
+
+    with pytest.raises(AssertionError):
+        graph.get_pruned_binary_predecessors(9, 0)
+
+    with pytest.raises(AssertionError):
+        graph.get_pruned_binary_predecessors(1.6, 1)
+
+
+def test_create_pruned_dutch_graph():
+    """
+    Testcase for the method create_pruned_dutch_graph.
+    :return: None.
+    """
+    # Pruning level 0
+    graph_frame = graph.create_pruned_dutch_graph(
+        pruning_level=0, iteration_count=3)
+
+    assert graph_frame is not None
+
+    # Test v=5
+    sub_frame = graph_frame[graph_frame["successor"] == 5]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["successor"]) == [5, 5]
+    assert list(sub_frame["predecessor"]) == [85, 13]
+
+    # Pruning level 1
+    graph_frame = graph.create_pruned_dutch_graph(
+        pruning_level=1, iteration_count=3)
+
+    assert graph_frame is not None
+
+    # Test v=85
+    sub_frame = graph_frame[graph_frame["successor"] == 85]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["successor"]) == [85, 85]
+    assert list(sub_frame["predecessor"]) == [341, 53]
+
+    # Test v=853
+    sub_frame = graph_frame[graph_frame["successor"] == 853]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["successor"]) == [853, 853]
+    assert list(sub_frame["predecessor"]) == [3413, 565]
+
+    # Pruning level 4
+    graph_frame = graph.create_pruned_dutch_graph(
+        pruning_level=4, iteration_count=3)
+
+    assert graph_frame is not None
+
+    # Test v=349525
+    sub_frame = graph_frame[graph_frame["successor"] == 349525]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["successor"]) == [349525, 349525]
+    assert list(sub_frame["predecessor"]) == [1398101, 464213]
+
+    # Pruning level 5
+    graph_frame = graph.create_pruned_dutch_graph(
+        pruning_level=5, iteration_count=3)
+
+    assert graph_frame is not None
+
+    # Pruning level 30
+    graph_frame = graph.create_pruned_dutch_graph(
+        pruning_level=30, iteration_count=3)
+
+    assert graph_frame is not None
