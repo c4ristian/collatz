@@ -14,7 +14,7 @@ def get_odd_predecessor(odd_int, index, k=3):
 
     The function is optimised for handling arbitrary big integers.
 
-    :param odd_int: The node for which the predecessors are calculated.
+    :param odd_int: The node for which the predecessor is calculated.
     :param k: The factor odd numbers are multiplied with.
     :param index: The index of the predecessor as integer [0..n].
     :return: The predecessor or None if no predecessor exists.
@@ -240,7 +240,7 @@ def get_pruned_binary_predecessors(odd_int: int, pruning_level=0):
     as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
     The method internally builds on the function get_odd_binary_predecessors. The method is
-    implemented for the k-factor 3 exclusively. In case an illegal starting node is handed over,
+    implemented for the k-factor 3 exclusively. In case of an illegal starting node,
     an AssertionError is thrown.
 
     The function is optimised for handling arbitrary big integers.
