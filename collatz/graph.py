@@ -14,7 +14,7 @@ def get_odd_predecessor(odd_int, index, k=3):
 
     The function is optimised for handling arbitrary big integers.
 
-    :param odd_int: The odd int the predecessor is calculated for.
+    :param odd_int: The node for which the predecessors are calculated.
     :param k: The factor odd numbers are multiplied with.
     :param index: The index of the predecessor as integer [0..n].
     :return: The predecessor or None if no predecessor exists.
@@ -131,10 +131,12 @@ def get_odd_binary_predecessors(odd_int: int):
     This method returns the predecessors of a node in a binary Collatz graph
     as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
-    The method internally builds on the function get_odd_predecessor. The method is
-    implemented for the k-factor 3 exclusively.
+    The method internally builds on the function get_odd_predecessor. It is implemented for
+    the k-factor 3 exclusively.
 
-    :param odd_int: The odd int the predecessor is calculated for.
+    The function is optimised for handling arbitrary big integers.
+
+    :param odd_int: The node for which the predecessors are calculated.
     :return: The predecessors or an empty list, if the odd int is a multiple of 3.
     """
     predecessors = []
@@ -159,15 +161,16 @@ def create_dutch_graph(start_value, iteration_count=3):
     """
     This function creates a binary Collatz graph as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
-    The method internally builds on the function get_odd_binary_predecessors. The method is
+    The method internally builds on the function get_odd_binary_predecessors. It is
     implemented for the k-factor 3 exclusively.
+
+    The function is optimised for handling arbitrary big integers.
 
     :param start_value: Odd integer as root node.
     :param iteration_count: The number of iterations to perform. This parameter determines
     the depth of the tree.
     :return: The Collatz binary graph as data frame.
     """
-
     # Return empty frame, if node is leaf
     if start_value % 3 == 0:
         return pd.DataFrame({
@@ -212,7 +215,7 @@ def create_reverse_dutch_graph(start_value, iteration_count=3):
     """
     This function creates a reverse binary Collatz graph as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
-    The method internally builds on the function create_dutch_graph. The method is
+    The method internally builds on the function create_dutch_graph. It is
     implemented for the k-factor 3 exclusively.
 
     The function is optimised for handling arbitrary big integers.
@@ -236,11 +239,13 @@ def get_pruned_binary_predecessors(odd_int: int, pruning_level=0):
     This method returns the pruned predecessors of a node in a binary Collatz graph
     as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
-    The method internally builds on the function get_odd_binary_predecessor. The method is
+    The method internally builds on the function get_odd_binary_predecessors. The method is
     implemented for the k-factor 3 exclusively. In case an illegal starting node is handed over,
     an AssertionError is thrown.
 
-    :param odd_int: The starting node the predecessor is calculated for.
+    The function is optimised for handling arbitrary big integers.
+
+    :param odd_int: The node for which the predecessors are calculated.
     :param pruning_level: The pruning level. The default value 0 leads to an unpruned tree.
     :return: The predecessors as list.
     """
@@ -276,8 +281,10 @@ def create_pruned_dutch_graph(pruning_level=0, iteration_count=3):
     """
     This function creates a pruned binary Collatz graph as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
-    The method internally builds on the function get_pruned_binary_predecessors. The method is
+    The method internally builds on the function get_pruned_binary_predecessors. It is
     implemented for the k-factor 3 exclusively.
+
+    The function is optimised for handling arbitrary big integers.
 
     :param pruning_level: The pruning level. The default value 0 leads to an unpruned tree.
     :param iteration_count: The number of iterations to perform. This parameter determines
