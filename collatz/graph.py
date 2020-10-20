@@ -326,8 +326,4 @@ def create_pruned_dutch_graph(pruning_level=0, iteration_count=3):
         "predecessor": pd.Series(predecessors, dtype="object")
     })
 
-    # Drop duplicate values
-    dutch_frame = dutch_frame.drop_duplicates(
-        subset=["successor", "predecessor"]).reset_index(drop=True)
-
     return dutch_frame
