@@ -108,42 +108,6 @@ def test_create_collatz_graph():
     assert graph_frame["predecessor"][0] == 9**50
 
 
-def test_create_reverse_graph():
-    """
-    Test case for the method create_reverse_graph.
-    :return:
-    """
-    graph_frame = graph.create_reverse_graph(
-        1, k=3, successor_count=5, iteration_count=1)
-
-    assert graph_frame is not None
-    assert len(graph_frame) == 5
-    assert set(graph_frame["predecessor"]) == {1}
-    assert set(graph_frame["iteration"]) == {1}
-    assert list(graph_frame["successor"]) == [1, 5, 21, 85, 341]
-
-    graph_frame = graph.create_reverse_graph(
-        1, k=3, successor_count=5, iteration_count=2)
-
-    assert len(graph_frame) == 20
-    assert set(graph_frame["predecessor"]) == {1, 5, 85, 341}
-
-    graph_frame = graph.create_reverse_graph(
-        1, k=1, successor_count=2, iteration_count=3)
-
-    assert len(graph_frame) == 8
-    assert set(graph_frame["predecessor"]) == {1, 3, 5, 11}
-    assert list(graph_frame["successor"]) == [1, 3, 5, 11, 9, 19, 21, 43]
-
-    graph_frame = graph.create_reverse_graph(
-        386533140549008498277345847324215954526580641501,
-        k=3, successor_count=1, iteration_count=1)
-
-    assert len(graph_frame) == 1
-    assert graph_frame["predecessor"][0] == 386533140549008498277345847324215954526580641501
-    assert graph_frame["successor"][0] == 9 ** 50
-
-
 def test_get_odd_binary_predecessors():
     """
     Test case for the method get_odd_binary_predecessors.
@@ -232,40 +196,6 @@ def test_create_dutch_graph():
 
     assert graph_frame is not None
     assert len(graph_frame) == 0
-
-
-def test_create_reverse_dutch_graph():
-    """
-    Test case for the method create_reverse_dutch_graph.
-    :return:
-    """
-
-    # Root node = 1
-    graph_frame = graph.create_reverse_dutch_graph(
-        1, iteration_count=6)
-
-    assert graph_frame is not None
-
-    # Test root node of tree
-    assert graph_frame["successor"][0] == 5
-    assert graph_frame["predecessor"][0] == 1
-    assert graph_frame["successor"][1] == 1
-    assert graph_frame["predecessor"][1] == 1
-
-    # Test v=5
-    sub_frame = graph_frame[graph_frame["predecessor"] == 5]
-    assert len(sub_frame) == 2
-    assert list(sub_frame["predecessor"]) == [5, 5]
-    assert list(sub_frame["successor"]) == [85, 13]
-
-    # Big root node
-    graph_frame = graph.create_reverse_dutch_graph(
-        8804313965977148737999987199276873995423660424042251,
-        iteration_count=1)
-
-    assert graph_frame["predecessor"][1] == \
-           8804313965977148737999987199276873995423660424042251
-    assert graph_frame["successor"][1] == 11 ** 50
 
 
 def test_get_pruned_binary_predecessors():
