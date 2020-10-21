@@ -135,7 +135,7 @@ def get_odd_binary_predecessors(odd_int: int):
 
 def create_dutch_graph(start_value, iteration_count=3):
     """
-    This function creates a binary Collatz graph as described in the paper
+    This function creates the binary Collatz graph T>=0 as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
     The method internally builds on the function get_odd_binary_predecessors. It is
     implemented for the k-factor 3 exclusively.
@@ -232,7 +232,7 @@ def get_pruned_binary_predecessors(odd_int: int, pruning_level=0):
 
 def create_pruned_dutch_graph(pruning_level=0, iteration_count=3):
     """
-    This function creates a pruned binary Collatz graph as described in the paper
+    This function creates a pruned binary Collatz graph T>=p as described in the paper
     [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
     The method internally builds on the function get_pruned_binary_predecessors. It is
     implemented for the k-factor 3 exclusively.
