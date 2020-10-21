@@ -297,6 +297,11 @@ def test_create_pruned_dutch_graph():
     graph_frame = graph.create_pruned_dutch_graph(
         pruning_level=5, iteration_count=3)
 
+    sub_frame = graph_frame[graph_frame["successor"] == 21845]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["successor"]) == [21845, 21845]
+    assert list(sub_frame["predecessor"]) == [349525, 21845]
+
     assert graph_frame is not None
 
     # Pruning level 30
@@ -304,3 +309,11 @@ def test_create_pruned_dutch_graph():
         pruning_level=30, iteration_count=3)
 
     assert graph_frame is not None
+
+    sub_frame = graph_frame[graph_frame["successor"] == 1650586719047173699865498965]
+    assert len(sub_frame) == 2
+    assert list(sub_frame["successor"]) == [
+        1650586719047173699865498965, 1650586719047173699865498965]
+
+    assert list(sub_frame["predecessor"]) == [
+        6602346876188694799461995861, 1650586719047173699865498965]
