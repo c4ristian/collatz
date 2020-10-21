@@ -37,8 +37,8 @@ nbutils.set_default_pd_options()
 
 ROOT_NODE = 1
 K_FACTOR = 3
-ITERATION_COUNT = 6
-REVERSE = True
+ITERATION_COUNT = 5
+REVERSE = False
 SHOW_LABELS = True
 
 EXPORT_DATA = True
@@ -47,12 +47,11 @@ PIC_PATH = DATA_PATH + "dutch_graph.png"
 CSV_PATH = DATA_PATH + "dutch_graph.csv"
 
 # Create dutch graph
+graph_frame = graph.create_dutch_graph(
+        ROOT_NODE, iteration_count=ITERATION_COUNT)
+
 if REVERSE:
-    graph_frame = graph.create_reverse_dutch_graph(
-        ROOT_NODE, iteration_count=ITERATION_COUNT)
-else:
-    graph_frame = graph.create_dutch_graph(
-        ROOT_NODE, iteration_count=ITERATION_COUNT)
+    nbutils.swap_column_names(("successor", "predecessor"), graph_frame)
 
 graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
 graph_frame["s_binary"] = graph_frame["successor"].apply(commons.to_binary)
@@ -81,7 +80,6 @@ if EXPORT_DATA:
     plt.savefig(PIC_PATH)
     graph_frame.to_csv(CSV_PATH, index=False)
     print("Graph saved:" + PIC_PATH)
-
 
 # Plot graph
 plt.show()

@@ -48,14 +48,12 @@ PIC_PATH = DATA_PATH + "collatz_graph.png"
 CSV_PATH = DATA_PATH + "collatz_graph.csv"
 
 # Create collatz graph
-if REVERSE:
-    graph_frame = graph.create_reverse_graph(
-        ROOT_NODE, k=K_FACTOR, successor_count=CHILD_COUNT,
-        iteration_count=ITERATION_COUNT)
-else:
-    graph_frame = graph.create_collatz_graph(
+graph_frame = graph.create_collatz_graph(
         ROOT_NODE, k=K_FACTOR, predecessor_count=CHILD_COUNT,
         iteration_count=ITERATION_COUNT)
+
+if REVERSE:
+    nbutils.swap_column_names(("successor", "predecessor"), graph_frame)
 
 graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
 graph_frame["s_mod_k"] = graph_frame["successor"] % K_FACTOR

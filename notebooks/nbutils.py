@@ -38,3 +38,20 @@ def rnd_int(max_value: int, odds_only=False):
             random_int = random_int - 2
 
     return random_int
+
+
+def swap_column_names(column_names: tuple, data_frame: pd.DataFrame):
+    """
+    This method swaps two column names in a data frame.
+    :param column_names: The column names to swap as tuple.
+    :param data_frame: The data frame.
+    :return: None.
+    """
+    assert isinstance(column_names, tuple), "Column names must be provided as tuple"
+    assert isinstance(data_frame, pd.DataFrame), "No data frame specified"
+
+    first_column = list(data_frame[column_names[0]])
+    second_column = list(data_frame[column_names[1]])
+
+    data_frame[column_names[1]] = first_column
+    data_frame[column_names[0]] = second_column

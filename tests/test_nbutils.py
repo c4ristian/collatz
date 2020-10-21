@@ -39,3 +39,30 @@ def test_rnd_int():
     # Should not accept numbers < 1
     with pytest.raises(ValueError):
         nbutils.rnd_int(-1, odds_only=True)
+
+
+def test_swap_column_names():
+    """
+    Test case for the method swap_column_names.
+    :return: None.
+    """
+    # Test happy path
+    list1 = [1, 2]
+    list2 = [2, 1]
+
+    data_frame = pd.DataFrame({
+        "list1": list1,
+        "list2": list2
+    })
+
+    nbutils.swap_column_names(("list1", "list2"), data_frame)
+    assert list(data_frame["list1"]) == list2
+    assert list(data_frame["list2"]) == list1
+
+    # Should only accept tuples for column names
+    with pytest.raises(AssertionError):
+        nbutils.swap_column_names(1, pd.DataFrame)
+
+    # Should only accept data frames
+    with pytest.raises(AssertionError):
+        nbutils.swap_column_names(("a", "b"), 1)
