@@ -19,61 +19,64 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses Collatz sequences from a graph-theoretic perspective.
-For this purpose it creates a reverse binary tree as described in
+This notebook creates a pruned binary tree as described in
 [Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
 """
 
 # Imports
 from pathlib import Path
 from matplotlib import pyplot as plt
+import numpy as np
 import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
 import nbutils
-from collatz import commons, graph
+from collatz import graph
 
 # Configuration
 nbutils.set_default_pd_options()
 
-ROOT_NODE = 1
-K_FACTOR = 3
-ITERATION_COUNT = 5
+PRUNING_LEVEL = 0
 REVERSE = False
+ITERATION_COUNT = 4
 SHOW_LABELS = True
+PLOT_SIZE = (20, 10)
+PRINT_TABLE = True
 
 EXPORT_DATA = True
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
-PIC_PATH = DATA_PATH + "dutch_graph.png"
-CSV_PATH = DATA_PATH + "dutch_graph.csv"
+PIC_PATH = DATA_PATH + "pruned_dutch_graph.png"
+CSV_PATH = DATA_PATH + "pruned_dutch_graph.csv"
 
 # Create dutch graph
-graph_frame = graph.create_dutch_graph(
-        ROOT_NODE, iteration_count=ITERATION_COUNT)
+graph_frame = graph.create_pruned_dutch_graph(
+    pruning_level=PRUNING_LEVEL, iteration_count=ITERATION_COUNT)
+
+graph_frame["prunable"] = graph_frame.index % 2 == 1
 
 if REVERSE:
     nbutils.swap_column_names(("successor", "predecessor"), graph_frame)
 
-graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
-graph_frame["s_binary"] = graph_frame["successor"].apply(commons.to_binary)
-graph_frame["s_mod_k"] = graph_frame["successor"] % K_FACTOR
-graph_frame["alpha_i"] = graph_frame["predecessor"] * K_FACTOR + 1
-graph_frame["alpha_i"] = graph_frame["alpha_i"].apply(commons.trailing_zeros)
+print("T>=" + str(PRUNING_LEVEL), "\n")
 
-print("Start value:", ROOT_NODE, " K:", K_FACTOR, "\n")
-print(graph_frame.to_string(index=False))
+if PRINT_TABLE:
+    print(graph_frame.to_string(index=False))
 ```
 
 ```python pycharm={"name": "#%%\n"}
 # Create graph
-plt.figure(figsize=(20, 10))
-plt.title("k=" + str(K_FACTOR))
+plt.figure(figsize=PLOT_SIZE)
+plt.title("T>=" + str(PRUNING_LEVEL))
 
 network = nx.convert_matrix.from_pandas_edgelist(
     graph_frame, source="predecessor", target="successor",
     create_using=nx.DiGraph())
 
 pos = graphviz_layout(network, prog='dot')
-nx.draw(network, pos, node_size=200, with_labels=SHOW_LABELS, arrows=True)
+node_color = np.where(graph_frame["prunable"], "#f5b3cc", "#80f1b9")
+
+nx.draw(
+    network, pos, with_labels=SHOW_LABELS,
+    arrows=True, node_color=node_color)
 
 # Export data
 if EXPORT_DATA:
