@@ -1,5 +1,8 @@
 """
-This module provides methods to create and analyse Collatz graphs.
+This module provides methods to create and analyse Collatz graphs. All
+functions are optimised for handling arbitrary big integers. The precision of
+calculated float values depends on the precision of the underlying data type in
+Python and pandas.
 """
 
 import pandas as pd
@@ -12,10 +15,8 @@ def get_odd_predecessor(odd_int, index, k=3):
     predecessor is returned. The method is based on a deterministic algorithm.
     It currently works only for the k-factors (1,3,5,7,9).
 
-    The function is optimised for handling arbitrary big integers.
-
     :param odd_int: The node for which the predecessor is calculated.
-    :param k: The factor odd numbers are multiplied with.
+    :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
     :param index: The index of the predecessor as integer [0..n].
     :return: The predecessor or None if no predecessor exists.
     """
@@ -61,8 +62,6 @@ def create_collatz_graph(start_value, k=3, predecessor_count=3, iteration_count=
     This method creates a Collatz graph consisting of odd numbers, starting with a
     certain odd integer as root node. The method determines the predecessors
     of the root node using the function get_odd_predecessor.
-
-    The function is optimised for handling arbitrary big integers.
 
     :param start_value: Odd integer as root node.
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
@@ -110,10 +109,8 @@ def get_odd_binary_predecessors(odd_int: int):
     The method internally builds on the function get_odd_predecessor. It is implemented for
     the k-factor 3 exclusively.
 
-    The function is optimised for handling arbitrary big integers.
-
     :param odd_int: The node for which the predecessors are calculated.
-    :return: The predecessors or an empty list, if the odd int is a multiple of 3.
+    :return: The predecessors or an empty list if the odd int is a multiple of 3.
     """
     predecessors = []
 
@@ -140,14 +137,12 @@ def create_dutch_graph(start_value, iteration_count=3):
     The method internally builds on the function get_odd_binary_predecessors. It is
     implemented for the k-factor 3 exclusively.
 
-    The function is optimised for handling arbitrary big integers.
-
     :param start_value: Odd integer as root node.
     :param iteration_count: The number of iterations to perform. This parameter determines
         the depth of the tree.
     :return: The Collatz binary graph as data frame.
     """
-    # Return empty frame, if node is leaf
+    # Return empty frame if node is leaf
     if start_value % 3 == 0:
         return pd.DataFrame({
             "iteration": [],
@@ -196,8 +191,6 @@ def get_pruned_binary_predecessors(odd_int: int, pruning_level=0):
     implemented for the k-factor 3 exclusively. In case of an illegal starting node
     an AssertionError is thrown.
 
-    The function is optimised for handling arbitrary big integers.
-
     :param odd_int: The node for which the predecessors are calculated.
     :param pruning_level: The pruning level p. The default value p=0 leads to an unpruned tree.
     :return: The predecessors as list.
@@ -236,8 +229,6 @@ def create_pruned_dutch_graph(pruning_level=0, iteration_count=3):
     *Pruning the binary tree, proving the Collatz conjecture* (https://arxiv.org/abs/2008.13643).
     The method internally builds on the function get_pruned_binary_predecessors. It is
     implemented for the k-factor 3 exclusively.
-
-    The function is optimised for handling arbitrary big integers.
 
     :param pruning_level: The pruning level p. The default value p=0 leads to an unpruned tree.
     :param iteration_count: The number of iterations to perform. This parameter determines

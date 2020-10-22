@@ -9,7 +9,7 @@ from collatz import commons
 
 def find_cycles(k: int, cycle_length: int, max_value: int):
     """
-    This method tries to find cycles in collatz sequences for a
+    This method tries to find cycles in Collatz sequences for a
     specific k factor and a specific cycle-length. The cycle
     length is defined by the amount of odd numbers that
     are part of the cycle. The parameter max_value determines the
@@ -17,12 +17,11 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
 
     The function is optimised for handling arbitrary big integers.
 
-    :param k: The k factor.
+    :param k: The factor by which odd numbers are multiplied in the sequence.
     :param cycle_length: The expected cycle length.
-    :param max_value: The highest odd number to be considered
-    in the search.
-    :return: A list with cycles and their odd numbers of an empty list,
-    if no cycles were found.
+    :param max_value: The highest odd number to be considered in the search.
+    :return: A list with cycles and their odd numbers or an empty list,
+        if no cycles were found.
     """
     # Find cycles
     cycles = []
@@ -53,7 +52,7 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
 def predict_cycle_alpha(k: int, cycle_length: int):
     """
     This method calculates the alpha (exponent of the power of 2) for a
-    hypothetical cycle with a certain length for a collatz sequence
+    hypothetical cycle with a certain length for a Collatz sequence
     with a specific k factor.
 
     The method uses a formula that is based on the function math.log2. The
@@ -61,8 +60,7 @@ def predict_cycle_alpha(k: int, cycle_length: int):
     limitations of Python.
 
     :param k: The k factor as int.
-    :param cycle_length: The number of odd numbers that
-    are part of the cycle.
+    :param cycle_length: The number of odd numbers that are part of the cycle.
     :return: The alpha as int.
     """
     assert k > 0, "k factor must be > 0"

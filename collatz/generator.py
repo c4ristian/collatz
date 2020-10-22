@@ -10,13 +10,13 @@ from collatz import commons as com
 
 def generate_collatz_sequence(start_value, k=3, max_iterations=100):
     """
-    This method generates a collatz sequence for a specific start value,
+    This method generates a Collatz sequence for a specific start value,
     analyses its basic attributes and returns the result as a data frame.
 
-    :param start_value: The start value as positive integer.
-    :param k: The factor that is multiplied with odd numbers (default is 3)
+    :param start_value: The start value as positive int.
+    :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
     :param max_iterations: The maximum number of iterations performed for the
-    collatz sequence (default is 100).
+        Collatz sequence (default is 100).
     :return: A pandas data frame with the results.
     """
     collatz_sequence = com.collatz_sequence(start_value, k, max_iterations)
@@ -35,16 +35,16 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=100):
 
 def generate_odd_collatz_sequence(start_value, k=3, max_iterations=100):
     """
-    This method generates a collatz sequence containing only odd numbers
+    This method generates a Collatz sequence containing only odd numbers
     for a specific start value, analyses its basic attributes
     and returns the result as a data frame.
 
-    :param start_value: The integer value to start with. The value must be a
-    natural number > 0. If an even number is handed over, the next odd number will be used
-    as start value.
-    :param k: The factor that is multiplied with odd numbers (default is 3)
+    :param start_value: The int value to start with. The value must be a
+        natural number > 0. If an even number is handed over, the next odd number will be used
+        as start value.
+    :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
     :param max_iterations: The maximum number of iterations performed for the
-    collatz sequence (default is 300).
+        Collatz sequence (default is 100).
     :return: A pandas data frame with the results.
     """
     collatz_sequence = com.odd_collatz_sequence(start_value, k, max_iterations)
