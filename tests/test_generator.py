@@ -10,7 +10,7 @@ from collatz import generator
 
 def test_should_generate_collatz_sequence_correctly():
     """
-    This method tests that single collatz sequences are generated correctly.
+    Test case for the method generate_collatz_sequence.
     :return: None
     """
     # Test simple sequence
@@ -77,8 +77,7 @@ def test_should_generate_collatz_sequence_correctly():
 
 def test_should_generate_odd_collatz_sequence_correctly():
     """
-    This method tests that single collatz sequences that contain only odd numbers
-    are generated correctly.
+    Test case for the method generate_odd_collatz_sequence.
     :return: None
     """
     # Test simple sequence

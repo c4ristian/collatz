@@ -8,8 +8,7 @@ from collatz import cycles
 
 def test_should_find_cycles_correctly():
     """
-    This method ensures that the module finds cycles in
-    collatz sequences correctly.
+    Test case for the method find_cycles.
     :return: None.
     """
     # Check cycles for k=1
@@ -50,8 +49,7 @@ def test_should_find_cycles_correctly():
 
 def test_should_predict_cycle_alpha_correctly():
     """
-    This method ensures that cycle alphas are calculated
-    correctly.
+    Test case for the method predict_cycle_alpha.
     :return: None.
     """
     # k=1

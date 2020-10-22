@@ -200,7 +200,7 @@ def test_create_dutch_graph():
 
 def test_get_pruned_binary_predecessors():
     """
-    Testcase for the method get_pruned_binary_predecessors.
+    Test case for the method get_pruned_binary_predecessors.
     :return: None.
     """
     # Pruning level 0
@@ -248,7 +248,7 @@ def test_get_pruned_binary_predecessors():
 
 def test_create_pruned_dutch_graph():
     """
-    Testcase for the method create_pruned_dutch_graph.
+    Test case for the method create_pruned_dutch_graph.
     :return: None.
     """
     # Pruning level 0
