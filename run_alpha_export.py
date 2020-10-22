@@ -14,16 +14,16 @@ from collatz import commons
 def _generate_odd_sequence(sequence_id: int, start_value: int,
                            k_factor: int, max_iterations: int):
     """
-    This method generates a Collatz sequence, containing only odd numbers.
+    This method generates a Collatz sequence containing only odd numbers.
 
     :param sequence_id: ID of the sequence.
     :param start_value: The integer value to start with. The value must be a
-    natural number > 0. If an even number is handed over, the next odd number will be used
-    as start value.
-    :param k_factor: The factor that is multiplied with odd numbers (default is 3).
+        natural number > 0. If an even number is handed over, the next odd number will be used
+        as start value.
+    :param k_factor: The factor by which odd numbers are multiplied in the sequence.
     :param max_iterations: The maximum number of iterations performed
-    before the method exits. Default is -1, meaning that no max number of iterations is set.
-    :return: The collatz sequence as a pandas data frame.
+        before the method exits.
+    :return: The Collatz sequence as a pandas data frame.
     """
     odds = commons.odd_collatz_sequence(start_value, k_factor, max_iterations)
     next_odds = odds[1:]
