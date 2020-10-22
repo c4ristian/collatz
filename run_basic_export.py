@@ -18,10 +18,10 @@ def _generate_full_sequence(sequence_id: int, start_value: int,
 
     :param sequence_id: ID of the sequence.
     :param start_value: The integer value to start with. The value must be a
-    natural number > 0.
-    :param k_factor: The factor that is multiplied with odd numbers (default is 3).
+        natural number > 0.
+    :param k_factor: The factor by which odd numbers are multiplied in the sequence.
     :param max_iterations: The maximum number of iterations performed
-    before the method exits. Default is -1, meaning that no max number of iterations is set.
+        before the method exits.
     :return: The Collatz sequence as a pandas data frame.
     """
     collatz = commons.collatz_sequence(start_value, k_factor, max_iterations)
