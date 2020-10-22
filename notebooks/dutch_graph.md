@@ -20,7 +20,7 @@ jupyter:
 ```python pycharm={"name": "#%%\n"}
 """
 This notebook creates a pruned binary tree as described in
-[Pruning the binary tree, proving the Collatz conjecture](https://arxiv.org/abs/2008.13643).
+*Pruning the binary tree, proving the Collatz conjecture* (https://arxiv.org/abs/2008.13643).
 """
 
 # Imports
@@ -36,16 +36,16 @@ from collatz import graph
 nbutils.set_default_pd_options()
 
 PRUNING_LEVEL = 0
-REVERSE = False
 ITERATION_COUNT = 4
+REVERSE = False
 SHOW_LABELS = True
 PLOT_SIZE = (20, 10)
 PRINT_TABLE = True
-
 EXPORT_DATA = True
+
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
-PIC_PATH = DATA_PATH + "pruned_dutch_graph.png"
-CSV_PATH = DATA_PATH + "pruned_dutch_graph.csv"
+PIC_PATH = DATA_PATH + "dutch_graph.png"
+CSV_PATH = DATA_PATH + "dutch_graph.csv"
 
 # Create dutch graph
 graph_frame = graph.create_pruned_dutch_graph(
@@ -63,7 +63,7 @@ if PRINT_TABLE:
 ```
 
 ```python pycharm={"name": "#%%\n"}
-# Create graph
+# Plot graph
 plt.figure(figsize=PLOT_SIZE)
 plt.title("T>=" + str(PRUNING_LEVEL))
 
@@ -84,6 +84,6 @@ if EXPORT_DATA:
     graph_frame.to_csv(CSV_PATH, index=False)
     print("Graph saved:" + PIC_PATH)
 
-# Plot graph
+# Show graph
 plt.show()
 ```
