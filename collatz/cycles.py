@@ -11,7 +11,7 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     """
     This method tries to find cycles in Collatz sequences for a
     specific k factor and a specific cycle-length. The cycle
-    length is defined by the amount of odd numbers that
+    length is defined by the count of odd numbers that
     are part of the cycle. The parameter max_value determines the
     highest odd number to be considered in the search.
 

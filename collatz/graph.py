@@ -16,8 +16,8 @@ def get_odd_predecessor(odd_int, index, k=3):
     It currently works only for the k-factors (1,3,5,7,9).
 
     :param odd_int: The node for which the predecessor is calculated.
+    :param index: The index of the predecessor as int [0..n].
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
-    :param index: The index of the predecessor as integer [0..n].
     :return: The predecessor or None if no predecessor exists.
     """
     # Validate input parameters
@@ -68,7 +68,7 @@ def create_collatz_graph(start_value, k=3, predecessor_count=3, iteration_count=
     :param predecessor_count: The number of predecessors to determine for every node.
     :param iteration_count: The number of iterations to perform. This parameter determines
         the depth of the tree.
-    :return: The collatz graph as data frame.
+    :return: The Collatz graph as data frame.
     """
     result_frame = pd.DataFrame({
         "iteration": [],

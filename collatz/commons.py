@@ -196,9 +196,9 @@ def _odd_collatz_components(odd_number: int, k=3):
     3.) kv_i+1: The value kvi + 1
     4.) v_i+: The next odd number
 
-    :param odd_number: The odd number as int
+    :param odd_number: The odd number as int.
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
-    :return: The components as dict
+    :return: The components as dict.
     """
     v_i = odd_number
     k_vi = k * odd_number
@@ -217,7 +217,7 @@ def analyse_collatz_basic_attributes(collatz_seq: list):
     """
     This method analyses basic attributes of a Collatz sequence.
 
-    :param collatz_seq: the sequence of Collatz numbers as list.
+    :param collatz_seq: The sequence of Collatz numbers as list.
     :return: A pandas data frame with the results of the analysis.
     """
     collatz_frame = pd.DataFrame({"collatz": collatz_seq})
@@ -230,7 +230,7 @@ def analyse_collatz_basic_attributes(collatz_seq: list):
 
 def trailing_zeros(int_value: int):
     """
-    This method returns the trailing zeros of the binary representation of an integer.
+    This method returns the trailing zeros of the binary representation of an int value.
 
     :param int_value: The int value.
     :return: The trailing zeros as int.
@@ -260,7 +260,7 @@ def to_binary(int_value: int):
 # the wiki-documentation
 def multiplicative_order(a: int, n=2, max_iterations=10):
     """
-    This method returns the multiplicative order of an integer *a modulo n*.
+    This method returns the multiplicative order of an int *a modulo n*.
     For a description of the algorithm see https://en.wikipedia.org/wiki/Multiplicative_order.
 
     :param a: An int whose multiplicative order is to be defined.

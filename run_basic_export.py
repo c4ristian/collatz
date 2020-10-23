@@ -14,7 +14,7 @@ from collatz import commons
 def _generate_full_sequence(sequence_id: int, start_value: int,
                             k_factor: int, max_iterations: int):
     """
-    This method generates a full Collatz sequence, containing odd and even numbers.
+    This method generates a full Collatz sequence containing odd and even numbers.
 
     :param sequence_id: ID of the sequence.
     :param start_value: The integer value to start with. The value must be a

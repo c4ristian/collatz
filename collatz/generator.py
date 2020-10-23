@@ -1,8 +1,8 @@
 """
-This module provides methods to generate collatz sequences and related features. All
+This module provides methods to generate Collatz sequences and related features. All
 functions are optimised for handling arbitrary big integers. The precision of
 calculated float values depends on the precision of the underlying data type in
-python and pandas.
+Python and pandas.
 """
 
 from collatz import commons as com
