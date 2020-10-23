@@ -47,7 +47,7 @@ DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
 PIC_PATH = DATA_PATH + "dutch_graph.png"
 CSV_PATH = DATA_PATH + "dutch_graph.csv"
 
-# Create dutch graph
+# Create graph
 graph_frame = graph.create_pruned_dutch_graph(
     pruning_level=PRUNING_LEVEL, iteration_count=ITERATION_COUNT)
 
