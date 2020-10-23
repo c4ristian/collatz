@@ -100,7 +100,6 @@ plt.figure()
 plt.title("Collatz")
 plt.plot(print_frame["v_i"], "o-")
 
-
 plt.figure()
 plt.title("Alpha i")
 plt.plot(print_frame["a_i"], "o-")

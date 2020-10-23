@@ -82,7 +82,6 @@ if EXPORT_DATA:
     graph_frame.to_csv(CSV_PATH, index=False)
     print("Graph saved:" + PIC_PATH)
 
-
 # Plot graph
 plt.show()
 ```

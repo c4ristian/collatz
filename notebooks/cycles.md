@@ -37,6 +37,7 @@ def _calculate_max_beta(k: int, max_iterations: int):
     """
     This function calculates the (hypothetical) maximum beta of a Collatz
     sequence for a specific k factor.
+    
     :param k: The k factor.
     :param max_iterations: Maximum number of iterations.
     :return: The maximum beta
@@ -88,7 +89,6 @@ print("K:", K_FACTOR,
       "\n")
 
 print(print_frame.to_string(index=False), "\n")
-
 ```
 
 ```python pycharm={"name": "#%%\n"}
@@ -99,7 +99,6 @@ plt.figure()
 plt.title("Beta cycle")
 plt.plot(analysis_frame["n"], analysis_frame["beta_cycle"], "-o")
 plt.axhline(beta_max, c="red")
-
 
 plt.figure()
 plt.title("Beta cycle")
