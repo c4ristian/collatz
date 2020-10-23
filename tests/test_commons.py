@@ -12,6 +12,7 @@ from collatz import commons as com
 def test_collatz_sequence():
     """
     Test case for the method collatz_sequence.
+
     :return: None
     """
     # Test different sequences
@@ -54,6 +55,7 @@ def test_collatz_sequence():
 def test_odd_collatz_sequence():
     """
     Test case for the method odd_collatz_sequence.
+
     :return: None
     """
     # Test different sequences
@@ -94,6 +96,7 @@ def test_odd_collatz_sequence():
 def test_next_collatz_number():
     """
     Test case for the method next_collatz_number.
+
     :return: None
     """
     assert com.next_collatz_number(1) == 4
@@ -128,6 +131,7 @@ def test_next_collatz_number():
 def test_next_odd_collatz_number():
     """
     Test case for the method next_collatz_number.
+
     :return: None
     """
     assert com.next_odd_collatz_number(1) == 1
@@ -158,6 +162,7 @@ def test_next_odd_collatz_number():
 def test_odd_collatz_sequence_components():
     """
     Test case for the method odd_collatz_sequence_components.
+
     :return: None
     """
     # Test different sequences
@@ -195,6 +200,7 @@ def test_odd_collatz_sequence_components():
 def test_odd_collatz_components():
     """
     Test case for the method _odd_collatz_components.
+
     :return: None
     """
     # Test x=13 and k=3
@@ -230,7 +236,8 @@ def test_odd_collatz_components():
 
 def test_analyse_collatz_basic_attributes():
     """
-    Test case for the method analyse_collatz_basic_attributes
+    Test case for the method analyse_collatz_basic_attributes.
+
     :return: None
     """
     # Test empty sequence
@@ -280,6 +287,7 @@ def test_analyse_collatz_basic_attributes():
 def test_trailing_zeros():
     """
     Test case for the method trailing_zeros.
+
     :return: None
     """
     assert com.trailing_zeros(1) == 0
@@ -301,6 +309,7 @@ def test_trailing_zeros():
 def test_to_binary():
     """
     Test case for the method to_binary.
+
     :return: None
     """
     assert com.to_binary(0) == "0"

@@ -15,6 +15,7 @@ sys.path.append("..")
 def set_default_pd_options():
     """
     This functions sets default options for pandas.
+
     :return: None.
     """
     pd.set_option('display.expand_frame_repr', False)
@@ -24,10 +25,11 @@ def set_default_pd_options():
 def rnd_int(max_value: int, odds_only=False):
     """
     This function returns a random integer value between 1 and a given maximum value.
+
     :param max_value: The maximum value as int.
     :param odds_only: If this parameter is True only odd ints
-    are considered (default is False).
-    :return: The random integer value.
+        are considered (default is False).
+    :return: The random int value.
     """
     random_int = rnd.randint(1, max_value)
 
@@ -43,6 +45,7 @@ def rnd_int(max_value: int, odds_only=False):
 def swap_column_names(column_names: tuple, data_frame: pd.DataFrame):
     """
     This method swaps two column names in a data frame.
+
     :param column_names: The column names to swap as tuple.
     :param data_frame: The data frame.
     :return: None.
