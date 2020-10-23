@@ -74,7 +74,7 @@ jupyter notebook --notebook-dir="./notebooks"
 ```
 
 ## Contact us
-[christian.koch@th-nuernberg](mailto:christian.koch@th-nuernberg)
+[christian.koch@th-nuernberg.de](mailto:christian.koch@th-nuernberg.de)
 
 ## License
 [Apache 2.0](LICENSE.txt)
