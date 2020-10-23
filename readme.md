@@ -73,7 +73,7 @@ python -m ipykernel install --user --name=collatz
 jupyter notebook --notebook-dir="./notebooks"
 ```
 
-## Contact
+## Contact us
 [christian.koch@th-nuernberg](mailto:christian.koch@th-nuernberg)
 
 ## License
