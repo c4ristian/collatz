@@ -39,6 +39,7 @@ PRUNING_LEVEL = 0
 ITERATION_COUNT = 4
 REVERSE = False
 SHOW_LABELS = True
+SHOW_ARROWS = False
 PLOT_SIZE = (20, 10)
 PRINT_TABLE = True
 EXPORT_DATA = True
@@ -76,7 +77,7 @@ node_color = np.where(graph_frame["prunable"], "#f5b3cc", "#80f1b9")
 
 nx.draw(
     network, pos, with_labels=SHOW_LABELS,
-    arrows=True, node_color=node_color)
+    arrows=SHOW_ARROWS, node_color=node_color)
 
 # Export data
 if EXPORT_DATA:
