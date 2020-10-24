@@ -37,7 +37,6 @@ nbutils.set_default_pd_options()
 
 PRUNING_LEVEL = 0
 ITERATION_COUNT = 4
-REVERSE = False
 SHOW_LABELS = True
 SHOW_ARROWS = False
 PLOT_SIZE = (20, 10)
@@ -53,9 +52,6 @@ graph_frame = graph.create_pruned_dutch_graph(
     pruning_level=PRUNING_LEVEL, iteration_count=ITERATION_COUNT)
 
 graph_frame["prunable"] = graph_frame.index % 2 == 1
-
-if REVERSE:
-    nbutils.swap_column_names(("successor", "predecessor"), graph_frame)
 
 print("T>=" + str(PRUNING_LEVEL), "\n")
 
