@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.2'
-      jupytext_version: 1.5.2
+      jupytext_version: 1.6.0
   kernelspec:
     display_name: collatz
     language: python
@@ -37,7 +37,7 @@ def _calculate_max_beta(k: int, max_iterations: int):
     """
     This function calculates the (hypothetical) maximum beta of a Collatz
     sequence for a specific k factor.
-    
+
     :param k: The k factor.
     :param max_iterations: Maximum number of iterations.
     :return: The maximum beta
