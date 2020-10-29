@@ -38,7 +38,8 @@ nbutils.set_default_pd_options()
 PRUNING_LEVEL = 0
 ITERATION_COUNT = 4
 SHOW_LABELS = True
-SHOW_ARROWS = False
+SHOW_ARROWS = True
+REVERSE_ARROWS = True
 PLOT_SIZE = (20, 10)
 PRINT_TABLE = True
 EXPORT_DATA = True
@@ -53,6 +54,7 @@ graph_frame = graph.create_pruned_dutch_graph(
 
 graph_frame["prunable"] = graph_frame.index % 2 == 1
 
+# Print graph
 print("T>=" + str(PRUNING_LEVEL), "\n")
 
 if PRINT_TABLE:
@@ -64,9 +66,15 @@ if PRINT_TABLE:
 plt.figure(figsize=PLOT_SIZE)
 plt.title("T>=" + str(PRUNING_LEVEL))
 
+if REVERSE_ARROWS:
+    plt.gca().invert_yaxis()
+
 network = nx.convert_matrix.from_pandas_edgelist(
     graph_frame, source="predecessor", target="successor",
     create_using=nx.DiGraph())
+
+if REVERSE_ARROWS:
+    network = nx.DiGraph.reverse(network)
 
 pos = graphviz_layout(network, prog='dot')
 node_color = np.where(graph_frame["prunable"], "#f5b3cc", "#80f1b9")
