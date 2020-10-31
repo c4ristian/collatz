@@ -6,6 +6,7 @@ Python and pandas.
 """
 
 import pandas as pd
+from collatz import commons
 
 
 def get_odd_predecessor(odd_int, index, k=3):
@@ -55,6 +56,38 @@ def get_odd_predecessor(odd_int, index, k=3):
         raise TypeError("Parameter k not in (1,3,5,7,9)")
 
     return result
+
+
+def get_odd_sibling(odd_int: int, index: int, k=3, max_iterations=1000):
+    """
+    This method calculates the odd sibling for a certain odd number in a Collatz graph.
+    For every odd number there are n siblings. The variable index [0..n] specifies which
+    sibling is returned. The method is based on a deterministic algorithm that builds on
+    the multiplicative order of the given k factor. If the multiplicative order cannot be
+    determined for the k factor None is returned.
+
+    :param odd_int: The node for which the sibling is calculated.
+    :param index: The index of the sibling as int [0..n].
+    :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
+    :param max_iterations: The maximum number of iterations used to
+        determine the multiplicative order (default is 1000).
+    :return: The sibling or None, if no sibling can be determined for the k factor.
+    """
+    # Validate input parameters
+    assert odd_int > 0, "Value > 0 expected"
+
+    mod_result = odd_int % 2
+    assert mod_result == 1, "Not an odd number"
+
+    sibling = None
+    order = commons.multiplicative_order(k, max_iterations=max_iterations)
+
+    if order is not None:
+        index_p = index + 1
+        sibling = odd_int * 2**(index_p * order)
+        sibling = sibling + ((2**order - 1) // k) * ((2**(index_p * order) - 1) // (2**order - 1))
+
+    return sibling
 
 
 def create_collatz_graph(start_value, k=3, predecessor_count=3, iteration_count=3):

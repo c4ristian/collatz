@@ -72,10 +72,55 @@ def test_get_odd_predecessor():
         graph.get_odd_predecessor(5, 4, k=11)
 
 
+def test_get_odd_sibling():
+    """
+    Test case for the method get_odd_sibling.
+    :return: None.
+    """
+    # Test k=3
+    assert graph.get_odd_sibling(1, 0) == 5
+    assert graph.get_odd_sibling(1, 1) == 21
+    assert graph.get_odd_sibling(1, 2) == 85
+    assert graph.get_odd_sibling(1, 99) == \
+           2142584059011987034055949456454883470029603991710390447068501
+
+    assert graph.get_odd_sibling(35, 3) == 9045
+
+    # Test k=1
+    assert graph.get_odd_sibling(1, 0, k=1) is None
+
+    # Test k=5
+    assert graph.get_odd_sibling(5, 0, k=5) == 5 * 16 + 3
+    assert graph.get_odd_sibling(83, 10, k=5) == 1463669878895411
+
+    # Test k=7
+    assert graph.get_odd_sibling(3, 0, k=7) == 25
+    assert graph.get_odd_sibling(3, 20, k=7) == 28987740687257866825
+
+    # Test k=9
+    assert graph.get_odd_sibling(101, 0, k=9) == 6471
+    assert graph.get_odd_sibling(101, 20, k=9) == \
+           8601582052723722270879747021191918678471
+
+    # Test k=181
+    assert graph.get_odd_sibling(13, 0, k=181) == \
+           19930908857449184378870435922164794575903380627735908963
+
+    assert graph.get_odd_sibling(
+        13, 0, k=181, max_iterations=100) is None
+
+    # Test exceptions
+    with pytest.raises(AssertionError):
+        graph.get_odd_sibling(5.5, 0)
+
+    with pytest.raises(AssertionError):
+        graph.get_odd_sibling(-5, 4)
+
+
 def test_create_collatz_graph():
     """
     Test case for the method create_collatz_graph.
-    :return:
+    :return: None.
     """
     graph_frame = graph.create_collatz_graph(
         1, k=3, predecessor_count=5, iteration_count=1)
