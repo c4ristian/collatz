@@ -58,20 +58,20 @@ def get_odd_predecessor(odd_int, index, k=3):
     return result
 
 
-def get_odd_sibling(odd_int: int, index: int, k=3, max_iterations=1000):
+def get_right_sibling(odd_int: int, index: int, k=3, max_iterations=1000):
     """
-    This method calculates the odd sibling for a certain odd number in a Collatz graph.
-    For every odd number there are n siblings. The variable index [0..n] specifies which
+    This method calculates the right sibling for a certain odd number in a Collatz graph.
+    For every odd number there are n right siblings. The variable index [0..n] specifies which
     sibling is returned. The method is based on a deterministic algorithm that builds on
-    the multiplicative order of the given k factor. If the multiplicative order cannot be
+    the multiplicative order of the given k factor. If a sibling cannot be
     determined for the k factor None is returned.
 
-    :param odd_int: The node for which the sibling is calculated.
+    :param odd_int: The node for which the right sibling is calculated.
     :param index: The index of the sibling as int [0..n].
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
     :param max_iterations: The maximum number of iterations used to
         determine the multiplicative order (default is 1000).
-    :return: The sibling or None, if no sibling can be determined for the k factor.
+    :return: The right sibling or None, if no sibling can be determined for the k factor.
     """
     # Validate input parameters
     assert odd_int > 0, "Value > 0 expected"

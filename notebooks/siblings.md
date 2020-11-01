@@ -41,7 +41,7 @@ nbutils.set_default_pd_options()
 siblings = []
 
 for i in range(0, N_SIBLINGS + 1):
-    siblings.append(graph.get_odd_sibling(NODE, i, K_FACTOR, 1000))
+    siblings.append(graph.get_right_sibling(NODE, i, K_FACTOR, 1000))
 
 analysis_frame = pd.DataFrame({
     "siblings": siblings
