@@ -6,6 +6,7 @@ Python and pandas.
 """
 
 import pandas as pd
+import sympy
 from collatz import commons
 
 
@@ -54,6 +55,46 @@ def get_odd_predecessor(odd_int, index, k=3):
             result = (odd_int * 2 ** (power + (6 * index)) - 1) // k
     else:
         raise TypeError("Parameter k not in (1,3,5,7,9)")
+
+    return result
+
+
+def get_odd_predecessor_generalised(odd_int, index, k=3, max_iterations=1000):
+    """
+    This method calculates the odd predecessor for a certain odd number in a Collatz graph.
+    For every odd number there are n predecessors. The variable index [0..n] specifies which
+    predecessor is returned. The method is based on a generalised algorithm that builds on
+    the multiplicative order of the given k factor and a discrete logarithm.
+    If a predecessor cannot be determined for the k factor None is returned.
+
+    :param odd_int: The node for which the predecessor is calculated.
+    :param index: The index of the predecessor as int [0..n].
+    :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
+    :param max_iterations: The maximum number of iterations used to
+        determine the multiplicative order (default is 1000).
+    :return: The predecessor or None if no predecessor exists.
+    """
+    # Validate input parameters
+    assert odd_int > 0, "Value > 0 expected"
+
+    mod_result = odd_int % 2
+    assert mod_result == 1, "Not an odd number"
+
+    # Return None if no predecessors exist
+    if k > 1 and odd_int % k == 0:
+        return None
+
+    result = None
+    order = commons.multiplicative_order(k, max_iterations=max_iterations)
+
+    if order is not None:
+        try:
+            dlog = sympy.discrete_log(k, odd_int, 2)
+        except ValueError:
+            dlog = None
+
+        if dlog is not None:
+            result = (odd_int * 2**(order * index + order - dlog) - 1) // k
 
     return result
 

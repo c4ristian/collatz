@@ -72,6 +72,74 @@ def test_get_odd_predecessor():
         graph.get_odd_predecessor(5, 4, k=11)
 
 
+def test_get_odd_predecessor_generalised():
+    """
+    Test case for the method get_odd_predecessors_generalised.
+    :return: None
+    """
+    # Test k=3
+    assert graph.get_odd_predecessor_generalised(1, 0) == 1
+    assert graph.get_odd_predecessor_generalised(1, 1) == 5
+    assert graph.get_odd_predecessor_generalised(5, 0) == 3
+    assert graph.get_odd_predecessor_generalised(5, 1) == 13
+    assert graph.get_odd_predecessor_generalised(5, 2) == 53
+    assert graph.get_odd_predecessor_generalised(7, 5) == 9557
+
+    assert graph.get_odd_predecessor_generalised(3, 0) is None
+    assert graph.get_odd_predecessor_generalised(27, 5) is None
+
+    # Test k=1
+    assert graph.get_odd_predecessor_generalised(1, 0, k=1) is None
+
+    # Test k=5
+    assert graph.get_odd_predecessor_generalised(13, 0, k=5) == 5
+    assert graph.get_odd_predecessor_generalised(13, 1, k=5) == 83
+    assert graph.get_odd_predecessor_generalised(33, 0, k=5) == 13
+    assert graph.get_odd_predecessor_generalised(83, 0, k=5) == 33
+    assert graph.get_odd_predecessor_generalised(7, 0, k=5) == 11
+    assert graph.get_odd_predecessor_generalised(11, 4, k=5) == 2306867
+    assert graph.get_odd_predecessor_generalised(5, 0, k=5) is None
+
+    # Test k=7
+    assert graph.get_odd_predecessor_generalised(7, 0, k=7) is None
+    assert graph.get_odd_predecessor_generalised(13, 0, k=7) is None
+    assert graph.get_odd_predecessor_generalised(1243, 0, k=7) == 355
+    assert graph.get_odd_predecessor_generalised(23, 0, k=7) == 13
+    assert graph.get_odd_predecessor_generalised(23, 1, k=7) == 105
+    assert graph.get_odd_predecessor_generalised(309, 0, k=7) == 353
+
+    # Test k=9
+    assert graph.get_odd_predecessor_generalised(9, 0, k=9) is None
+    assert graph.get_odd_predecessor_generalised(25, 0, k=9) == 11
+    assert graph.get_odd_predecessor_generalised(704573136177653249, 0, k=9) == 626287232157913999
+    assert graph.get_odd_predecessor_generalised(1, 0, k=9) == 7
+    assert graph.get_odd_predecessor_generalised(10247, 1, k=9) == 145735
+
+    # Test k=181
+    assert graph.get_odd_predecessor_generalised(1177, 0, k=181) == 13
+    assert graph.get_odd_predecessor_generalised(1177, 1, k=181) == \
+           19930908857449184378870435922164794575903380627735908963
+
+    # Test if big integers are handled correctly
+    assert graph.get_odd_predecessor_generalised(
+        386533140549008498277345847324215954526580641501, 0, k=3) == 9 ** 50
+
+    assert graph.get_odd_predecessor_generalised(
+        966332851372521245693364618310539886316451603753, 0, k=5) == \
+           386533140549008498277345847324215954526580641501
+
+    assert graph.get_odd_predecessor_generalised(
+        211385311237739022495423510255430600131723788321, 1, k=7) == \
+           966332851372521245693364618310539886316451603753
+
+    # Test exceptions
+    with pytest.raises(AssertionError):
+        graph.get_odd_predecessor_generalised(5.5, 0)
+
+    with pytest.raises(AssertionError):
+        graph.get_odd_predecessor_generalised(-5, 4)
+
+
 def test_get_right_sibling():
     """
     Test case for the method get_right_sibling.
