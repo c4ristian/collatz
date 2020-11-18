@@ -5,7 +5,7 @@ The [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture) is an
 unsolved number theory problem. This Python library provides tools to 
 analyse it from different perspectives. The project has contributed to multiple scientific publications 
 [[kleinnijenhuis]](https://arxiv.org/abs/2008.13643v2),
-[[koch]](https://doi.org/10.34646/thn/ohmdok-620), 
+[[koch]](https://doi.org/10.18052/www.scipress.com/IJPMS.21.1), 
 [[sultanow]](https://doi.org/10.25932/publishup-44325).
 
 ## Main Features
