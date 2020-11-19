@@ -145,6 +145,11 @@ def test_get_right_sibling():
     Test case for the method get_right_sibling.
     :return: None.
     """
+    # Test k=1
+    assert graph.get_right_sibling(1, 0, k=1) == 3
+    assert graph.get_right_sibling(1, 1, k=1) == 7
+    assert graph.get_right_sibling(13, 3, k=1) == 223
+
     # Test k=3
     assert graph.get_right_sibling(1, 0) == 5
     assert graph.get_right_sibling(1, 1) == 21
@@ -153,9 +158,6 @@ def test_get_right_sibling():
            2142584059011987034055949456454883470029603991710390447068501
 
     assert graph.get_right_sibling(35, 3) == 9045
-
-    # Test k=1
-    assert graph.get_right_sibling(1, 0, k=1) is None
 
     # Test k=5
     assert graph.get_right_sibling(5, 0, k=5) == 5 * 16 + 3

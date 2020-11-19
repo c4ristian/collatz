@@ -121,7 +121,11 @@ def get_right_sibling(odd_int: int, index: int, k=3, max_iterations=1000):
     assert mod_result == 1, "Not an odd number"
 
     sibling = None
-    order = commons.multiplicative_order(k, max_iterations=max_iterations)
+
+    if k == 1:
+        order = 1
+    else:
+        order = commons.multiplicative_order(k, max_iterations=max_iterations)
 
     if order is not None:
         index_p = index + 1
