@@ -301,6 +301,36 @@ def get_pruned_binary_predecessors(odd_int: int, pruning_level=0):
     return pruned_predecessors
 
 
+def get_pruned_binary_node(odd_int: int, pruning_level: int):
+    """
+    This function calculates a pruned node in a binary Collatz graph
+    *T>=p* as described in the paper
+    *Pruning the binary tree, proving the Collatz conjecture* (https://arxiv.org/abs/2008.13643).
+    The starting point for the calculation is a node in the tree *T>=0*.
+    :param odd_int: The starting node in the tree *T>=0*.
+    :param pruning_level: The pruning level p.
+    :return: The value of the node in T>=p.
+    """
+    # Validate input parameters
+    assert odd_int > 0, "Value > 0 expected"
+
+    mod_result = odd_int % 2
+    assert mod_result == 1, "Not an odd number"
+
+    # Transform to binary
+    bin_node = commons.to_binary(odd_int)
+
+    # Calculate node for T>=p
+    concats = odd_int % 3 + (3 - odd_int % 3) * (pruning_level // 2) \
+              + (odd_int % 3) * ((pruning_level - 1) // 2)
+
+    bin_node = bin_node + '01' * concats
+
+    # Convert to decimal
+    decimal_node = int(bin_node, 2)
+    return decimal_node
+
+
 def create_pruned_dutch_graph(pruning_level=0, iteration_count=3):
     """
     This function creates a pruned binary Collatz graph *T>=p* as described in the paper

@@ -361,6 +361,27 @@ def test_get_pruned_binary_predecessors():
         graph.get_pruned_binary_predecessors(1.6, 1)
 
 
+def test_get_pruned_binary_node():
+    """
+    Test case for the method get_pruned_binary_node.
+    :return: None.
+    """
+    # Pruning level 0
+    node = graph.get_pruned_binary_node(1, 0)
+    assert node == 1
+
+    node = graph.get_pruned_binary_node(5, 0)
+    assert node == 5
+
+    # Pruning level 5
+    node = graph.get_pruned_binary_node(113, 5)
+    assert node == 7427413
+
+    # Pruning level 100
+    node = graph.get_pruned_binary_node(1, 50)
+    assert node == 1902996923607946508077714625932660181843662165
+
+
 def test_create_pruned_dutch_graph():
     """
     Test case for the method create_pruned_dutch_graph.
