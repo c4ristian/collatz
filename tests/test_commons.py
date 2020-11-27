@@ -43,6 +43,13 @@ def test_collatz_sequence():
     assert result[1] == 36656300100485546976241645848823506
     assert result[2] == 18328150050242773488120822924411753
 
+    # Test c>1
+    result = com.collatz_sequence(7, k=3, c=3)
+    assert result == [7, 24, 12, 6, 3, 12]
+
+    result = com.collatz_sequence(1, k=5, c=5, max_iterations=5)
+    assert result == [1, 10, 5, 30, 15, 80]
+
     # Should not accept numbers smaller than 1
     with pytest.raises(AssertionError):
         com.collatz_sequence(0)
@@ -84,6 +91,16 @@ def test_odd_collatz_sequence():
     assert result[0] == 7331260020097109395248329169764701
     assert result[1] == 18328150050242773488120822924411753
 
+    # Test c>1
+    result = com.odd_collatz_sequence(7, k=3, c=3)
+    assert result == [7, 3, 3]
+
+    result = com.odd_collatz_sequence(1, k=5, c=5, max_iterations=5)
+    assert result == [1, 5, 15, 5]
+
+    result = com.odd_collatz_sequence(1, k=5, c=5, max_iterations=2)
+    assert result == [1, 5, 15]
+
     # Should not accept numbers smaller than 1
     with pytest.raises(AssertionError):
         com.collatz_sequence(0)
@@ -116,6 +133,12 @@ def test_next_collatz_number():
     result = com.next_collatz_number(result, 3)
     assert result == 386533140549008498277345847324215954526580641501
 
+    # Test c > 1
+    assert com.next_collatz_number(1, c=3) == 6
+    assert com.next_collatz_number(3, k=1, c=5) == 8
+    assert com.next_collatz_number(7, k=5, c=7) == 42
+    assert com.next_collatz_number(10, k=5, c=7) == 5
+
     # Should not accept numbers smaller than 1
     with pytest.raises(AssertionError):
         com.next_collatz_number(0)
@@ -147,6 +170,12 @@ def test_next_odd_collatz_number():
     result = com.next_odd_collatz_number(9 ** 50, 3)
     assert result == 386533140549008498277345847324215954526580641501
 
+    # Test c > 1
+    assert com.next_odd_collatz_number(1, c=3) == 3
+    assert com.next_odd_collatz_number(3, k=1, c=5) == 1
+    assert com.next_odd_collatz_number(7, k=5, c=7) == 21
+    assert com.next_odd_collatz_number(10, k=5, c=7) == 5
+
     # Should not accept numbers smaller than 1
     with pytest.raises(AssertionError):
         com.next_odd_collatz_number(0)
@@ -169,7 +198,7 @@ def test_odd_collatz_sequence_components():
     result_frame = com.odd_collatz_sequence_components(3)
     assert list(result_frame.columns) == ["n", "variable", "decimal"]
     assert list(result_frame["n"].unique()) == [1, 2, 3]
-    assert list(result_frame["variable"].unique()) == ["v_i", "kv_i", "kv_i+1"]
+    assert list(result_frame["variable"].unique()) == ["v_i", "kv_i", "kv_i+c"]
     assert list(result_frame["decimal"]) == [3, 9, 10, 5, 15, 16, 1]
 
     result_frame = com.odd_collatz_sequence_components(1, 5)
@@ -209,28 +238,28 @@ def test_odd_collatz_components():
     assert comp is not None
     assert comp["v_i"] == 13
     assert comp["kv_i"] == 39
-    assert comp["kv_i+1"] == 40
+    assert comp["kv_i+c"] == 40
     assert comp["v_i+"] == 5
     # Test x=1 and k=3
     comp = com._odd_collatz_components(1, 3)
     assert comp is not None
     assert comp["v_i"] == 1
     assert comp["kv_i"] == 3
-    assert comp["kv_i+1"] == 4
+    assert comp["kv_i+c"] == 4
     assert comp["v_i+"] == 1
     # Test x=5 and k=1
     comp = com._odd_collatz_components(5, 1)
     assert comp is not None
     assert comp["v_i"] == 5
     assert comp["kv_i"] == 5
-    assert comp["kv_i+1"] == 6
+    assert comp["kv_i+c"] == 6
     assert comp["v_i+"] == 3
     # Test if big integers are handled correctly
     comp = com._odd_collatz_components(66804534706482675364002573382036351, 7)
     assert comp is not None
     assert comp["v_i"] == 66804534706482675364002573382036351
     assert comp["kv_i"] == 467631742945378727548018013674254457
-    assert comp["kv_i+1"] == 467631742945378727548018013674254458
+    assert comp["kv_i+c"] == 467631742945378727548018013674254458
     assert comp["v_i+"] == 233815871472689363774009006837127229
 
 

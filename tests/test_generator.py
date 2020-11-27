@@ -74,6 +74,20 @@ def test_should_generate_collatz_sequence_correctly():
         10436394794823229453488337877753830772217677320523
     ]
 
+    # Test c>1
+    result = generator.generate_collatz_sequence(start_value=13, k=5, c=1)
+    result = result[result["odd"] == 1]
+    assert list(result["collatz"]) == [13, 33, 83, 13]
+    assert list(result["next_odd"]) == [33, 83, 13, 33]
+
+    result = generator.generate_collatz_sequence(start_value=3, k=3, c=3)
+    assert list(result["collatz"]) == [3, 12, 6, 3]
+    assert list(result["next_odd"]) == [3, 3, 3, 3]
+
+    result = generator.generate_collatz_sequence(5, 1, c=3)
+    assert list(result["collatz"]) == [5, 8, 4, 2, 1]
+    assert list(result["next_odd"]) == [1, 1, 1, 1, 1]
+
 
 def test_should_generate_odd_collatz_sequence_correctly():
     """
@@ -133,3 +147,12 @@ def test_should_generate_odd_collatz_sequence_correctly():
     assert list(result["next_odd"]) == [
         2319198843294050989664075083945295727159483849005,
         10436394794823229453488337877753830772217677320523]
+
+    # Test c>1
+    result = generator.generate_odd_collatz_sequence(start_value=13, k=5, c=1)
+    assert list(result["collatz"]) == [13, 33, 83, 13]
+    assert list(result["next_odd"]) == [33, 83, 13, 33]
+
+    result = generator.generate_odd_collatz_sequence(start_value=3, k=1, c=3)
+    assert list(result["collatz"]) == [3, 3]
+    assert list(result["next_odd"]) == [3, 3]

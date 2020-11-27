@@ -8,7 +8,9 @@ Python and pandas.
 from collatz import commons as com
 
 
-def generate_collatz_sequence(start_value, k=3, max_iterations=100):
+# pylint: disable=C0103
+# A single character for k and c is ok
+def generate_collatz_sequence(start_value, k=3, max_iterations=100, c=1):
     """
     This method generates a Collatz sequence for a specific start value,
     analyses its basic attributes and returns the result as a data frame.
@@ -17,13 +19,14 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=100):
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
     :param max_iterations: The maximum number of iterations performed for the
         Collatz sequence (default is 100).
+    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :return: A pandas data frame with the results.
     """
-    collatz_sequence = com.collatz_sequence(start_value, k, max_iterations)
+    collatz_sequence = com.collatz_sequence(start_value, k, max_iterations, c)
     collatz_frame = com.analyse_collatz_basic_attributes(collatz_sequence)
 
-    next_collatz = collatz_frame["collatz"].apply(com.next_collatz_number, args=(k,))
-    next_odd = collatz_frame["collatz"].apply(com.next_odd_collatz_number, args=(k,))
+    next_collatz = collatz_frame["collatz"].apply(com.next_collatz_number, args=(k, c,))
+    next_odd = collatz_frame["collatz"].apply(com.next_odd_collatz_number, args=(k, c,))
 
     collatz_frame["collatz_index"] = collatz_frame.index
     collatz_frame["next_collatz"] = next_collatz
@@ -33,7 +36,7 @@ def generate_collatz_sequence(start_value, k=3, max_iterations=100):
     return collatz_frame
 
 
-def generate_odd_collatz_sequence(start_value, k=3, max_iterations=100):
+def generate_odd_collatz_sequence(start_value, k=3, max_iterations=100, c=1):
     """
     This method generates a Collatz sequence containing only odd numbers
     for a specific start value, analyses its basic attributes
@@ -45,13 +48,14 @@ def generate_odd_collatz_sequence(start_value, k=3, max_iterations=100):
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
     :param max_iterations: The maximum number of iterations performed for the
         Collatz sequence (default is 100).
+    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :return: A pandas data frame with the results.
     """
-    collatz_sequence = com.odd_collatz_sequence(start_value, k, max_iterations)
+    collatz_sequence = com.odd_collatz_sequence(start_value, k, max_iterations, c)
     collatz_frame = com.analyse_collatz_basic_attributes(collatz_sequence)
 
-    next_collatz = collatz_frame["collatz"].apply(com.next_collatz_number, args=(k,))
-    next_odd = collatz_frame["collatz"].apply(com.next_odd_collatz_number, args=(k,))
+    next_collatz = collatz_frame["collatz"].apply(com.next_collatz_number, args=(k, c,))
+    next_odd = collatz_frame["collatz"].apply(com.next_odd_collatz_number, args=(k, c,))
 
     collatz_frame["odd_index"] = collatz_frame.index
     collatz_frame["next_collatz"] = next_collatz

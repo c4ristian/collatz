@@ -20,8 +20,8 @@ jupyter:
 ```python
 """
 This notebook analyses basic attributes of Collatz sequences and visualises them.
-The script produces a random collatz sequence for a predefined k-factor and
-a max amount of iterations.
+For this purpose, a random Collatz sequence is generated for a predefined k-factor,
+summand and a max amount of iterations.
 """
 
 # Imports
@@ -33,16 +33,24 @@ from collatz import commons as com
 # Configuration
 MAX_VALUE = 101
 K_FACTOR = 3
+C_SUMMAND = 1
 MAX_ITERATIONS = 300
 ODDS_ONLY = False
 
 START_VALUE = nbutils.rnd_int(MAX_VALUE)
 nbutils.set_default_pd_options()
 
-# Create a collatz sequence and analyse it
-analysis_frame = gen.generate_collatz_sequence(
-    start_value=START_VALUE, k=K_FACTOR, max_iterations=MAX_ITERATIONS)
+# Create a collatz sequence
+if ODDS_ONLY:
+    analysis_frame = gen.generate_odd_collatz_sequence(
+        start_value=START_VALUE, k=K_FACTOR, c=C_SUMMAND,
+        max_iterations=MAX_ITERATIONS)
+else:
+    analysis_frame = gen.generate_collatz_sequence(
+        start_value=START_VALUE, k=K_FACTOR, c=C_SUMMAND,
+        max_iterations=MAX_ITERATIONS)
 
+# Derive additional fields
 next_frame = com.analyse_collatz_basic_attributes(analysis_frame["next_collatz"])
 analysis_frame["next_log2"] = next_frame["log2"]
 analysis_frame["n_log2_fraction"] = next_frame["log2_fraction"]
@@ -57,12 +65,8 @@ analysis_frame["bin_len"] = analysis_frame["log2"].astype('int64') + 1
 
 start_value = analysis_frame["collatz"][0]
 
-# Show only odd numbers
-if ODDS_ONLY:
-    analysis_frame = analysis_frame[analysis_frame["odd"] == 1]
-
 # Print data
-print("Start value:", start_value, " K:", K_FACTOR, "\n")
+print("Start value:", start_value, " K:", K_FACTOR, " C:", C_SUMMAND, "\n")
 print(analysis_frame[["collatz", "log2", "log2_fraction",
                       "n_log2_fraction", "bin_str", "mod_4"]])
 ```
