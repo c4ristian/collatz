@@ -1,7 +1,7 @@
 """
-This module provides methods to analyse cycles in Collatz sequences. The functions
-cover Collatz sequences both in the original form *3v+1* as well as in
-the generalised variant *kv+1*.
+This module provides methods to analyse cycles in Collatz sequences. It
+covers Collatz sequences both in the original form *3v+1* as well as in
+the generalised variants *kv+c*.
 """
 
 # Imports
@@ -9,7 +9,9 @@ from math import log2
 from collatz import commons
 
 
-def find_cycles(k: int, cycle_length: int, max_value: int):
+# pylint: disable=C0103
+# A single character for k and c is ok
+def find_cycles(k: int, cycle_length: int, max_value: int, c=1):
     """
     This method tries to find cycles in Collatz sequences for a
     specific k factor and a specific cycle-length. The cycle
@@ -22,6 +24,7 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     :param k: The factor by which odd numbers are multiplied in the sequence.
     :param cycle_length: The expected cycle length.
     :param max_value: The highest odd number to be considered in the search.
+    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :return: A list with cycles and their odd numbers or an empty list,
         if no cycles were found.
     """
@@ -29,16 +32,15 @@ def find_cycles(k: int, cycle_length: int, max_value: int):
     cycles = []
     odd_set = set()
 
-    # pylint: disable=C0103
-    # A single character for i and c is ok
-    for i in range(1, max_value + 1, 2):
+    for starting_odd in range(1, max_value + 1, 2):
         odds = [None] * (cycle_length + 1)
-        odds[0] = i
-        current_odd = i
+        odds[0] = starting_odd
+        current_odd = starting_odd
 
-        for c in range(1, cycle_length + 1):
-            current_odd = commons.next_odd_collatz_number(current_odd, k=k)
-            odds[c] = current_odd
+        for i in range(1, cycle_length + 1):
+            current_odd = commons.next_odd_collatz_number(
+                current_odd, k=k, c=c)
+            odds[i] = current_odd
 
         cycle_found = odds[0] == odds[cycle_length]
         cycle_found &= len(set(odds)) >= cycle_length

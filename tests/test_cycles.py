@@ -46,6 +46,34 @@ def test_should_find_cycles_correctly():
     result = cycles.find_cycles(181, 3, 101)
     assert not result
 
+    # Check cycles for k=1 and c=3
+    result = cycles.find_cycles(
+        k=1, c=3, cycle_length=1, max_value=101)
+
+    assert result == [[1, 1], [3, 3]]
+
+    # Check cycles for k=3 and c=3
+    result = cycles.find_cycles(
+        k=3, c=3, cycle_length=1, max_value=101)
+
+    assert result == [[3, 3]]
+
+    result = cycles.find_cycles(
+        k=3, c=3, cycle_length=2, max_value=101)
+
+    assert not result
+
+    # Check cycles for k=3 and c=5
+    result = cycles.find_cycles(
+        k=3, c=5, cycle_length=1, max_value=101)
+
+    assert result == [[1, 1], [5, 5]]
+
+    result = cycles.find_cycles(
+        k=3, c=5, cycle_length=3, max_value=101)
+
+    assert result == [[19, 31, 49, 19], [23, 37, 29, 23]]
+
 
 def test_should_predict_cycle_alpha_correctly():
     """
