@@ -1,5 +1,7 @@
 """
-This module provides methods to analyse cycles in collatz sequences.
+This module provides methods to analyse cycles in Collatz sequences. The functions
+cover Collatz sequences both in the original form *3v+1* as well as in
+the generalised variant *kv+1*.
 """
 
 # Imports

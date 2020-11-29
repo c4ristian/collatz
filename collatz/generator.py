@@ -2,7 +2,8 @@
 This module provides methods to generate Collatz sequences and related features. All
 functions are optimised for handling arbitrary big integers. The precision of
 calculated float values depends on the precision of the underlying data type in
-Python and pandas.
+Python and pandas. The module provides functions for Collatz sequences both in the
+original form *3v+1* as well as in the generalised variant *kv+c*.
 """
 
 from collatz import commons as com
