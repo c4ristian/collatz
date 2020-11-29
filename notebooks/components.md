@@ -19,13 +19,13 @@ jupyter:
 
 ```python pycharm={"name": "#%%\n"}
 """
-This notebook analyses core components of collatz
-sequences and their relationship:
+This notebook analyses core components of Collatz sequences and their relationship:
 a.) k**i
-b.) beta_i = 1 + 1/(k*xi)
-c.) alpha_i
+b.) beta_i = 1 + c/(k*v_i)
+c.) gamma_i = k + c/v_i
+d.) alpha_i
 
-The alphas of the sequence are compared with predicted values.
+The alphas of the sequence are compared with predicted values for c=1.
 """
 
 # Imports
@@ -37,6 +37,7 @@ from collatz import commons as com
 # Configuration
 MAX_VALUE = 101
 K_FACTOR = 3
+C_SUMMAND = 1
 LOG_MODE = None
 PRINT_TABLE = True
 
@@ -45,7 +46,7 @@ nbutils.set_default_pd_options()
 
 # Generate Collatz sequence
 analysis_frame = gen.generate_odd_collatz_sequence(
-    start_value=START_VALUE, k=K_FACTOR)
+    start_value=START_VALUE, k=K_FACTOR, c=C_SUMMAND)
 
 analysis_frame = analysis_frame[:-1]
 
@@ -59,22 +60,15 @@ analysis_frame["beta"] = analysis_frame["beta_i"].cumprod()
 analysis_frame["alpha_i"] = analysis_frame["next_collatz"].apply(com.trailing_zeros)
 analysis_frame["alpha_i"] = analysis_frame["alpha_i"].astype("int64")
 analysis_frame["alpha"] = analysis_frame["alpha_i"].cumsum()
+
+analysis_frame["gamma_i"] = K_FACTOR + (C_SUMMAND / analysis_frame["collatz"])
+analysis_frame["gamma"] = analysis_frame["gamma_i"].cumprod()
+
+# CAUTION: These predicted values are only valid for c=1
 analysis_frame["alpha_cycle"] = (log2(K_FACTOR) * analysis_frame["n"]).astype('int64') + 1
 analysis_frame["alpha_max"] = \
     log2(START_VALUE) + (analysis_frame["n"] * log2(K_FACTOR))
 analysis_frame["alpha_max"] = analysis_frame["alpha_max"].astype('int64') + 1
-
-analysis_frame["v_i_hyp"] = (analysis_frame["v_1"] * K_FACTOR**analysis_frame["n"])
-analysis_frame["v_i_hyp"] = analysis_frame["v_i_hyp"] * analysis_frame["beta"]
-analysis_frame["v_i_hyp"] = analysis_frame["v_i_hyp"] / 2**analysis_frame["alpha_max"]
-
-analysis_frame["beta_hyp"] = analysis_frame["alpha_cycle"] - analysis_frame["kn_log"]
-
-analysis_frame["v_i_bin"] = analysis_frame["collatz"].apply(com.to_binary)
-analysis_frame["v_i_1_bin"] = analysis_frame["next_odd"].apply(com.to_binary)
-
-analysis_frame["gamma_i"] = 1 / (K_FACTOR * analysis_frame["collatz"])
-analysis_frame["gamma"] = analysis_frame["gamma_i"].cumsum()
 
 # Possible set log mode
 if LOG_MODE:
@@ -85,14 +79,6 @@ if LOG_MODE:
     analysis_frame["beta"] = analysis_frame["beta"].apply(LOG_MODE)
     analysis_frame["gamma_i"] = analysis_frame["gamma_i"].apply(LOG_MODE)
     analysis_frame["gamma"] = analysis_frame["gamma"].apply(LOG_MODE)
-else:
-    analysis_frame["beta_hyp"] = 2**analysis_frame["beta_hyp"]
-
-# Validate alpha max & alpha pred
-final_alpha = analysis_frame["alpha"].max()
-final_alpha_max = analysis_frame["alpha_max"].max()
-
-alpha_max_valid = final_alpha == final_alpha_max
 
 # Get max beta
 beta_max = analysis_frame["beta"].max()
@@ -110,8 +96,9 @@ print_frame.columns = [
 
 print("Start value:", START_VALUE,
       " K:", K_FACTOR,
-      " Beta max: ", round(beta_max, 4), " ",
-      " Alphas valid:", alpha_max_valid, "\n")
+      " C:", C_SUMMAND,
+      " Beta max: ", round(beta_max, 4),
+      "\n")
 
 if PRINT_TABLE:
     print(print_frame.to_string(index=False), "\n")
