@@ -6,73 +6,101 @@ This module contains test cases for the module collatz.cycles.
 from collatz import cycles
 
 
-def test_should_find_cycles_correctly():
+def test_find_cycles():
     """
     Test case for the method find_cycles.
     :return: None.
     """
-    # Check cycles for k=1
-    result = cycles.find_cycles(1, 1, 1)
-    assert result == [[1, 1]]
-
-    result = cycles.find_cycles(1, 2, 1)
-    assert not result
-
-    # Check cycles for k=2
-    result = cycles.find_cycles(2, 1, 10000)
-    assert not result
-
-    # Check cycles for k=3
-    result = cycles.find_cycles(3, 1, 1)
-    assert result == [[1, 1]]
-
-    result = cycles.find_cycles(3, 4, 1)
-    assert not result
-
-    # Check cycles for k=5
-    result = cycles.find_cycles(5, 1, 101)
-    assert not result
-
-    result = cycles.find_cycles(5, 2, 101)
-    assert result == [[1, 3, 1]]
-
-    result = cycles.find_cycles(5, 3, 101)
-    assert result == [[13, 33, 83, 13], [17, 43, 27, 17]]
-
-    # Check cycles for k=181
-    result = cycles.find_cycles(181, 2, 101)
-    assert result == [[27, 611, 27], [35, 99, 35]]
-
-    result = cycles.find_cycles(181, 3, 101)
-    assert not result
-
-    # Check cycles for k=1 and c=3
+    # k=1, c=1
     result = cycles.find_cycles(
-        k=1, c=3, cycle_length=1, max_value=101)
+        k=1, max_c=1, max_value=101)
 
-    assert result == [[1, 1], [3, 3]]
+    assert len(result) == 1
+    assert list(result["k"]) == [1]
+    assert list(result["c"]) == [1]
+    assert list(result["length"]) == [1]
+    assert list(result["v_1"]) == [1]
+    assert list(result["values"]) == ["1"]
 
-    # Check cycles for k=3 and c=3
+    # k=5, c=1
     result = cycles.find_cycles(
-        k=3, c=3, cycle_length=1, max_value=101)
+        k=5, max_c=1, max_value=16)
 
-    assert result == [[3, 3]]
+    assert len(result) == 2
+    assert list(result["k"]) == [5, 5]
+    assert list(result["c"]) == [1, 1]
+    assert list(result["length"]) == [2, 3]
+    assert list(result["v_1"]) == [1, 13]
+    assert list(result["values"]) == ["1,3", "13,33,83"]
 
+    # k=3, c=3
     result = cycles.find_cycles(
-        k=3, c=3, cycle_length=2, max_value=101)
+        k=3, max_c=5, max_iterations=3)
 
-    assert not result
+    assert len(result) == 6
+    assert list(result["k"]) == [3, 3, 3, 3, 3, 3]
+    assert list(result["c"]) == [1, 3, 5, 5, 5, 5]
+    assert list(result["length"]) == [1, 1, 1, 1, 3, 3]
+    assert list(result["v_1"]) == [1, 3, 1, 5, 19, 23]
 
-    # Check cycles for k=3 and c=5
-    result = cycles.find_cycles(
-        k=3, c=5, cycle_length=1, max_value=101)
+    # If no cycles are found an empty frame is returned
+    result = cycles.find_cycles(k=11, max_c=1, max_iterations=3)
+    assert len(result) == 0
 
-    assert result == [[1, 1], [5, 5]]
 
-    result = cycles.find_cycles(
-        k=3, c=5, cycle_length=3, max_value=101)
+def test_find_cycles_in_ranges():
+    """
+    Test case for the method find_cycles_in_ranges.
+    :return: None.
+    """
+    # k=1, c=1
+    result = cycles.find_cycles_in_ranges(
+        k=range(1, 3, 2), c=range(1, 3, 2))
 
-    assert result == [[19, 31, 49, 19], [23, 37, 29, 23]]
+    assert result is not None
+    assert len(result) == 1
+    assert result["k"][0] == 1
+    assert result["c"][0] == 1
+    assert result["length"][0] == 1
+    assert result["v_1"][0] == 1
+    assert result["values"][0] == "1"
+
+    # k=1, c=(3, 5)
+    result = cycles.find_cycles_in_ranges(
+        k=range(1, 3, 2), c=range(3, 7, 2))
+
+    assert len(result) == 4
+    assert list(result["k"]) == [1, 1, 1, 1]
+    assert list(result["c"]) == [3, 3, 5, 5]
+    assert list(result["length"]) == [1, 1, 2, 1]
+    assert list(result["v_1"]) == [1, 3, 1, 5]
+
+    # k=3, c=5
+    result = cycles.find_cycles_in_ranges(
+        k=range(3, 5), c=range(5, 7), max_iterations=3)
+
+    assert len(result) == 4
+    assert list(result["k"]) == [3, 3, 3, 3]
+    assert list(result["c"]) == [5, 5, 5, 5]
+    assert list(result["length"]) == [1, 1, 3, 3]
+    assert list(result["v_1"]) == [1, 5, 19, 23]
+
+    # k=(3, 5), c=1
+    result = cycles.find_cycles_in_ranges(
+        k=range(3, 7, 2), c=range(1, 3, 2), max_iterations=3)
+
+    assert len(result) == 4
+    assert list(result["k"]) == [3, 5, 5, 5]
+    assert list(result["c"]) == [1, 1, 1, 1]
+    assert list(result["length"]) == [1, 2, 3, 3]
+    assert list(result["v_1"]) == [1, 1, 13, 17]
+    assert list(result["values"]) == ["1", "1,3", "13,33,83", "17,43,27"]
+
+    # If no cycles are found an empty frame is returned
+    result = cycles.find_cycles_in_ranges(
+        k=range(11, 13, 2), c=range(1, 3, 2), max_iterations=3)
+
+    assert len(result) == 0
 
 
 def test_should_predict_cycle_alpha_correctly():
