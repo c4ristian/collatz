@@ -29,7 +29,7 @@ The alphas of the sequence are compared with predicted values for c=1.
 """
 
 # Imports
-from math import log2
+from math import log, log2
 import nbutils
 from collatz import generator as gen
 from collatz import commons as com
@@ -57,12 +57,14 @@ analysis_frame["kn_log"] = log2(K_FACTOR) * analysis_frame["n"]
 analysis_frame["beta_i"] = 1 + 1 / (K_FACTOR * analysis_frame["collatz"])
 analysis_frame["beta"] = analysis_frame["beta_i"].cumprod()
 
+analysis_frame["bin"] = analysis_frame["collatz"].apply(com.to_binary)
+
 analysis_frame["alpha_i"] = analysis_frame["next_collatz"].apply(com.trailing_zeros)
 analysis_frame["alpha_i"] = analysis_frame["alpha_i"].astype("int64")
 analysis_frame["alpha"] = analysis_frame["alpha_i"].cumsum()
 
-analysis_frame["gamma_i"] = K_FACTOR + (C_SUMMAND / analysis_frame["collatz"])
-analysis_frame["gamma"] = analysis_frame["gamma_i"].cumprod()
+analysis_frame["sigma_i"] = K_FACTOR + (C_SUMMAND / analysis_frame["collatz"])
+analysis_frame["sigma"] = analysis_frame["sigma_i"].cumprod()
 
 # CAUTION: These predicted values are only valid for c=1
 analysis_frame["alpha_cycle"] = (log2(K_FACTOR) * analysis_frame["n"]).astype('int64') + 1
@@ -77,22 +79,22 @@ if LOG_MODE:
     analysis_frame["next_odd"] = analysis_frame["next_odd"].apply(LOG_MODE)
     analysis_frame["beta_i"] = analysis_frame["beta_i"].apply(LOG_MODE)
     analysis_frame["beta"] = analysis_frame["beta"].apply(LOG_MODE)
-    analysis_frame["gamma_i"] = analysis_frame["gamma_i"].apply(LOG_MODE)
-    analysis_frame["gamma"] = analysis_frame["gamma"].apply(LOG_MODE)
+    analysis_frame["sigma_i"] = analysis_frame["sigma_i"].apply(LOG_MODE)
+    analysis_frame["sigma"] = analysis_frame["sigma"].apply(LOG_MODE)
 
 # Get max beta
 beta_max = analysis_frame["beta"].max()
 
 # Print results
 print_frame = analysis_frame[[
-    "n", "v_1", "collatz", "next_odd",
+    "n", "v_1", "collatz", "bin", "next_odd",
     "alpha_i", "alpha", "alpha_cycle", "alpha_max",
-    "beta_i", "beta", "gamma_i", "gamma"]]
+    "beta_i", "beta", "sigma_i", "sigma"]]
 
 print_frame.columns = [
-    "n", "v_1", "v_i", "v_i+",
+    "n", "v_1", "v_i", "bin", "v_i+",
     "a_i", "a", "a_cycle", "a_max",
-    "b_i", "b", "g_i", "g"]
+    "b_i", "b", "s_i", "s"]
 
 print("Start value:", START_VALUE,
       " K:", K_FACTOR,
