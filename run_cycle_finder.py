@@ -4,7 +4,7 @@ sequences and writes the results to disk.
 
 Examples
 --------
->>> python run_cycle_finder.py --k 201 --c 15 --v 1001 --f "cycles_c_15.csv"
+>>> python run_cycle_finder.py --k 201 --c 15 --v 1001 --f "data/cycles_c_15.csv"
 """
 
 # Imports
@@ -15,8 +15,8 @@ from collatz.cycles import find_cycles
 
 
 # Global variables
-DATA_PATH = "../../data/"
-DEFAULT_FILE_NAME = "cycles.csv"
+DATA_PATH = "data/"
+DEFAULT_FILE_PATH = DATA_PATH + "cycles.csv"
 DEFAULT_MAX_K = 999
 DEFAULT_MAX_C = 1
 DEFAULT_MAX_VALUE = 10000
@@ -46,9 +46,9 @@ def _parse_cmd_args():
     )
 
     parser.add_argument(
-        "--f", help=("name of destination file. Default is '"
-                     + str(DEFAULT_FILE_NAME) + "'"),
-        default=DEFAULT_FILE_NAME
+        "--f", help=("path of destination file. Default is '"
+                     + str(DEFAULT_FILE_PATH) + "'"),
+        default=DEFAULT_FILE_PATH
     )
 
     args = parser.parse_args()
@@ -71,9 +71,9 @@ def _main():
     k_factors = range(1, int(args.k) + 2, 2)
     max_c = int(args.c)
     max_value = int(args.v)
-    export_name = args.f
-    dest_file_name = "./data/" + export_name
-    tmp_file_name = "./data/" + export_name + "_tmp"
+    export_file_name = args.f
+    dest_file_name = export_file_name
+    tmp_file_name = export_file_name + "_tmp"
 
     cycle_count = 0
     write_mode = True
