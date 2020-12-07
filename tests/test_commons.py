@@ -212,6 +212,7 @@ def test_odd_collatz_sequence_components():
     # Test if big integers are handled correctly
     result_frame = com.odd_collatz_sequence_components(
         233815871472689363774009006837127229, k=7, max_iterations=1)
+
     assert list(result_frame["n"].unique()) == [1, 2]
     assert list(result_frame["decimal"]) == [
         233815871472689363774009006837127229, 1636711100308825546418063047859890603,
