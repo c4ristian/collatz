@@ -65,9 +65,8 @@ def find_cycles_in_ranges(k: range, c: range, max_value=1000, max_iterations=100
 
             for start_value in range(1, max_value + 1, 2):
                 odds = commons.odd_collatz_sequence(
-                    start_value=start_value, k=current_k,
-                    c=current_c, max_iterations=max_iterations
-                )
+                    start_value=start_value, k=current_k, c=current_c,
+                    max_iterations=max_iterations)
 
                 cycle_found = odds[0] == odds[-1]
                 cycle_found &= odds[0] not in odd_set

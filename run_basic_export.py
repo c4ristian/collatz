@@ -24,7 +24,9 @@ def _generate_full_sequence(sequence_id: int, start_value: int,
         before the method exits.
     :return: The Collatz sequence as a pandas data frame.
     """
-    collatz = commons.collatz_sequence(start_value, k_factor, max_iterations)
+    collatz = commons.collatz_sequence(
+        start_value, k_factor, max_iterations=max_iterations)
+
     next_collatz = collatz[1:]
     collatz.pop()
 

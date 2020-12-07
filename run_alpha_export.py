@@ -25,7 +25,7 @@ def _generate_odd_sequence(sequence_id: int, start_value: int,
         before the method exits.
     :return: The Collatz sequence as a pandas data frame.
     """
-    odds = commons.odd_collatz_sequence(start_value, k_factor, max_iterations)
+    odds = commons.odd_collatz_sequence(start_value, k_factor, max_iterations=max_iterations)
     next_odds = odds[1:]
     odds.pop()
 

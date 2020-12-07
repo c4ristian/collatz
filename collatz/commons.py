@@ -12,16 +12,16 @@ import pandas as pd
 
 # pylint: disable=C0103
 # A single character for k and c is ok
-def collatz_sequence(start_value, k=3, max_iterations=-1, c=1):
+def collatz_sequence(start_value, k=3, c=1, max_iterations=-1):
     """
     This method creates a Collatz sequence for a given start value.
 
     :param start_value: The int value to start with. The value must be a natural number > 0.
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
+    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :param max_iterations: The maximum number of iterations performed
         before the method exits. Default is -1, which means that the number of
         iterations is not limited.
-    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :return: The Collatz sequence as list.
     """
     # Create a result list, including the start value
@@ -51,7 +51,7 @@ def collatz_sequence(start_value, k=3, max_iterations=-1, c=1):
     return result_list
 
 
-def odd_collatz_sequence(start_value, k=3, max_iterations=-1, c=1):
+def odd_collatz_sequence(start_value, k=3, c=1, max_iterations=-1):
     """
     This method creates a Collatz sequence containing only odd numbers
     for a given start value.
@@ -60,10 +60,10 @@ def odd_collatz_sequence(start_value, k=3, max_iterations=-1, c=1):
         natural number > 0. If an even number is handed over, the next odd number will be used
         as start value.
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
+    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :param max_iterations: The maximum number of iterations performed
         before the method exits. Default is -1, which means that the number of
         iterations is not limited.
-    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :return: The Collatz sequence as list.
     """
     # Possibly transform start value
@@ -155,8 +155,7 @@ def next_odd_collatz_number(int_value: int, k=3, c=1):
     return int(next_odd)
 
 
-def odd_collatz_sequence_components(
-        start_value: int, k=3, max_iterations=100, c=1):
+def odd_collatz_sequence_components(start_value: int, k=3, c=1, max_iterations=100):
     """
     This method returns the components of a specific Collatz sequence.
 
@@ -164,15 +163,14 @@ def odd_collatz_sequence_components(
         natural number > 0. If an even number is handed over, the next odd number will be used
         as start value.
     :param k: The factor by which odd numbers are multiplied in the sequence (default is 3).
+    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :param max_iterations: The maximum number of iterations performed
         before the method exits. Default is -1, which means that the number of
         iterations is not limited.
-    :param c: The summand by which odd numbers in the sequence are increased (default is 1).
     :return: A pandas data frame with the Collatz components.
     """
     result_frame = None
-    odd_sequence = odd_collatz_sequence(
-        start_value, k, max_iterations, c)
+    odd_sequence = odd_collatz_sequence(start_value, k, c, max_iterations)
 
     for i, odd in enumerate(odd_sequence):
         components = _odd_collatz_components(odd, k, c)

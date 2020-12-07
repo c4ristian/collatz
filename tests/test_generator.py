@@ -51,8 +51,7 @@ def test_should_generate_collatz_sequence_correctly():
     assert list(result["next_odd"]) == [33, 83, 13, 33]
 
     # Test if big integers are handled correctly
-    result = generator.generate_collatz_sequence(
-        start_value=9**50, k=9, max_iterations=2)
+    result = generator.generate_collatz_sequence(start_value=9 ** 50, k=9, max_iterations=2)
 
     assert result is not None
     assert len(result) == 3
@@ -131,8 +130,7 @@ def test_should_generate_odd_collatz_sequence_correctly():
     assert list(result["next_odd"]) == [33, 83, 13, 33]
 
     # Test if big integers are handled correctly
-    result = generator.generate_odd_collatz_sequence(
-        start_value=9 ** 50, k=9, max_iterations=1)
+    result = generator.generate_odd_collatz_sequence(start_value=9 ** 50, k=9, max_iterations=1)
 
     assert result["collatz"].dtype == 'object'
     assert result["next_odd"].dtype == 'object'
