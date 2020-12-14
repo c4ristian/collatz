@@ -31,6 +31,7 @@ import networkx as nx
 from networkx.drawing.nx_pydot import graphviz_layout
 import nbutils
 from collatz import graph
+from collatz.commons import to_binary
 
 # Configuration
 nbutils.set_default_pd_options()
@@ -53,6 +54,8 @@ graph_frame = graph.create_pruned_dutch_graph(
     pruning_level=PRUNING_LEVEL, iteration_count=ITERATION_COUNT)
 
 graph_frame["prunable"] = graph_frame.index % 2 == 1
+graph_frame["s_bin"] = graph_frame["successor"].apply(to_binary)
+graph_frame["p_bin"] = graph_frame["predecessor"].apply(to_binary)
 
 # Print graph
 print("T>=" + str(PRUNING_LEVEL), "\n")
