@@ -64,15 +64,15 @@ print("Count of Collatz values:", len(analysis_frame), "\n")
 # Binary
 max_bin_len = int(analysis_frame["bin_len"].max())
 analysis_frame["bin_str"] = analysis_frame["v_i_bin"].str.zfill(max_bin_len)
-analysis_frame["b2"] = analysis_frame["bin_str"].str[max_bin_len-2]
-analysis_frame["b3"] = analysis_frame["bin_str"].str[max_bin_len-3]
-analysis_frame["b4"] = analysis_frame["bin_str"].str[max_bin_len-4]
-analysis_frame["b32"] = analysis_frame["b3"].astype('str') + analysis_frame["b2"]
-analysis_frame["b432"] = analysis_frame["b4"].astype('str') + analysis_frame["b32"]
+analysis_frame["t2"] = analysis_frame["bin_str"].str[max_bin_len-2]
+analysis_frame["t3"] = analysis_frame["bin_str"].str[max_bin_len-3]
+analysis_frame["t4"] = analysis_frame["bin_str"].str[max_bin_len-4]
+analysis_frame["t32"] = analysis_frame["t3"].astype('str') + analysis_frame["t2"]
+analysis_frame["t432"] = analysis_frame["t4"].astype('str') + analysis_frame["t32"]
 ```
 
 ```python pycharm={"name": "#%%\n"}
-analysis_frame["predecessor"] = analysis_frame["b32"]
+analysis_frame["predecessor"] = analysis_frame["t32"]
 analysis_frame["successor"] = analysis_frame["predecessor"]
 # If terminal is true, set predecessor = x
 analysis_frame.loc[analysis_frame["terminal"], ["predecessor"]] = "x"
@@ -131,6 +131,11 @@ widths = [network[u][v]['weight'] for u, v in edges]
 pos = nx.circular_layout(network)
 nx.draw(network, pos, node_size=1000, with_labels=SHOW_LABELS,
         arrows=True, arrowsize=30, width=widths)
+
+edge_labels = nx.get_edge_attributes(network,'o_median')
+
+nx.draw_networkx_edge_labels(
+    network, pos=pos, edge_labels=edge_labels, label_pos=0.15)
 
 # Export data
 if EXPORT_DATA:
