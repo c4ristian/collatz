@@ -56,8 +56,9 @@ analysis_frame = analysis_frame[analysis_frame["k"] == K_FACTOR]
 # Print meta data
 sequence_count = int(analysis_frame["sequence_id"].nunique())
 
-print("Collatz sequences loaded from file:", sequence_count, "\n")
+print("Collatz sequences loaded from file:", sequence_count)
 print("Count of Collatz values:", len(analysis_frame), "\n")
+print("K:", K_FACTOR, "\n")
 
 # Derive additional features
 
@@ -103,7 +104,7 @@ edge_frame = graph_frame.groupby(
     o_min=("omega_i", "min"), count=("lambda_i", "count")).reset_index()
 
 edge_frame["percent"] = edge_frame["count"] / edge_frame["count"].sum()
-edge_frame["weight"] = edge_frame["percent"] * 25
+edge_frame["weight"] = edge_frame["percent"] * 25 + 1
 
 print("Edges:\n")
 print(edge_frame, "\n")

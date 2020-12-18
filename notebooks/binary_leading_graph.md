@@ -56,8 +56,9 @@ analysis_frame = analysis_frame[analysis_frame["k"] == K_FACTOR]
 # Print meta data
 sequence_count = int(analysis_frame["sequence_id"].nunique())
 
-print("Collatz sequences loaded from file:", sequence_count, "\n")
+print("Collatz sequences loaded from file:", sequence_count)
 print("Count of Collatz values:", len(analysis_frame), "\n")
+print("K:", K_FACTOR, "\n")
 
 # Derive additional features
 
@@ -67,7 +68,7 @@ analysis_frame["bin_str"] = analysis_frame["v_i_bin"].str.zfill(max_bin_len)
 analysis_frame["b2"] = analysis_frame["bin_str"].str[max_bin_len-2]
 analysis_frame["b3"] = analysis_frame["bin_str"].str[max_bin_len-3]
 analysis_frame["b4"] = analysis_frame["bin_str"].str[max_bin_len-4]
-analysis_frame["l123"] = analysis_frame["v_i_bin"].str[0:3]
+analysis_frame["l123"] = analysis_frame["v_i_bin"].str[1:3]
 
 # Exclude all values with a bin length < 3, since we want to analyse the
 # three leading bits
@@ -106,7 +107,7 @@ edge_frame = graph_frame.groupby(
     o_min=("omega_i", "min"), count=("lambda_i", "count")).reset_index()
 
 edge_frame["percent"] = edge_frame["count"] / edge_frame["count"].sum()
-edge_frame["weight"] = edge_frame["percent"] * 25
+edge_frame["weight"] = edge_frame["percent"] * 25 + 1
 
 print("Edges:\n")
 print(edge_frame, "\n")
