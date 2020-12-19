@@ -68,7 +68,7 @@ analysis_frame["bin_str"] = analysis_frame["v_i_bin"].str.zfill(max_bin_len)
 analysis_frame["b2"] = analysis_frame["bin_str"].str[max_bin_len-2]
 analysis_frame["b3"] = analysis_frame["bin_str"].str[max_bin_len-3]
 analysis_frame["b4"] = analysis_frame["bin_str"].str[max_bin_len-4]
-analysis_frame["l123"] = analysis_frame["v_i_bin"].str[1:3]
+analysis_frame["l123"] = analysis_frame["v_i_bin"].str[0:3]
 
 # Exclude all values with a bin length < 3, since we want to analyse the
 # three leading bits
