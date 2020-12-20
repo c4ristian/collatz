@@ -133,7 +133,7 @@ pos = nx.circular_layout(network)
 nx.draw(network, pos, node_size=1000, with_labels=SHOW_LABELS,
         arrows=True, arrowsize=30, width=widths)
 
-edge_labels = nx.get_edge_attributes(network,'o_median')
+edge_labels = nx.get_edge_attributes(network,'o_max')
 
 nx.draw_networkx_edge_labels(
     network, pos=pos, edge_labels=edge_labels, label_pos=0.15)
