@@ -27,7 +27,7 @@ class AbstractStateMachine(ABC):
         self._validate_state(previous_state)
 
         if current_state is None:
-            self.current_state = self._random_state(self.valid_states)
+            self.current_state = self._random_item(self.valid_states)
         else:
             self.current_state = current_state
         self.previous_state = previous_state
@@ -62,14 +62,14 @@ class AbstractStateMachine(ABC):
             raise TypeError("Illegal state: " + state)
 
     @staticmethod
-    def _random_state(states):
+    def _random_item(sequence):
         """
-        This function returns a randomly chosen state of a sequence.
+        This function returns a randomly chosen item of a sequence.
 
-        :param states: The sequence of states.
-        :return: The randomly chosen state.
+        :param sequence: The sequence.
+        :return: The randomly chosen item.
         """
-        return random.sample(states, k=1)[0]
+        return random.sample(sequence, k=1)[0]
 
     def __str__(self):
         return "{previous:" + str(self.previous_state) + ", "\
@@ -108,7 +108,7 @@ class LeadingBitsMachine(AbstractStateMachine):
             if self.previous_state == "101":
                 next_state = "110"
             else:
-                next_state = self._random_state({"110", "111"})
+                next_state = self._random_item({"110", "111"})
         elif self.current_state == "101":
             if self.previous_state == "111":
                 next_state = "100"
@@ -117,10 +117,10 @@ class LeadingBitsMachine(AbstractStateMachine):
                 next_state = "111"
                 lambda_i = 1
             else:
-                next_state = self._random_state({"100", "111"})
+                next_state = self._random_item({"100", "111"})
                 lambda_i = 1 if next_state == "111" else 2
         elif self.current_state == "110":
-            next_state = self._random_state({"100", "101"})
+            next_state = self._random_item({"100", "101"})
             lambda_i = 2
         elif self.current_state == "111":
             next_state = "101"
@@ -129,3 +129,44 @@ class LeadingBitsMachine(AbstractStateMachine):
         self.previous_state = self.current_state
         self.current_state = next_state
         return next_state, lambda_i
+
+
+class TrailingBitsMachine(AbstractStateMachine):
+    """
+    This finite state machine models the transitions between the trailing three
+    bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
+    represent the bits. As output the machine returns the net growth omega (lambda - alpha)
+    of the binary number see (https://doi.org/10.18052/www.scipress.com/IJPMS.21.1).
+
+    The machine only works for the Collatz problem in its original form *3v+1*.
+    """
+
+    def _get_valid_states(self):
+        return {"001", "011", "101", "111"}
+
+    def next_state(self):
+        """
+        This method moves the machine to the next state based on the current state
+        and the previous state, which serves as input.
+
+        :return: The next state and the net binary growth *omega* as output.
+        """
+        next_state = None
+        omega_i = None
+
+        if self.current_state == "001":
+            next_state = self._random_item(self.valid_states)
+            omega_i = self._random_item({-1, 0})
+        elif self.current_state == "011":
+            next_state = self._random_item({"001", "101"})
+            omega_i = self._random_item({0, 1})
+        elif self.current_state == "101":
+            next_state = self._random_item(self.valid_states)
+            omega_i = self._random_item({-1, -2})
+        elif self.current_state == "111":
+            next_state = self._random_item({"011", "111"})
+            omega_i = self._random_item({1, 0})
+
+        self.previous_state = self.current_state
+        self.current_state = next_state
+        return next_state, omega_i
