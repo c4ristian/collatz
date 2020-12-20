@@ -9,7 +9,7 @@ import random
 class LeadingBitsMachine:
     """
     This finite state machine models the transitions between the leading three
-    bits of Collatz numbers. The machine is a nondeterministic transducer whose states
+    bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
     represent the bits. As input, the automaton receives the previous state
     or *None* if no previous state exists. As output the machine returns
     the growth of the binary number (lambda) as described in
@@ -22,10 +22,10 @@ class LeadingBitsMachine:
         Creates a new LeadingBitsMachine.
 
         :param current_state: The current state (leading bits of the
-            current Collatz number as str) or None. If None is handed over, the
+            current odd Collatz number as str) or None. If None is handed over, the
             current state is chosen randomly.
         :param previous_state: The previous state (leading bits of the
-            previous Collatz number as str) or None.
+            previous odd Collatz number as str) or None.
         """
         self.valid_states = {"100", "101", "110", "111"}
         self._validate_state(current_state)
