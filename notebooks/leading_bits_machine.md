@@ -20,7 +20,7 @@ jupyter:
 ```python pycharm={"name": "#%%\n"}
 """
 This notebook executes a finite state machine that models the transitions between the leading three
-bits of Collatz numbers. The machine is a nondeterministic transducer whose states
+bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
 represent the bits.
 """
 
