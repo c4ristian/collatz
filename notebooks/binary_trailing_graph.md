@@ -68,12 +68,14 @@ analysis_frame["bin_str"] = analysis_frame["v_i_bin"].str.zfill(max_bin_len)
 analysis_frame["t2"] = analysis_frame["bin_str"].str[max_bin_len-2]
 analysis_frame["t3"] = analysis_frame["bin_str"].str[max_bin_len-3]
 analysis_frame["t4"] = analysis_frame["bin_str"].str[max_bin_len-4]
-analysis_frame["t32"] = analysis_frame["t3"].astype('str') + analysis_frame["t2"]
-analysis_frame["t432"] = analysis_frame["t4"].astype('str') + analysis_frame["t32"]
+analysis_frame["t321"] = analysis_frame["t3"].astype('str') + \
+                         analysis_frame["t2"] + analysis_frame["t2"]
+
+analysis_frame["t4321"] = analysis_frame["t4"].astype('str') + analysis_frame["t321"]
 ```
 
 ```python pycharm={"name": "#%%\n"}
-analysis_frame["predecessor"] = analysis_frame["t32"]
+analysis_frame["predecessor"] = analysis_frame["t321"]
 analysis_frame["successor"] = analysis_frame["predecessor"]
 # If terminal is true, set predecessor = x
 analysis_frame.loc[analysis_frame["terminal"], ["predecessor"]] = "x"
