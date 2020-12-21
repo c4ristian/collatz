@@ -135,8 +135,9 @@ class TrailingBitsMachine(AbstractStateMachine):
     """
     This finite state machine models the transitions between the trailing three
     bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
-    represent the bits. As output, the machine returns the net growth omega (lambda - alpha)
-    of the binary number see (https://doi.org/10.18052/www.scipress.com/IJPMS.21.1).
+    represent the bits. As input, the machine receives the binary growth lambda_i as described in
+    (https://doi.org/10.18052/www.scipress.com/IJPMS.21.1) As output, the machine returns the
+    net growth omega_i (lambda_i - alpha_i).
 
     The machine only works for the Collatz problem in its original form *3v+1*.
     """
@@ -144,15 +145,20 @@ class TrailingBitsMachine(AbstractStateMachine):
     def _get_valid_states(self):
         return {"001", "011", "101", "111"}
 
-    def next_state(self):
+    # pylint: disable=arguments-differ
+    # Additional input parameter lambda_i introduced
+    def next_state(self, lambda_i=None):
         """
         This method moves the machine to the next state based on the current state.
 
+        :param: The input lambda_i or None. If None is handed over, lambda_i is chosen randomly.
         :return: The next state and the net binary growth *omega* as output.
         """
         next_state = None
         omega_i = None
-        lambda_i = self._random_item({1, 2})
+
+        if lambda_i is None:
+            lambda_i = self._random_item({1, 2})
 
         if self.current_state == "001":
             next_state = self._random_item(self.valid_states)

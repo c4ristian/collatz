@@ -121,11 +121,16 @@ def test_trailing_bits_machine():
     assert machine.previous_state is None
     assert str(machine) == "{previous:None, current:111}"
 
-    next_state, omega_i = machine.next_state()
+    next_state, omega_i = machine.next_state(lambda_i=1)
     assert next_state in {"011", "111"}
-    assert 0 <= omega_i <= 1
+    assert omega_i == 0
     assert machine.current_state == next_state
     assert machine.previous_state == "111"
+
+    machine = TrailingBitsMachine("111")
+    next_state, omega_i = machine.next_state(lambda_i=2)
+    assert next_state in {"011", "111"}
+    assert omega_i == 1
 
     # Test validation
     with pytest.raises(TypeError):
