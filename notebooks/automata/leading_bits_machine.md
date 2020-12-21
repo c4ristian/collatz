@@ -57,8 +57,8 @@ analysis_frame = pd.DataFrame({
 })
 
 analysis_frame["l"] = analysis_frame["l_i"].cumsum()
-analysis_frame["l_max"] = (analysis_frame["n"] * log2(3)).astype('int64') + 2
 analysis_frame["l_cycle"] = (analysis_frame["n"] * log2(3)).astype('int64') + 1
+analysis_frame["l_max"] = (analysis_frame["n"] * log2(3)).astype('int64') + 2
 analysis_frame["l_valid"] = analysis_frame["l"] <= analysis_frame["l_max"]
 
 l_max_valid = int((analysis_frame["l_valid"] == False).sum()) == 0
