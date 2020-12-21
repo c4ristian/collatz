@@ -71,10 +71,16 @@ analysis_frame = pd.DataFrame({
     "o_i": omegas
 })
 
+analysis_frame["a_i"] = (analysis_frame["o_i"] - analysis_frame["l_i"]).abs()
 analysis_frame["l"] = analysis_frame["l_i"].cumsum()
 analysis_frame["o"] = analysis_frame["o_i"].cumsum()
+analysis_frame["a"] = analysis_frame["a_i"].cumsum()
+
+a_i_mean = float(analysis_frame["a_i"].mean())
+l_i_mean = float(analysis_frame["l_i"].mean())
 
 if PRINT_TABLE:
-    print("N:", MAX_STATES, "\n")
+    print("N:", MAX_STATES, "Alpha mean:",
+          a_i_mean, "Lambda mean:", l_i_mean, "\n")
     print(analysis_frame.to_string(index=False), "\n")
 ```
