@@ -44,7 +44,7 @@ lambdas = []
 n = range(1, MAX_STATES + 1)
 
 for i in n:
-    next_state, lambda_i = machine.next_state()
+    _, lambda_i = machine.next_state()
     previous_states.append(machine.previous_state)
     current_states.append(machine.current_state)
     lambdas.append(lambda_i)
