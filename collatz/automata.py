@@ -169,7 +169,7 @@ class TrailingBitsMachine(AbstractStateMachine):
             omega_i = lambda_i - 1
         elif self.current_state == "101":
             next_state = self._random_item(self.valid_states)
-            omega_i = lambda_i - 3
+            omega_i = lambda_i - self._random_item({3, 4})
         elif self.current_state == "111":
             next_state = self._random_item({"011", "111"})
             omega_i = lambda_i - 1
