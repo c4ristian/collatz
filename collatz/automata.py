@@ -35,8 +35,7 @@ class AbstractStateMachine(ABC):
     @abstractmethod
     def next_state(self):
         """
-        This method moves the machine to the next state based on the current state
-        and the previous state.
+        This method moves the machine to the next state.
 
         :return: The next state and possibly an output.
         """
@@ -44,7 +43,8 @@ class AbstractStateMachine(ABC):
     @abstractmethod
     def _get_valid_states(self):
         """
-        This method returns a set with all valid states.
+        This method returns a set of all valid states.
+
         :return: The set of valid states.
         """
 
@@ -83,9 +83,9 @@ class LeadingBitsMachine(AbstractStateMachine):
     This finite state machine models the transitions between the leading three
     bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
     represent the bits. As input, the automaton receives the previous state
-    or *None* if no previous state exists. As output the machine returns
+    or *None* if no previous state exists. As output, the machine returns
     the growth of the binary number (lambda) as described in
-    (https://doi.org/10.18052/www.scipress.com/IJPMS.21.1)
+    https://doi.org/10.18052/www.scipress.com/IJPMS.21.1.
 
     The machine only works for the Collatz problem in its original form *3v+1*.
     """
@@ -135,7 +135,7 @@ class TrailingBitsMachine(AbstractStateMachine):
     """
     This finite state machine models the transitions between the trailing three
     bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
-    represent the bits. As output the machine returns the net growth omega (lambda - alpha)
+    represent the bits. As output, the machine returns the net growth omega (lambda - alpha)
     of the binary number see (https://doi.org/10.18052/www.scipress.com/IJPMS.21.1).
 
     The machine only works for the Collatz problem in its original form *3v+1*.
@@ -146,8 +146,7 @@ class TrailingBitsMachine(AbstractStateMachine):
 
     def next_state(self):
         """
-        This method moves the machine to the next state based on the current state
-        and the previous state, which serves as input.
+        This method moves the machine to the next state based on the current state.
 
         :return: The next state and the net binary growth *omega* as output.
         """
