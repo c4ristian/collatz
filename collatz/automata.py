@@ -84,7 +84,7 @@ class LeadingBitsMachine(AbstractStateMachine):
     bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
     represent the bits. As input, the automaton receives the previous state
     or *None* if no previous state exists. As output, the machine returns
-    the growth of the binary number (lambda) as described in
+    the growth of the binary number (lambda_i) as described in
     https://doi.org/10.18052/www.scipress.com/IJPMS.21.1.
 
     The machine only works for the Collatz problem in its original form *3v+1*.
@@ -98,7 +98,7 @@ class LeadingBitsMachine(AbstractStateMachine):
         This method moves the machine to the next state based on the current state
         and the previous state, which serves as input.
 
-        :return: The next state and the binary growth lambda as output.
+        :return: The next state and the binary growth lambda_i as output.
         """
         next_state = None
         lambda_i = None
@@ -136,7 +136,7 @@ class TrailingBitsMachine(AbstractStateMachine):
     This finite state machine models the transitions between the trailing three
     bits of odd Collatz numbers. The machine is a nondeterministic transducer whose states
     represent the bits. As input, the machine receives the binary growth lambda_i as described in
-    (https://doi.org/10.18052/www.scipress.com/IJPMS.21.1) As output, the machine returns the
+    (https://doi.org/10.18052/www.scipress.com/IJPMS.21.1). As output, the machine returns the
     net growth omega_i (lambda_i - alpha_i).
 
     The machine only works for the Collatz problem in its original form *3v+1*.
@@ -149,7 +149,8 @@ class TrailingBitsMachine(AbstractStateMachine):
     # Additional input parameter lambda_i introduced
     def next_state(self, lambda_i=None):
         """
-        This method moves the machine to the next state based on the current state.
+        This method moves the machine to the next state based on the current state and
+        the input lambda_i.
 
         :param: The input lambda_i or None. If None is handed over, lambda_i is chosen randomly.
         :return: The next state and the net binary growth *omega* as output.
