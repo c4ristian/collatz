@@ -50,6 +50,7 @@ analysis_frame["n"] = analysis_frame.index + 1
 # Binary attributes
 analysis_frame["bin"] = analysis_frame["collatz"].apply(com.to_binary)
 analysis_frame["next_bin"] = analysis_frame["next_collatz"].apply(com.to_binary)
+analysis_frame["next_odd_bin"] = analysis_frame["next_odd"].apply(com.to_binary)
 
 analysis_frame["bin_len"] = analysis_frame["collatz"].apply(log2).astype('int64') + 1
 analysis_frame["next_bin_len"] = analysis_frame["next_collatz"].apply(log2).astype('int64') + 1
@@ -79,11 +80,11 @@ analysis_frame["omega"] = analysis_frame["omega_i"].cumsum()
 
 # Print results
 print_frame = analysis_frame[[
-    "n", "v_1", "collatz","next_odd", "bin", "t32",
+    "n", "v_1", "collatz","next_odd", "bin", "next_odd_bin", "t32",
     "omega_i", "omega", "l23", "lambda_i", "lambda", "alpha_i", "alpha"]]
 
 print_frame.columns = [
-    "n", "v_1", "v_i","v_i+", "bin", "t32",
+    "n", "v_1", "v_i","v_i+", "bin", "bin+", "t32",
      "o_i", "o", "l23", "l_i", "l", "a_i", "a"]
 
 print("Start value:", START_VALUE,
