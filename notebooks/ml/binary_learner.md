@@ -138,9 +138,11 @@ tree.plot_tree(
 plt.show()
 
 # Test Model
+max_lambda_i = int(analysis_frame["l_i"].max())
+
 lambda_i_predicted = lambda_i_tree.predict(lambda_i_test_features)
 lambda_i_accuracy = accuracy_score(lambda_i_test_target, lambda_i_predicted)
-lambda_i_f1 = f1_score(lambda_i_test_target, lambda_i_predicted)
+lambda_i_f1 = f1_score(lambda_i_test_target, lambda_i_predicted, pos_label=max_lambda_i)
 
 print("Decision Tree")
 print("Features:", lambda_i_features)
