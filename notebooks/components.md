@@ -30,6 +30,7 @@ The alphas of the sequence are compared with predicted values for c=1.
 
 # Imports
 from math import log, log2
+import matplotlib.pyplot as plt
 import nbutils
 from collatz import generator as gen
 from collatz import commons as com
@@ -38,7 +39,7 @@ from collatz import commons as com
 MAX_VALUE = 101
 K_FACTOR = 3
 C_SUMMAND = 1
-LOG_MODE = None
+LOG_BASE = 3
 PRINT_TABLE = True
 
 START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
@@ -73,14 +74,19 @@ analysis_frame["alpha_max"] = \
 analysis_frame["alpha_max"] = analysis_frame["alpha_max"].astype('int64') + 1
 
 # Possible set log mode
-if LOG_MODE:
-    analysis_frame["v_1"] = analysis_frame["v_1"].apply(LOG_MODE)
-    analysis_frame["collatz"] = analysis_frame["collatz"].apply(LOG_MODE)
-    analysis_frame["next_odd"] = analysis_frame["next_odd"].apply(LOG_MODE)
-    analysis_frame["beta_i"] = analysis_frame["beta_i"].apply(LOG_MODE)
-    analysis_frame["beta"] = analysis_frame["beta"].apply(LOG_MODE)
-    analysis_frame["sigma_i"] = analysis_frame["sigma_i"].apply(LOG_MODE)
-    analysis_frame["sigma"] = analysis_frame["sigma"].apply(LOG_MODE)
+if LOG_BASE is not None and LOG_BASE > 1:
+    analysis_frame["v_1"] = analysis_frame["v_1"].apply(log, args=(LOG_BASE,))
+    analysis_frame["collatz"] = analysis_frame["collatz"].apply(log, args=(LOG_BASE,))
+    analysis_frame["next_odd"] = analysis_frame["next_odd"].apply(log, args=(LOG_BASE,))
+    analysis_frame["beta_i"] = analysis_frame["beta_i"].apply(log, args=(LOG_BASE,))
+    analysis_frame["beta"] = analysis_frame["beta"].apply(log, args=(LOG_BASE,))
+    analysis_frame["sigma_i"] = analysis_frame["sigma_i"].apply(log, args=(LOG_BASE,))
+    analysis_frame["sigma"] = analysis_frame["sigma"].apply(log, args=(LOG_BASE,))
+
+    analysis_frame["alpha_i"] = analysis_frame["alpha_i"] / log2(LOG_BASE)
+    analysis_frame["alpha"] = analysis_frame["alpha"] / log2(LOG_BASE)
+    analysis_frame["alpha_cycle"] = analysis_frame["alpha_cycle"] / log2(LOG_BASE)
+    analysis_frame["alpha_max"] = analysis_frame["alpha_max"] / log2(LOG_BASE)
 
 # Get max beta
 beta_max = analysis_frame["beta"].max()
@@ -93,7 +99,7 @@ print_frame = analysis_frame[[
 
 print_frame.columns = [
     "n", "v_1", "v_i", "bin", "v_i+",
-    "a_i", "a", "a_cycle", "a_max",
+    "a_i", "a", "a_c", "a_m",
     "b_i", "b", "s_i", "s"]
 
 print("Start value:", START_VALUE,
@@ -104,4 +110,14 @@ print("Start value:", START_VALUE,
 
 if PRINT_TABLE:
     print(print_frame.to_string(index=False), "\n")
+
+```
+
+```python pycharm={"name": "#%%\n"}
+#Plot results
+# Decimal
+plt.figure()
+plt.title("Sigma")
+plt.plot(analysis_frame["sigma"], "-o")
+plt.show()
 ```
