@@ -30,7 +30,7 @@ import nbutils
 from collatz.automata import LeadingBitsMachine
 
 # Configuration
-MAX_STATES = 100
+MAX_STATES = 20
 PRINT_TABLE = True
 
 nbutils.set_default_pd_options()
@@ -63,7 +63,8 @@ analysis_frame["l_valid"] = analysis_frame["l"] <= analysis_frame["l_max"]
 
 l_max_valid = int((analysis_frame["l_valid"] == False).sum()) == 0
 
+print("N:", MAX_STATES, " Lambda max valid:", l_max_valid, "\n")
+
 if PRINT_TABLE:
-    print("N:", MAX_STATES, " Lambda max valid:", l_max_valid, "\n")
     print(analysis_frame.to_string(index=False), "\n")
 ```
