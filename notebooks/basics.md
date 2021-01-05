@@ -36,6 +36,7 @@ K_FACTOR = 3
 C_SUMMAND = 1
 MAX_ITERATIONS = 300
 ODDS_ONLY = False
+PRINT_TABLE = False
 
 START_VALUE = nbutils.rnd_int(MAX_VALUE)
 nbutils.set_default_pd_options()
@@ -67,7 +68,9 @@ start_value = analysis_frame["collatz"][0]
 
 # Print data
 print("Start value:", start_value, " K:", K_FACTOR, " C:", C_SUMMAND, "\n")
-print(analysis_frame[["collatz", "log2", "log2_fraction",
+
+if PRINT_TABLE:
+    print(analysis_frame[["collatz", "log2", "log2_fraction",
                       "n_log2_fraction", "bin_str", "mod_4"]])
 ```
 
