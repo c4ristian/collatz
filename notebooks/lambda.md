@@ -34,7 +34,7 @@ from collatz import commons
 MAX_VALUE = 101
 K_FACTOR = 3
 C_SUMMAND = 1
-MAX_ITERATIONS = 50
+MAX_ITERATIONS = 1000
 PRINT_TABLE = True
 
 START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
@@ -95,6 +95,7 @@ print_frame.columns = [
 print("Start value:", START_VALUE,
       " K:", K_FACTOR,
       " C:", C_SUMMAND,
+      " n:", int(analysis_frame["n"].max()),
       " Lambda max valid:", l_max_valid,
       "\n")
 
@@ -121,6 +122,12 @@ plt.plot(analysis_frame["lambda_max"], "-")
 plt.figure()
 plt.title("Alpha")
 plt.plot(analysis_frame["alpha"], "-")
+
+plt.figure()
+plt.title("Lambda Max vs Lambda")
+plt.plot(analysis_frame["lambda_max"], label="lambda max")
+plt.plot(analysis_frame["lambda"], label="lambda")
+plt.legend()
 
 plt.figure()
 plt.title("Lambda Max vs Alpha")
