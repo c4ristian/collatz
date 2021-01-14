@@ -9,11 +9,12 @@ analyse it from different perspectives. The project has contributed to multiple 
 [[sultanow]](https://doi.org/10.25932/publishup-44325).
 
 ## Main Features
-The library provides four modules:
-- [commons](collatz/commons.py) - common methods for creating and analysing Collatz sequences
-- [cycles](collatz/cycles.py) - methods to analyse cycles in Collatz sequences
-- [generator](collatz/generator.py) - methods to generate Collatz sequences and related features
-- [graph](collatz/graph.py) - methods to create and analyse Collatz graphs
+The library provides the following modules:
+- [automata](collatz/automata.py) - automatons that model certain aspects of the Collatz problem  
+- [commons](collatz/commons.py) - common functions for creating and analysing Collatz sequences
+- [cycles](collatz/cycles.py) - functions to analyse cycles in Collatz sequences
+- [generator](collatz/generator.py) - functions to generate Collatz sequences and related features
+- [graph](collatz/graph.py) - functions to create and analyse Collatz graphs
 
 The project furthermore offers [jupyter notebooks](notebooks) and scripts for data exports. 
 The notebooks are stored as [markdown](https://en.wikipedia.org/wiki/Markdown) files to support efficient 
