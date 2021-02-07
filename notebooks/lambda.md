@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.2'
-      jupytext_version: 1.6.0
+      jupytext_version: 1.9.1
   kernelspec:
     display_name: collatz
     language: python
@@ -31,7 +31,7 @@ import nbutils
 from collatz import commons
 
 # Configuration
-MAX_VALUE = 101
+MAX_VALUE = 1001
 K_FACTOR = 3
 C_SUMMAND = 1
 MAX_ITERATIONS = 1000

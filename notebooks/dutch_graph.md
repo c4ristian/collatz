@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.2'
-      jupytext_version: 1.6.0
+      jupytext_version: 1.9.1
   kernelspec:
     display_name: collatz
     language: python
@@ -43,7 +43,7 @@ SHOW_ARROWS = True
 REVERSE_ARROWS = True
 PLOT_SIZE = (20, 10)
 PRINT_TABLE = True
-EXPORT_DATA = True
+EXPORT_DATA = False
 
 DATA_PATH = Path.cwd().parent.as_posix() + "/data/"
 PIC_PATH = DATA_PATH + "dutch_graph.png"

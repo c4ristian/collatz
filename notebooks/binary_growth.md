@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.2'
-      jupytext_version: 1.6.0
+      jupytext_version: 1.9.1
   kernelspec:
     display_name: collatz
     language: python
@@ -68,6 +68,7 @@ analysis_frame["l23"] = analysis_frame["bin"].str[1:3]
 # Lambda
 analysis_frame["lambda_i"] = analysis_frame["next_bin_len"] - analysis_frame["bin_len"]
 analysis_frame["lambda"] = analysis_frame["lambda_i"].cumsum()
+analysis_frame["lambda_max"] = (analysis_frame["n"] * log2(K_FACTOR)).astype('int64') + 2
 
 # Alpha
 analysis_frame["alpha_i"] = analysis_frame["next_collatz"].apply(com.trailing_zeros)
@@ -81,15 +82,16 @@ analysis_frame["omega"] = analysis_frame["omega_i"].cumsum()
 # Print results
 print_frame = analysis_frame[[
     "n", "v_1", "collatz","next_odd", "bin", "next_odd_bin", "t32",
-    "omega_i", "omega", "l23", "lambda_i", "lambda", "alpha_i", "alpha"]]
+    "omega_i", "omega", "l23", "lambda_i", "lambda", "lambda_max", "alpha_i", "alpha"]]
 
 print_frame.columns = [
     "n", "v_1", "v_i","v_i+", "bin", "bin+", "t32",
-     "o_i", "o", "l23", "l_i", "l", "a_i", "a"]
+     "o_i", "o", "l23", "l_i", "l", "l_max", "a_i", "a"]
 
 print("Start value:", START_VALUE,
       " K:", K_FACTOR,
       " C:", C_SUMMAND,
+      " L/N:", int(analysis_frame["lambda"].max()) / int(analysis_frame["n"].max()),
       "\n")
 
 if PRINT_TABLE:
