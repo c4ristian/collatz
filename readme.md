@@ -8,7 +8,7 @@ analyse it from different perspectives. The project has contributed to multiple 
 - [[koch]](https://doi.org/10.18052/www.scipress.com/IJPMS.21.1)
 - [[machado]](https://www.mdpi.com/2227-7390/9/4/314)
 - [[oeis]](https://oeis.org/A005184)
-- [[sultanow]](https://doi.org/10.25932/publishup-44325)
+- [[sultanow]](https://doi.org/10.25932/publishup-48214)
 
 ## Main Features
 The library provides the following modules:
