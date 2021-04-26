@@ -3,12 +3,12 @@
 ## What is it?
 The [Collatz conjecture](https://en.wikipedia.org/wiki/Collatz_conjecture) is an 
 unsolved number theory problem. This Python library provides tools to 
-analyse it from different perspectives. The project has contributed to multiple scientific publications 
-[[kleinnijenhuis]](https://arxiv.org/abs/2008.13643v2),
-[[koch]](https://doi.org/10.18052/www.scipress.com/IJPMS.21.1),
-[[machado]](https://www.mdpi.com/2227-7390/9/4/314),
-[[oeis]](https://oeis.org/A005184),
-[[sultanow]](https://doi.org/10.25932/publishup-44325).
+analyse it from different perspectives. The project has contributed to multiple scientific publications:
+- [[kleinnijenhuis]](https://arxiv.org/abs/2008.13643v2)
+- [[koch]](https://doi.org/10.18052/www.scipress.com/IJPMS.21.1)
+- [[machado]](https://www.mdpi.com/2227-7390/9/4/314)
+- [[oeis]](https://oeis.org/A005184)
+- [[sultanow]](https://doi.org/10.25932/publishup-44325)
 
 ## Main Features
 The library provides the following modules:
