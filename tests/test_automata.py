@@ -101,7 +101,7 @@ def test_trailing_bits_machine():
 
     next_state, omega_i = machine.next_state()
     assert next_state in {"001", "011", "101", "111"}
-    assert -2 <= omega_i <= 0
+    assert -3 <= omega_i <= 0
 
     # Machine starting with "101"
     machine = TrailingBitsMachine("101")
