@@ -242,9 +242,52 @@ def trailing_zeros(int_value: int):
     :param int_value: The int value.
     :return: The trailing zeros as int.
     """
-    assert isinstance(int_value, numbers.Integral), "Integer value expected"
+    if not isinstance(int_value, numbers.Integral):
+        raise TypeError("Integer value expected")
+
     result = int(math.log2(int_value & int_value * -1))
     return result
+
+
+def trailing_ones(int_value: int):
+    """
+    This method returns the trailing ones of the binary representation of an int value.
+
+    :param int_value: The int value.
+    :return: The trailing ones as int.
+    """
+    return trailing_ones_str(to_binary(int_value))
+
+
+def trailing_ones_str(bin_str: str):
+    """
+    This method returns the trailing ones of a binary number formatted as string.
+
+    :param bin_str: The binary number as str.
+    :return: The trailing ones as int.
+    """
+    # Only strings are allowed
+    if not isinstance(bin_str, str):
+        raise TypeError("String value expected")
+
+    # Right trim
+    bin_str = bin_str.rstrip()
+
+    # Remove possible leading "b" from binary str
+    if len(bin_str) > 0 and bin_str[-1] == "b":
+        bin_str = bin_str[:-1]
+
+    # Count trailing ones
+    ones = 0
+    for index in range(len(bin_str)):
+        c = bin_str[len(bin_str) - index - 1]
+
+        if c == "1":
+            ones += 1
+        else:
+            break
+
+    return ones
 
 
 def to_binary(int_value: int):

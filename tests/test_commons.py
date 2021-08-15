@@ -332,8 +332,56 @@ def test_trailing_zeros():
     assert com.trailing_zeros(8038174778473296249349807509972772768) == 5
 
     # Should only accept whole numbers
-    with pytest.raises(AssertionError):
-        com.next_collatz_number(0.25)
+    with pytest.raises(TypeError):
+        com.trailing_zeros(0.25)
+
+
+def test_tailing_ones():
+    """
+    Test case for the method trailing_ones.
+
+    :return:
+    """
+    assert com.trailing_ones(1) == 1
+    assert com.trailing_ones(2) == 0
+    assert com.trailing_ones(3) == 2
+    assert com.trailing_ones(8) == 0
+    assert com.trailing_ones(668503069687811) == 2
+
+    # Test if big integers are handled correctly
+    assert com.trailing_ones(7331260020097109395248329169764701) == 1
+    assert com.trailing_ones(2**100-1) == 100
+
+    # Should only accept whole numbers
+    with pytest.raises(TypeError):
+        com.trailing_ones(0.25)
+
+
+def test_trailing_ones_str():
+    """
+    Test case for the method trailing_ones_str.
+
+    :return: None
+    """
+    assert com.trailing_ones_str("1011") == 2
+    assert com.trailing_ones_str("1001") == 1
+    assert com.trailing_ones_str("1110110") == 0
+    assert com.trailing_ones_str("11101100") == 0
+
+    assert com.trailing_ones_str("11101100b") == 0
+    assert com.trailing_ones_str("1001b") == 1
+    assert com.trailing_ones_str("11101100b  ") == 0
+    assert com.trailing_ones_str(" 1001 ") == 1
+
+    assert com.trailing_ones_str(" 100122 ") == 0
+    assert com.trailing_ones_str(" 1001221b ") == 1
+
+    assert com.trailing_ones_str("111000011110100101110001101101000110000110000011"
+                                 "000001110011101100011111011100000110101000000101"
+                                 "011000001101101001") == 1
+
+    with pytest.raises(TypeError):
+        assert com.trailing_ones_str(15) == 0
 
 
 def test_to_binary():
@@ -349,9 +397,9 @@ def test_to_binary():
 
     # Test if big integers are handled correctly
     assert com.to_binary(18328150050242773488120822924411753) == \
-           '111000011110100101110001101101000110000110000011' \
-           '000001110011101100011111011100000110101000000101' \
-           '011000001101101001'
+           "111000011110100101110001101101000110000110000011" \
+           "000001110011101100011111011100000110101000000101" \
+           "011000001101101001"
 
     assert int(com.to_binary(773066281098016996554691694648431909053161283002), 2) == \
            773066281098016996554691694648431909053161283002
