@@ -31,6 +31,7 @@ import nbutils
 from collatz import generator as gen
 from collatz import commons as com
 
+
 # Configuration
 MAX_VALUE = 101
 K_FACTOR = 3
@@ -53,16 +54,19 @@ analysis_frame["log2_xi"] = analysis_frame["collatz"].apply(log2)
 prev_bin_len = list(analysis_frame[:-1]["bin_len"])
 prev_bin_len.insert(0, prev_bin_len[0])
 analysis_frame["bin_diff"] = analysis_frame["bin_len"] - pd.Series(prev_bin_len)
+analysis_frame["tz"] = analysis_frame["collatz"].apply(com.trailing_zeros)
+analysis_frame["to"] = analysis_frame["collatz"].apply(com.trailing_ones)
 
 # Print data
 print_frame = analysis_frame[[
-    "v_1", "collatz", "odd", "bin_len", "bin_str", "log2_xi", "bin_diff"]]
+    "v_1", "collatz", "odd", "bin_len", "bin_str", "log2_xi", "bin_diff", "tz", "to"]]
 
 print_frame.columns = [
-    "v_1", "x_i", "odd", "bin_len", "bin_str", "log2_xi", "bin_diff"]
+    "v_1", "x_i", "odd", "bin_len", "bin_str", "log2_xi", "bin_diff", "tz", "to"]
 
 print("Start value:", START_VALUE,
       " K:", K_FACTOR,
+      "Len:", len(analysis_frame),
       "\n")
 
 if PRINT_TABLE:
