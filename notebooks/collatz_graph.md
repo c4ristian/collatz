@@ -56,6 +56,7 @@ if REVERSE:
     nbutils.swap_column_names(("successor", "predecessor"), graph_frame)
 
 graph_frame["p_binary"] = graph_frame["predecessor"].apply(commons.to_binary)
+graph_frame["s_binary"] = graph_frame["successor"].apply(commons.to_binary)
 graph_frame["s_mod_k"] = graph_frame["successor"] % K_FACTOR
 graph_frame["alpha_i"] = graph_frame["predecessor"] * K_FACTOR + 1
 graph_frame["alpha_i"] = graph_frame["alpha_i"].apply(commons.trailing_zeros)
