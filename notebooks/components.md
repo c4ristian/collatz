@@ -38,8 +38,8 @@ from collatz import commons as com
 # Configuration
 MAX_VALUE = 101
 K_FACTOR = 3
-C_SUMMAND = 1
-LOG_BASE = 3
+C_SUMMAND = 5
+LOG_BASE = None
 PRINT_TABLE = True
 
 START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
@@ -55,7 +55,7 @@ analysis_frame = analysis_frame[:-1]
 analysis_frame["v_1"] = START_VALUE
 analysis_frame["n"] = analysis_frame.index + 1
 analysis_frame["kn_log"] = log2(K_FACTOR) * analysis_frame["n"]
-analysis_frame["beta_i"] = 1 + 1 / (K_FACTOR * analysis_frame["collatz"])
+analysis_frame["beta_i"] = 1 + C_SUMMAND / (K_FACTOR * analysis_frame["collatz"])
 analysis_frame["beta"] = analysis_frame["beta_i"].cumprod()
 
 analysis_frame["bin"] = analysis_frame["collatz"].apply(com.to_binary)
