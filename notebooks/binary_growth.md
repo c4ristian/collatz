@@ -33,7 +33,6 @@ K_FACTOR = 3
 C_SUMMAND = 1
 PRINT_TABLE = True
 
-
 START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
 nbutils.set_default_pd_options()
 
@@ -54,6 +53,7 @@ analysis_frame["next_odd_bin"] = analysis_frame["next_odd"].apply(com.to_binary)
 
 analysis_frame["bin_len"] = analysis_frame["collatz"].apply(log2).astype('int64') + 1
 analysis_frame["next_bin_len"] = analysis_frame["next_collatz"].apply(log2).astype('int64') + 1
+analysis_frame["next_odd_bin_len"] = analysis_frame["next_odd"].apply(log2).astype('int64') + 1
 
 max_bin_len = int(analysis_frame["bin_len"].max())
 
@@ -75,6 +75,11 @@ analysis_frame["alpha_i"] = analysis_frame["next_collatz"].apply(com.trailing_ze
 analysis_frame["alpha_i"] = analysis_frame["alpha_i"].astype("int64")
 analysis_frame["alpha"] = analysis_frame["alpha_i"].cumsum()
 
+# Hypothetical length of next odd bin
+analysis_frame["next_odd_len_hyp"] = \
+    (log2(START_VALUE) + analysis_frame["n"] * log2(3)).astype("int64") + 1 \
+    - analysis_frame["alpha"]
+
 # Omega
 analysis_frame["omega_i"] = analysis_frame["lambda_i"] - analysis_frame["alpha_i"]
 analysis_frame["omega"] = analysis_frame["omega_i"].cumsum()
@@ -82,11 +87,13 @@ analysis_frame["omega"] = analysis_frame["omega_i"].cumsum()
 # Print results
 print_frame = analysis_frame[[
     "n", "v_1", "collatz","next_odd", "bin", "next_odd_bin", "t32",
-    "omega_i", "omega", "l23", "lambda_i", "lambda", "lambda_max", "alpha_i", "alpha"]]
+    "omega_i", "omega", "l23", "lambda_i", "lambda", "lambda_max",
+    "next_odd_len_hyp", "next_odd_bin_len", "alpha_i", "alpha"]]
 
 print_frame.columns = [
     "n", "v_1", "v_i","v_i+", "bin", "bin+", "t32",
-     "o_i", "o", "l23", "l_i", "l", "l_max", "a_i", "a"]
+     "o_i", "o", "l23", "l_i", "l", "l_max",
+    "v_i+_len_hyp", "v_i+_len", "a_i", "a"]
 
 print("Start value:", START_VALUE,
       " K:", K_FACTOR,
