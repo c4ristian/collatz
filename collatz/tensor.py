@@ -38,8 +38,8 @@ def next_odd_collatz_numbers(even_numbers):
     :return: A tensor with the odd Collatz integers.
     """
     tz = trailing_zeros(even_numbers)
-    next_odd = tf.divide(even_numbers, tf.pow(2, tz))
-    return tf.cast(next_odd, tf.int64)
+    next_odd = tf.math.floordiv(even_numbers, tf.pow(2, tz))
+    return next_odd
 
 
 def trailing_zeros(numbers):
@@ -48,11 +48,11 @@ def trailing_zeros(numbers):
     of the binary representation of a tensor with integers.
 
     :param numbers: The tensor with integers.
-    :return: A tensor with the trailing zeros the binary representation of the ints.
+    :return: A tensor with the trailing zeros of the binary representation of the ints.
     """
     if tf.size(numbers) > 0:
         tz = tf.bitwise.bitwise_and(numbers, tf.multiply(numbers, -1))
-        tz = tf.experimental.numpy.log2(tz)
+        tz = tf.cast(tf.experimental.numpy.log2(tz), tf.int64)
     else:
         tz = numbers
 
