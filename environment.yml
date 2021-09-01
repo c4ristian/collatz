@@ -15,6 +15,7 @@ dependencies:
   - pydot
   - pydotplus
   - plotly
+  - tensorflow-gpu
   - jupyter
   - jupytext
   - scikit-learn
