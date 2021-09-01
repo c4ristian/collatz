@@ -12,7 +12,7 @@ import tensorflow as tf
 from collatz import tensor as tc
 
 
-# Global variables
+# Global settings
 START_NUMBER = 1
 MAX_NUMBER = 2**25
 
