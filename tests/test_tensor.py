@@ -82,7 +82,7 @@ def test_trailing_zeros():
     :return: None.
     """
     # Empty list
-    assert tc.trailing_zeros([]) == []
+    assert list(tc.trailing_zeros([])) == []
 
     # Default cases
     assert list(tc.trailing_zeros([10, 16, 11])) == [1, 4, 0]
