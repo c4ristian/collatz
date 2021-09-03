@@ -412,6 +412,64 @@ def test_to_binary():
         com.to_binary(0.25)
 
 
+def test_to_numeral():
+    """
+    Testcase for the function to_numeral_str.
+
+    :return: None.
+    """
+    # Base 2
+    assert com.to_numeral(0, 2) == "0"
+    assert com.to_numeral(1, 2) == "1"
+    assert com.to_numeral(5, 2) == "101"
+    assert com.to_numeral(19373728, 2) == "1001001111001111010100000"
+
+    # Test if big integers are handled correctly
+    assert com.to_numeral(18328150050242773488120822924411753, 2) == \
+           "111000011110100101110001101101000110000110000011" \
+           "000001110011101100011111011100000110101000000101" \
+           "011000001101101001"
+
+    # Base 3
+    assert com.to_numeral(0, 3) == "0"
+    assert com.to_numeral(1, 3) == "1"
+    assert com.to_numeral(5, 3) == "12"
+    assert com.to_numeral(10001, 3) == "111201102"
+
+    # Base 10
+    assert com.to_numeral(0, 10) == "0"
+    assert com.to_numeral(1, 10) == "1"
+    assert com.to_numeral(5, 10) == "5"
+    assert com.to_numeral(10001, 10) == "10001"
+
+    # Base 16
+    assert com.to_numeral(0, 16, ",") == "0"
+    assert com.to_numeral(13, 16, ",") == "13"
+    assert com.to_numeral(26, 16, ",") == "1,10"
+    assert com.to_numeral(16**10, 16, ",") == "1,0,0,0,0,0,0,0,0,0,0"
+
+    # Base 2**15
+    assert com.to_numeral(0, 2**15, ",") == "0"
+    assert com.to_numeral(13, 2**15, ",") == "13"
+    assert com.to_numeral(26, 2**15, ",") == "26"
+    assert com.to_numeral(2**15 + 5, 2**15, ",") == "1,5"
+
+    large_seq = com.to_numeral(2 ** 100000, 2 ** 15, ",")
+    assert len(large_seq) == 13336
+
+    # Should only accept integers
+    with pytest.raises(TypeError):
+        com.to_numeral(0.25, 2)
+
+    # For base>10 a separator is required
+    with pytest.raises(AttributeError):
+        com.to_numeral(2**10, 12)
+
+    # Minimum base is two
+    with pytest.raises(AttributeError):
+        com.to_numeral(2 ** 10, 1)
+
+
 def test_multiplicative_order():
     """
     Test case for the method multiplicative_order.

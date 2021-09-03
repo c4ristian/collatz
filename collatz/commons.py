@@ -7,6 +7,7 @@ original form *3v+1* as well as in the generalised variant *kv+c*.
 """
 import math
 import numbers
+from collections import deque
 import pandas as pd
 
 
@@ -297,12 +298,65 @@ def to_binary(int_value: int):
     :param int_value: The int value to convert.
     :return: The binary representation as str.
     """
+    # The implementation does not build on to_numeral
+    # because the native Python conversion is faster
     result = bin(int_value)
 
     if len(result) > 2:
         result = result[2:len(result)]
 
     return result
+
+
+def to_numeral(x: int, base: int, sep=None) -> str:
+    """
+    This function converts an int into its representation in a specific numeral system.
+
+    Only the letters '0-9' are supported. For numeral systems with a base greater than 10,
+    a separator must be specified. The minimum supported base is 2.
+
+    :param x: The int to convert.
+    :param base: The base of the numeral system (e.g. 3 for ternary), minimum is 2.
+    :param sep: The separator to be used, default is None.
+    :return: The representation in the numeral system as str.
+    """
+    if base > 10 and sep is None:
+        raise AttributeError(
+            "For base>10 a separator is required!")
+
+    result_list = _to_numeral_sequence(x, base)
+
+    result = "" if sep is None else sep
+    result = result.join(str(n) for n in result_list)
+    return result
+
+
+def _to_numeral_sequence(x: int, base: int) -> deque:
+    """
+    This function converts an int into its representation in a specific numeral system.
+
+    Only the letters '0-9' are supported. The result is returned as a deque.
+
+    :param x: The int to convert.
+    :param base: The base of the numeral system (e.g. 3 for ternary), minimum is 2.
+    :return: The representation in the numeral system as deque.
+    """
+    if not isinstance(x, numbers.Integral):
+        raise TypeError("Integer value expected")
+    if base <= 1:
+        raise AttributeError(
+            "Parameter base must be > 1")
+
+    remainder = x % base
+    quotient = x // base
+    digits = deque([remainder])
+
+    while quotient:
+        remainder = quotient % base
+        quotient = quotient // base
+        digits.appendleft(remainder)
+
+    return digits
 
 
 def multiplicative_order(a: int, n=2, max_iterations=10):
