@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.4
+      jupytext_version: 1.13.2
   kernelspec:
     display_name: collatz
     language: python
@@ -71,7 +71,7 @@ max_value_valid = (analysis_frame["a_i"] > analysis_frame["a_i_max"]).sum() == 0
 
 print("Min:", a_i_min)
 print("Max:", a_i_max)
-print("Boundaries valid:", min_value_valid and max_value_valid)
+print("Boundaries valid:", min_value_valid and max_value_valid, "\n")
 
 # Plot distribution
 bins = ceil(a_i_max - a_i_min)
@@ -80,6 +80,14 @@ plt.figure()
 plt.title("Distribution of a_i")
 plt.hist(analysis_frame["a_i"], bins=bins)
 plt.show()
+
+print("Summary (all k)")
+print(analysis_frame["a_i"].describe(), "\n")
+
+print("k=3")
+three_frame = analysis_frame[analysis_frame["k"] == 3]
+print(three_frame["a_i"].describe(), "\n")
+
 ```
 
 ## Analysis of $\alpha$

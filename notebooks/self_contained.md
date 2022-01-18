@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.4
+      jupytext_version: 1.13.2
   kernelspec:
     display_name: collatz
     language: python
@@ -41,6 +41,7 @@ ODDS_ONLY = True
 PRINT_TABLE = True
 
 START_VALUE = nbutils.rnd_int(MAX_VALUE, odds_only=True)
+START_VALUE = 31
 
 nbutils.set_default_pd_options()
 pd.set_option('display.float_format', lambda x: '%.3f' % x)

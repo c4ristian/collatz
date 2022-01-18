@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.4
+      jupytext_version: 1.13.2
   kernelspec:
     display_name: collatz
     language: python
@@ -54,6 +54,7 @@ analysis_frame["alpha_max"] = \
 analysis_frame["alpha_max"] = analysis_frame["alpha_max"].astype('int64') + 1
 
 analysis_frame["log2"] = analysis_frame["decimal"].apply(log2)
+analysis_frame["log2_frac"] = 2**(analysis_frame["log2"] % 1)
 analysis_frame["bin_str"] = analysis_frame["decimal"].apply(commons.to_binary)
 analysis_frame["bin_len"] = analysis_frame["log2"].astype('int64') + 1
 analysis_frame["lambda_hyp"] = (analysis_frame["n"] * log2(K_FACTOR))
@@ -80,14 +81,14 @@ l_max_valid = int((analysis_frame["lambda"] > analysis_frame["lambda_max"]).sum(
 # Print results
 print_frame = analysis_frame[[
     "n", "variable", "decimal", "next_decimal",
-    "log2", "k**n_log2", "bin_str", "bin_len",
+    "log2", "log2_frac", "k**n_log2", "bin_str", "bin_len",
     "lambda_i", "lambda", "lambda_max",
     "alpha", "alpha_max"
 ]]
 
 print_frame.columns = [
     "n", "var", "dec", "next",
-    "log2", "k**n_log2", "b_str", "b_len",
+    "log2", "log2_frac", "k**n_log2", "b_str", "b_len",
     "l_i", "l", "l_max",
     "a", "a_max"
 ]

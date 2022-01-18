@@ -6,7 +6,7 @@ jupyter:
       extension: .md
       format_name: markdown
       format_version: '1.3'
-      jupytext_version: 1.11.4
+      jupytext_version: 1.13.2
   kernelspec:
     display_name: collatz
     language: python
@@ -87,7 +87,9 @@ print_frame = print_frame.reset_index(drop=True)
 
 print("Start value:", START_VALUE,
       " K:", K_FACTOR,
-      " Alphas valid:", alpha_max_valid, "\n")
+      " Alphas valid:", alpha_max_valid)
+
+print("Alpha_i mean:", analysis_frame["alpha_i"].mean(), "\n")
 
 if PRINT_TABLE:
     print(print_frame.to_string(index=False), "\n")
