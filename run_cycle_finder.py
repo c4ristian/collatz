@@ -25,7 +25,8 @@ DEFAULT_MAX_ITERATIONS = 100
 
 def _parse_cmd_args():
     """
-    This method parses the command line arguments of the program.
+    This function parses the command line arguments of the program.
+
     :return: The parsed command line arguments.
     """
     parser = argparse.ArgumentParser(description='Run cycle finder.')
@@ -57,7 +58,8 @@ def _parse_cmd_args():
 
 def _main():
     """
-    This method executes the program.
+    This function executes the program.
+
     :return: None.
     """
     # Configuration
@@ -104,6 +106,6 @@ def _main():
     logging.info("%d cycle(s) found:", cycle_count)
 
 
-# Main method to start the program
+# Main block to start the program
 if __name__ == '__main__':
     _main()
