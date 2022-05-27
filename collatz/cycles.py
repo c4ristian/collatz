@@ -82,8 +82,8 @@ def find_cycles_in_ranges(k: range, c: range, max_value=1000, max_iterations=100
 
                     odd_set.update(odds)
 
-                    result_frame = result_frame.append(
-                        cycle_frame, ignore_index=True)
+                    result_frame = pd.concat(
+                        [result_frame, cycle_frame], ignore_index=True)
 
     result_frame = result_frame.reset_index(drop=True)
     return result_frame

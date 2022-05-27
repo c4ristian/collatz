@@ -183,7 +183,7 @@ def odd_collatz_sequence_components(start_value: int, k=3, c=1, max_iterations=1
             "decimal": list(components.values())
         })
         if result_frame is not None:
-            result_frame = result_frame.append(current_frame)
+            result_frame = pd.concat([result_frame, current_frame])
         else:
             result_frame = current_frame
 
