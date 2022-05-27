@@ -170,7 +170,7 @@ def create_collatz_graph(start_value, k=3, predecessor_count=3, iteration_count=
                 "predecessor": predecessors
             }, dtype='object')
 
-            result_frame = result_frame.append(new_frame).dropna()
+            result_frame = pd.concat([result_frame, new_frame.dropna()])
 
         successors = result_frame[result_frame["iteration"] == i+1]["predecessor"]
 
