@@ -31,7 +31,8 @@ https://github.com/c4ristian/collatz
 ## Setup
 ```sh
 conda env create -f environment.yml
-
+```
+```sh
 conda activate collatz
 ```
 
@@ -59,7 +60,8 @@ python FILENAME.py
 ### Sync Notebooks
 ```sh
 jupytext --sync notebooks/*.md
-
+```
+```sh
 jupytext --sync notebooks/*/*.md
 ```
 
