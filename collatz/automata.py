@@ -69,7 +69,7 @@ class AbstractStateMachine(ABC):
         :param sequence: The sequence.
         :return: The randomly chosen item.
         """
-        return random.sample(sequence, k=1)[0]
+        return random.sample(list(sequence), k=1)[0]
 
     def __str__(self):
         return "{previous:" + str(self.previous_state) + ", "\
